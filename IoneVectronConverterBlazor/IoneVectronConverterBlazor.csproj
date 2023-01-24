@@ -13,4 +13,8 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\IoneVectronConverter\IoneVectronConverter.csproj" />
+    </ItemGroup>
+
 </Project>
