@@ -1,14 +1,22 @@
-namespace IoneVectronConverter.IoneClient;
+using Order2VPos.Core.IoneApi.Orders;
 
-public class IoneClient
+namespace IoneVectronConverter.IoneClient
 {
-    private readonly IHttpClientFactory _httpClientFactory;
-        
-    DateTime allFromDate = new DateTime(1970, 1, 1);
-    DateTime allToDate = DateTime.Now.AddYears(1);
-
-    public IoneClient(IHttpClientFactory httpClientFactory)
+    public class IoneClient
     {
-        _httpClientFactory = httpClientFactory;
+        private readonly IHttpClientFactory _httpClientFactory;
+        
+        DateTime allFromDate = new DateTime(1970, 1, 1);
+        DateTime allToDate = DateTime.Now.AddYears(1);
+
+        public IoneClient(IHttpClientFactory httpClientFactory)
+        {
+            _httpClientFactory = httpClientFactory;
+        }
+
+        public async Task<OrderListResponse> GetOrdersAsync(DateTime from, DateTime to)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

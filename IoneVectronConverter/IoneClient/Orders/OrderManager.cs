@@ -1,11 +1,12 @@
-namespace IoneVectronConverter.IoneClient.Orders;
-
-public class OrderManager
+namespace IoneVectronConverter.IoneClient.Orders
 {
-    public void DoWork()
+    public class OrderManager
     {
+        public void DoWork()
+        {
         
         
-    }
+        }
     
+    }
 }
