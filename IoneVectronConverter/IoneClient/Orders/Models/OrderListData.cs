@@ -21,7 +21,7 @@ namespace Order2VPos.Core.IoneApi.Orders
         public string CustomerRefNumber { get; set; }
         public string PreNotes { get; set; }
         public string PostNotes { get; set; }
-        public string BranchAddressId { get; set; }
+        public int BranchAddressId { get; set; }
         public BranchAddress BranchAddress { get; set; }
         public int Id { get; set; }
         public string APIObjectId { get; set; }

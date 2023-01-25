@@ -21,12 +21,12 @@ namespace Order2VPos.Core.IoneApi.Orders
         public string TaxPercentage { get; set; }
         public string Discount { get; set; }
         public string DiscountedQuantity { get; set; }
-        public string DiscountUnit { get; set; }
+        public int DiscountUnit { get; set; }
         public string DiscountUnitText { get; set; }
         public string DiscountDescription { get; set; }
         public string Total { get; set; }
         public string SerialNo { get; set; }
-        public string ParentId { get; set; }
+        public int ParentId { get; set; }
         public string ItemObjectType { get; set; }
         public OrderItemListItem[] ItemList { get; set; }
         public bool SelectionCalculation { get; set; }

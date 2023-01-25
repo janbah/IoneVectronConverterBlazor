@@ -9,8 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddSingleton<IIoneClient, IoneClient>();
 
-builder.Services.AddHttpClient<IoneClient>("ioneClient",client =>
+builder.Services.AddHttpClient<IIoneClient, IoneClient>("ioneClient",client =>
 {
     // client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
     //     "Bearer",
@@ -20,6 +21,8 @@ builder.Services.AddHttpClient<IoneClient>("ioneClient",client =>
 
     client.BaseAddress = new Uri("http://localhost:3001");
 });
+
+builder.Services.AddTransient<IoneClient>();
 
 
 var app = builder.Build();

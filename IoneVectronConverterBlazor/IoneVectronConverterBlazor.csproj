@@ -17,4 +17,8 @@
       <ProjectReference Include="..\IoneVectronConverter\IoneVectronConverter.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.2" />
+    </ItemGroup>
+
 </Project>
