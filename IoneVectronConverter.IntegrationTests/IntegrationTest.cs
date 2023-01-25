@@ -11,6 +11,6 @@ public class IntegrationTest
     {
         var appFactory = new WebApplicationFactory<Program>();
 
-        TestClient =  appFactory.CreateClient();
+        TestClient =  appFactory.CreateDefaultClient();
     }
 }

@@ -18,6 +18,10 @@
     </ItemGroup>
 
     <ItemGroup>
+        <InternalsVisibleTo Include ="IoneVectronConverter.IntegrationTests"/>
+    </ItemGroup>
+
+    <ItemGroup>
       <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.2" />
     </ItemGroup>
 
