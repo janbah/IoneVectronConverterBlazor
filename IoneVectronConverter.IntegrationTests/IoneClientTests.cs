@@ -1,42 +1,46 @@
+using System.Net;
 using System.Xml.Serialization;
 using IoneVectronConverter.IoneClient;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
+using Order2VPos.Core.IoneApi.Orders;
 
 namespace IoneVectronConverter.IntegrationTests;
 
 [TestClass]
-public class IoneClientTests 
+public class IoneClientTests
 {
+    private readonly IoneClient.IoneClient _client;
+
+    public IoneClientTests()
+    {
+        //_client = new(TestClient);
+    }
+    
+    
     [TestMethod]
-    public void GetOrders_ValidDateFilter_ReturnsOrders()
+    public async Task GetOrders_ValidDateFilter_ReturnsOrders()
     {
         //Arrange
-        var application = new WebApplicationFactory<Program>()
-            .WithWebHostBuilder(builder =>
-            {
-                builder.ConfigureServices(services =>
-                {
-                    services.AddHttpClient<IIoneClient, IoneClient.IoneClient>("ioneClient", client =>
-                    {
-                        // client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
-                        //     "Bearer",
-                        //     AppSettings.Default.IoneApiToken);
-                        // client.DefaultRequestHeaders.Add("Identifier", AppSettings.Default.IoneApiIdentifier);
-                        // client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        var factory = new WebApplicationFactory<Program>();
 
-                        client.BaseAddress = new Uri("http://localhost:3001");
-                    });
-                });
-            });
-        var httpClient = application.CreateClient();
-        
+        var client = factory.CreateClient();
+        client.BaseAddress = new Uri("https://0.0.0.0:3001/");
+   
         
         //Act
         
-        IoneClient.IoneClient client = new(httpClient);
+        var response = await client.GetAsync("orders");
+        
+        
+            
+        string jsonText = await response.Content.ReadAsStringAsync();
 
-        client.GetOrdersAsync(new DateTime(2022, 01, 01), new DateTime(2022, 12, 31));
+        var result = JsonConvert.DeserializeObject<OrderListResponse>(jsonText);
+        //Task<OrderListResponse> result = _client.GetOrdersAsync(new DateTime(2022, 01, 01), new DateTime(2022, 12, 31));
+        
         //Assert
+        Assert.AreEqual(200,result.StatusCode);
     }
 }

@@ -11,7 +11,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddSingleton<IIoneClient, IoneClient>();
 
-builder.Services.AddHttpClient<IIoneClient, IoneClient>("ioneClient",client =>
+builder.Services.AddHttpClient("ioneClient",client =>
 {
     // client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
     //     "Bearer",
