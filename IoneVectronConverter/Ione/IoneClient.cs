@@ -5,22 +5,28 @@ using Order2VPos.Core.IoneApi.Orders;
 namespace IoneVectronConverter.IoneClient
 {
     public class IoneClient : IIoneClient
-    {
+    {   
         private readonly IHttpClientFactory _clientFactory;
+        private readonly HttpClient _httpClient;
         
         DateTime allFromDate = new DateTime(1970, 1, 1);
         DateTime allToDate = DateTime.Now.AddYears(1);
 
-        public IoneClient(IHttpClientFactory clientFactory)
-        {
-            _clientFactory = clientFactory;
-        }
+        // public IoneClient(IHttpClientFactory clientFactory)
+        // {
+        //     _clientFactory = clientFactory;
+        // }
         
+        public IoneClient(HttpClient httpClient)
+        {
+            _httpClient = httpClient;
+        }
   
 
         public async Task<OrderListResponse> GetOrdersAsync(DateTime from, DateTime to)
         {
-            var client = _clientFactory.CreateClient("ioneClient");
+            //var client = _clientFactory.CreateClient("ioneClient");
+            var client = _httpClient;
 
             //string data = $"{{\"CreatedDateFrom\":\"{string.Format(System.Globalization.CultureInfo.GetCultureInfo("de-DE"), "{0:dd.MM.yyyy HH:mm}", allFromDate)}\",\"CreatedDateTo\":\"{string.Format(System.Globalization.CultureInfo.GetCultureInfo("de-DE"), "{0:dd.MM.yyyy HH:mm}", allToDate)}\",\"BranchAddressId\": {AppSettings.Default.BranchAddressId}}}";
 

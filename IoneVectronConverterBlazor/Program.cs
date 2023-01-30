@@ -11,7 +11,8 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddSingleton<IIoneClient, IoneClient>();
 
-builder.Services.AddHttpClient("ioneClient",client =>
+//builder.Services.AddHttpClient("ioneClient",client =>
+builder.Services.AddHttpClient<IIoneClient, IoneClient>("ioneClient",client =>
 {
     // client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
     //     "Bearer",
@@ -19,7 +20,7 @@ builder.Services.AddHttpClient("ioneClient",client =>
     // client.DefaultRequestHeaders.Add("Identifier", AppSettings.Default.IoneApiIdentifier);
     // client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-    client.BaseAddress = new Uri("http://localhost:3001");
+    client.BaseAddress = new Uri(builder.Configuration["ioneClient"]);
 });
 
 builder.Services.AddTransient<IoneClient>();
