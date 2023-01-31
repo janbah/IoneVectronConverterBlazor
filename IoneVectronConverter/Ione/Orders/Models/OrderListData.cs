@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IoneVectronConverter.Ione.Orders.Models;
-
-namespace Order2VPos.Core.IoneApi.Orders
+﻿namespace IoneVectronConverter.Ione.Orders.Models
 {
     public class OrderListData
     {

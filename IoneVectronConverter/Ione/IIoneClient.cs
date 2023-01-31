@@ -1,6 +1,6 @@
-using Order2VPos.Core.IoneApi.Orders;
+using IoneVectronConverter.Ione.Orders.Models;
 
-namespace IoneVectronConverter.IoneClient;
+namespace IoneVectronConverter.Ione;
 
 public interface IIoneClient
 {

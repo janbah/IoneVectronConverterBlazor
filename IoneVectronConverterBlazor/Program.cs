@@ -1,4 +1,4 @@
-using IoneVectronConverter.IoneClient;
+using IoneVectronConverter.Ione;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using IoneVectronConverterBlazor.Data;
