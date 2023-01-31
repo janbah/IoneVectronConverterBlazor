@@ -1,85 +1,25 @@
-using Order2VPos.Core.IoneApi.Orders;
-using Order2VPos.Core.VPosClient;
+using IoneVectronConverter.Common.Datastoring;
+using IoneVectronConverter.Common.Models;
+using IoneVectronConverter.Common.Services;
+using IoneVectronConverter.Ione.Orders.Models;
 
-namespace IoneVectronConverter.IoneClient.Orders
+namespace IoneVectronConverter.Ione.Orders
 {
     public class OrderManager
     {
 
-        private readonly IIoneClient _ioneClient;
-        private readonly IRepository _repository;
+        private readonly IOrderService _orderService;
 
-        public OrderManager(IIoneClient ioneClient)
+        public OrderManager(IOrderService orderService)
         {
-            _ioneClient = ioneClient;
+            _orderService = orderService;
         }
 
-        public void DoWork()
-        {
-            IEnumerable<OrderListData> newOrders = getNewOrders();
-
-            foreach (var order in newOrders)
-            {
-                storeOrderInDb(order);
-                sendOrderToVectron(order);
-            }
-        }
-
-        private void sendOrderToVectron(OrderListData order)
-        {
-            VPosResponse response = new VPosResponse();
-
-            if (response.IsError)
-            {
-                return;
-            }
-            else
-            {
-                
-            }
-
-            updateDatabaseEntry();
-
-        }
-
-        private void updateDatabaseEntry()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void storeOrderInDb(OrderListData order)
+        public void ProcessOrder(OrderItem order)
         {
             
-            throw new NotImplementedException();
-        }
-
-        private object getNewOrdersFromIoneClient()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void processNewOrders(object order)
-        {
-            
-            
-        }
-
-        private IEnumerable<OrderListData> getNewOrders()
-        {
-            IEnumerable<OrderListData> ordersToSend = new List<OrderListData>();
-            var newIoneOrders = getNewOrdersFromIoneClient();
-            var storedOrders = getStoredOrders();
-
-            return ordersToSend;
-        }
-
-        private object getStoredOrders()
-        {
-            throw new NotImplementedException();
         }
     }
 
-    internal interface IRepository
-    {
-    }
+
 }

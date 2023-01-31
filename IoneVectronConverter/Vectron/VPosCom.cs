@@ -1,15 +1,10 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Sockets;
+﻿using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
-using Order2VPos.Core.VPosClient.MasterData;
+using IoneVectronConverter.Vectron.MasterData;
+using Newtonsoft.Json;
 
-namespace Order2VPos.Core.VPosClient
+namespace IoneVectronConverter.Vectron
 {
     public static class VPosCom
     {

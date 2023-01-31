@@ -1,8 +1,7 @@
-using System.Text;
+using IoneVectronConverter.Ione.Orders.Models;
 using Newtonsoft.Json;
-using Order2VPos.Core.IoneApi.Orders;
 
-namespace IoneVectronConverter.IoneClient
+namespace IoneVectronConverter.Ione
 {
     public class IoneClient : IIoneClient
     {   

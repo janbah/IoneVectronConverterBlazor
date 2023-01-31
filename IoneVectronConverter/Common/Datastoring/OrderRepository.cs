@@ -1,20 +1,21 @@
-using Order2VPos.Core.IoneApi.Orders;
+using IoneVectronConverter.Common.Models;
 
-namespace DataStoring.Repositories;
 
-public class OrderRepository :IRepository<OrderItem>
+namespace IoneVectronConverter.Common.Datastoring;
+
+public class OrderRepository : IRepository<Order>
 {
-    public IQueryable<OrderItem> Load()
+    public IQueryable<Order> Load()
     {
         throw new NotImplementedException();
     }
 
-    public void Insert(OrderItem entity)
+    public void Insert(Order entity)
     {
         throw new NotImplementedException();
     }
 
-    public void Update(OrderItem entity)
+    public void Update(Order entity)
     {
         throw new NotImplementedException();
     }
