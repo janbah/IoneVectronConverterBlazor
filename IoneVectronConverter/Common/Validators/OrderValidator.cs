@@ -14,6 +14,7 @@ public class OrderValidator : IOrderValidator
 
     public bool IsValid(OrderListData orderItem)
     {
-        return false;
+        //Todo: check for GC Ranges
+        return _orderService.IsOrderNew(orderItem);
     }
 }

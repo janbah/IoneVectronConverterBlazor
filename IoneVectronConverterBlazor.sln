@@ -10,7 +10,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoneVectronConverter", "Ion
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IntegrationTests", "IntegrationTests", "{B3CFC221-5BF2-44EE-8E6A-D017F0401F96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoneVectronConverterTests", "IoneVectronConverterTests\IoneVectronConverterTests.csproj", "{208B1C2D-26FC-4A6F-A7B9-A04020A9C461}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoneVectronConverterIntegrationTests", "IoneVectronConverterIntegrationTests\IoneVectronConverterIntegrationTests.csproj", "{208B1C2D-26FC-4A6F-A7B9-A04020A9C461}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{059FA15B-C4D3-4B47-AC32-D93C49640644}"
 EndProject

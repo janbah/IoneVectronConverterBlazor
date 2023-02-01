@@ -28,7 +28,7 @@ public class OrderManagerTests
         orderManager.ProcessOrder(order);
 
         //Assert
-        _orderSeviceMock.Verify(r => r.Insert(It.IsAny<OrderListData>(), It.IsAny<VPosResponse>()));
+        _orderSeviceMock.Verify(r => r.PersistOrderToDB(It.IsAny<OrderListData>(), It.IsAny<VPosResponse>()));
     }
     
 
@@ -59,7 +59,7 @@ public class OrderManagerTests
         orderManager.ProcessOrder(order);
 
         //Assert
-        _orderSeviceMock.Verify(r => r.Insert(It.IsAny<OrderListData>(),It.IsAny<VPosResponse>()), Times.Never);
+        _orderSeviceMock.Verify(r => r.PersistOrderToDB(It.IsAny<OrderListData>(),It.IsAny<VPosResponse>()), Times.Never);
     }
     
 

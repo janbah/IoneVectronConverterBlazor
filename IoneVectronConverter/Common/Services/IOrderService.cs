@@ -6,5 +6,7 @@ namespace IoneVectronConverter.Common.Services;
 
 public interface IOrderService
 {
-    void Insert(OrderListData orderData, VPosResponse response);
+    void PersistOrderToDB(OrderListData orderData, VPosResponse response);
+
+    bool IsOrderNew(OrderListData orderListData);
 }

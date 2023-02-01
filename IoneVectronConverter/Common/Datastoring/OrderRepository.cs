@@ -1,4 +1,5 @@
 using IoneVectronConverter.Common.Models;
+using Microsoft.Data.Sqlite;
 
 
 namespace IoneVectronConverter.Common.Datastoring;
@@ -12,6 +13,11 @@ public class OrderRepository : IRepository<Order>
 
     public void Insert(Order entity)
     {
+        using (var connection = new SqliteConnection(LoadConnectionstring()))
+        {
+            connection.Open();
+            
+        }
         throw new NotImplementedException();
     }
 
@@ -24,4 +30,17 @@ public class OrderRepository : IRepository<Order>
     {
         throw new NotImplementedException();
     }
+
+    private static string LoadConnectionstring()
+    {
+        string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        var stringBuilder = new SqliteConnectionStringBuilder
+        {
+            Mode = SqliteOpenMode.ReadWriteCreate,
+            DataSource = documentsPath + "\\orders.sqlite"
+        };
+        return stringBuilder.ToString();
+    }
+    
+    
 }

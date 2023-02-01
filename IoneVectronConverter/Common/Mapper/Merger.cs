@@ -4,7 +4,7 @@ using IoneVectronConverter.Vectron;
 
 namespace IoneVectronConverter.Common.Mapper;
 
-public class Merger : IOrderMerge
+public class Merger : IMerger
 {
     public Order Merge(Order order, VPosResponse response)
     {

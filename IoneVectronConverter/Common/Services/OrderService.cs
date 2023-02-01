@@ -9,18 +9,24 @@ namespace IoneVectronConverter.Common.Services;
 public class OrderService : IOrderService
 {
     private readonly IRepository<Order> _repository;
-    private readonly IOrderDataMapper _mapper; 
+    private readonly IOrderDataMapper _mapper;
+    private readonly IMerger _merger;
 
     public OrderService(IRepository<Order> repository)
     {
         _repository = repository;
     }
 
-    public void Insert(OrderListData orderData, VPosResponse response)
+    public void PersistOrderToDB(OrderListData orderData, VPosResponse response)
     {
         var orderToSave = mapOrderDataToOrder(orderData);
         var updatedOrderData = mergeOrderDataWithResponse(orderToSave, response);
         _repository.Insert(updatedOrderData);
+    }
+
+    public bool IsOrderNew(OrderListData orderListData)
+    {
+        throw new NotImplementedException();
     }
 
     private Order mapOrderDataToOrder(OrderListData updatedOrderData)
@@ -30,6 +36,6 @@ public class OrderService : IOrderService
 
     private Order mergeOrderDataWithResponse(Order orderToSave, VPosResponse response)
     {
-        throw new NotImplementedException();
+        return _merger.Merge(orderToSave, response);
     }
 }

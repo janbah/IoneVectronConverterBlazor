@@ -29,7 +29,7 @@ namespace IoneVectronConverter.Ione.Orders
             }
             
             var result = _vectronClient.Send(order);
-            _orderService.Insert(order, result);
+            _orderService.PersistOrderToDB(order, result);
         }
     }
 
