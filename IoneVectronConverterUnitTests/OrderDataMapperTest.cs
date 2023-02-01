@@ -1,5 +1,6 @@
 using IoneVectronConverter.Common.Mapper;
 using IoneVectronConverter.Ione.Orders.Models;
+using IoneVectronConverter.Vectron;
 using Order2VPos.Core.IoneApi;
 
 namespace IoneVectronConverterUnitTests;
@@ -11,7 +12,8 @@ public class OrderDataMapperTest
     {
         //Arrange
         OrderDataMapper uut = new OrderDataMapper();
-        
+
+        VPosResponse response = new VPosResponse();
         OrderListData data = new OrderListData()
         {
             Total = "10,50",
