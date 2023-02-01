@@ -1,16 +1,10 @@
-using IoneVectronConverter.Common.Datastoring;
 using IoneVectronConverter.Common.Models;
+using IoneVectronConverter.Ione.Orders.Models;
+using IoneVectronConverter.Vectron;
 
 namespace IoneVectronConverter.Common.Services;
 
-public class IOrderService
+public interface IOrderService
 {
-    private readonly IRepository<Order> _repository;
-
-    public IOrderService(IRepository<Order> repository)
-    {
-        _repository = repository;
-    }
-    
-    
+    void Insert(OrderListData orderData, VPosResponse response);
 }

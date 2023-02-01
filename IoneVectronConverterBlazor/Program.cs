@@ -1,3 +1,6 @@
+using IoneVectronConverter.Common.Datastoring;
+using IoneVectronConverter.Common.Models;
+using IoneVectronConverter.Common.Services;
 using IoneVectronConverter.Ione;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -10,6 +13,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddSingleton<IIoneClient, IoneClient>();
+builder.Services.AddTransient<IOrderService, OrderService>();
+builder.Services.AddTransient<IRepository<Order>, OrderRepository>();
 
 //builder.Services.AddHttpClient("ioneClient",client =>
 builder.Services.AddHttpClient<IIoneClient, IoneClient>("ioneClient",client =>
