@@ -2,6 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using IoneVectronConverter.Vectron.MasterData;
+using IoneVectronConverter.Vectron.Models;
 using Newtonsoft.Json;
 
 namespace IoneVectronConverter.Vectron

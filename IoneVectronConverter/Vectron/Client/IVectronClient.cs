@@ -1,5 +1,6 @@
 using IoneVectronConverter.Ione.Orders.Models;
 using IoneVectronConverter.Vectron.MasterData;
+using IoneVectronConverter.Vectron.Models;
 
 namespace IoneVectronConverter.Vectron.Client;
 

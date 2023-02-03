@@ -1,7 +1,6 @@
-using IoneVectronConverter.Common.Mapper;
+using IoneVectronConverter.Ione.Mapper;
 using IoneVectronConverter.Ione.Orders.Models;
 using IoneVectronConverter.Vectron;
-using Order2VPos.Core.IoneApi;
 
 namespace IoneVectronConverterUnitTests;
 
@@ -11,7 +10,7 @@ public class OrderDataMapperTest
     public void Mapper_Orderlistdata_ValidOrder()
     {
         //Arrange
-        OrderDataMapper uut = new OrderDataMapper();
+        OrderMapper uut = new OrderMapper();
 
         VPosResponse response = new VPosResponse();
         OrderListData data = new OrderListData()

@@ -1,5 +1,5 @@
-using IoneVectronConverter.Common.Mapper;
-using IoneVectronConverter.Common.Models;
+using IoneVectronConverter.Ione.Mapper;
+using IoneVectronConverter.Ione.Models;
 using IoneVectronConverter.Ione.Orders.Models;
 using IoneVectronConverter.Vectron;
 

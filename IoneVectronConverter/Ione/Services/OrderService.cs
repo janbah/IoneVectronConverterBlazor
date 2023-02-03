@@ -1,15 +1,15 @@
-using IoneVectronConverter.Common.Datastoring;
-using IoneVectronConverter.Common.Mapper;
-using IoneVectronConverter.Common.Models;
+using IoneVectronConverter.Ione.Datastoring;
+using IoneVectronConverter.Ione.Mapper;
+using IoneVectronConverter.Ione.Models;
 using IoneVectronConverter.Ione.Orders.Models;
 using IoneVectronConverter.Vectron;
 
-namespace IoneVectronConverter.Common.Services;
+namespace IoneVectronConverter.Ione.Services;
 
 public class OrderService : IOrderService
 {
     private readonly IRepository<Order> _repository;
-    private readonly IOrderDataMapper _mapper;
+    private readonly IOrderMapper _mapper;
     private readonly IMerger _merger;
 
     public OrderService(IRepository<Order> repository)

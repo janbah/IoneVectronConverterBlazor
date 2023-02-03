@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace IoneVectronConverter.Vectron
+namespace IoneVectronConverter.Vectron.Models
 {
     public class Receipt
     {

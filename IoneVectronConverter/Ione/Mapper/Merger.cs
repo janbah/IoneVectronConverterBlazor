@@ -1,8 +1,7 @@
-using IoneVectronConverter.Common.Models;
-using IoneVectronConverter.Ione.Orders.Models;
+using IoneVectronConverter.Ione.Models;
 using IoneVectronConverter.Vectron;
 
-namespace IoneVectronConverter.Common.Mapper;
+namespace IoneVectronConverter.Ione.Mapper;
 
 public class Merger : IMerger
 {

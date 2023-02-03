@@ -1,4 +1,4 @@
-﻿namespace IoneVectronConverter.Common.Models
+﻿namespace IoneVectronConverter.Ione.Models
 {
     public class ArticleSelection
     {
