@@ -1,8 +1,8 @@
-using IoneVectronConverter.Common.Models;
+using IoneVectronConverter.Ione.Models;
 using IoneVectronConverter.Ione.Orders.Models;
 using IoneVectronConverter.Vectron;
 
-namespace IoneVectronConverter.Common.Services;
+namespace IoneVectronConverter.Ione.Services;
 
 public interface IOrderService
 {

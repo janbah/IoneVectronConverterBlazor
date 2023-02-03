@@ -1,11 +1,9 @@
-using IoneVectronConverter.Common.Models;
+using IoneVectronConverter.Ione.Models;
 using IoneVectronConverter.Ione.Orders.Models;
-using IoneVectronConverter.Vectron;
-using Order2VPos.Core.IoneApi;
 
-namespace IoneVectronConverter.Common.Mapper;
+namespace IoneVectronConverter.Ione.Mapper;
 
-public class OrderDataMapper : IOrderDataMapper
+public class OrderMapper : IOrderMapper
 {
     public Order Map(OrderListData orderListData)
     {

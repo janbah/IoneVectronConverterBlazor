@@ -1,7 +1,7 @@
-using IoneVectronConverter.Common.Datastoring;
-using IoneVectronConverter.Common.Models;
-using IoneVectronConverter.Common.Services;
 using IoneVectronConverter.Ione;
+using IoneVectronConverter.Ione.Datastoring;
+using IoneVectronConverter.Ione.Models;
+using IoneVectronConverter.Ione.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using IoneVectronConverterBlazor.Data;

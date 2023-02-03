@@ -1,7 +1,7 @@
-using IoneVectronConverter.Common.Services;
 using IoneVectronConverter.Ione.Orders.Models;
+using IoneVectronConverter.Ione.Services;
 
-namespace IoneVectronConverter.Common.Validators;
+namespace IoneVectronConverter.Ione.Validators;
 
 public class OrderValidator : IOrderValidator
 {

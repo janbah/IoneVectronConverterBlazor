@@ -1,6 +1,6 @@
 using IoneVectronConverter.Ione.Orders.Models;
 
-namespace IoneVectronConverter.Common.Validators;
+namespace IoneVectronConverter.Ione.Validators;
 
 public interface IOrderValidator
 {

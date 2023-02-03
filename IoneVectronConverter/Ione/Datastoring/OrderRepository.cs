@@ -1,9 +1,8 @@
 using Dapper;
-using IoneVectronConverter.Common.Models;
+using IoneVectronConverter.Ione.Models;
 using Microsoft.Data.Sqlite;
 
-
-namespace IoneVectronConverter.Common.Datastoring;
+namespace IoneVectronConverter.Ione.Datastoring;
 
 public class OrderRepository : IRepository<Order>
 {

@@ -1,9 +1,7 @@
-using IoneVectronConverter.Common.Datastoring;
-using IoneVectronConverter.Common.Models;
-using IoneVectronConverter.Common.Services;
-using IoneVectronConverter.Common.Validators;
 using IoneVectronConverter.Ione.Orders;
 using IoneVectronConverter.Ione.Orders.Models;
+using IoneVectronConverter.Ione.Services;
+using IoneVectronConverter.Ione.Validators;
 using IoneVectronConverter.Vectron;
 using IoneVectronConverter.Vectron.Client;
 using Moq;

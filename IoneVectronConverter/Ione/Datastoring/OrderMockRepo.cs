@@ -1,6 +1,6 @@
-using IoneVectronConverter.Common.Models;
+using IoneVectronConverter.Ione.Models;
 
-namespace IoneVectronConverter.Common.Datastoring;
+namespace IoneVectronConverter.Ione.Datastoring;
 
 public class OrderMockRepo : IRepository<Order>
 {
