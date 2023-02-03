@@ -1,3 +1,4 @@
+using Dapper;
 using IoneVectronConverter.Common.Models;
 using Microsoft.Data.Sqlite;
 
@@ -6,18 +7,37 @@ namespace IoneVectronConverter.Common.Datastoring;
 
 public class OrderRepository : IRepository<Order>
 {
+ 
     public IQueryable<Order> Load()
     {
-        throw new NotImplementedException();
+        var con = loadConnectionstring();
+        
+        var sql = 
+            $@"select
+            Id,
+            IoneRefId,
+            IoneId,
+            Status,
+            OrderTotal,
+            ReceiptTotal,
+            ReceiptUUid,
+            ReceiptMainNo,
+            Message,
+            VposErrorNumber,
+            datetime(OrderDate),
+            IsCanceldOnPos
+            from ione_order";
+        
+        
+        using (var connection = new SqliteConnection(con))
+        {
+            var result = connection.Query<Order>(sql).AsQueryable();
+            return result;
+        }
     }
 
     public void Insert(Order entity)
     {
-        using (var connection = new SqliteConnection(LoadConnectionstring()))
-        {
-            connection.Open();
-            
-        }
         throw new NotImplementedException();
     }
 
@@ -31,14 +51,19 @@ public class OrderRepository : IRepository<Order>
         throw new NotImplementedException();
     }
 
-    private static string LoadConnectionstring()
+    private string loadConnectionstring()
     {
-        string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        Console.Write(Directory.GetCurrentDirectory());
+        
+        string documentsPath = @"..\Resources";
         var stringBuilder = new SqliteConnectionStringBuilder
         {
             Mode = SqliteOpenMode.ReadWriteCreate,
-            DataSource = documentsPath + "\\orders.sqlite"
+            DataSource = Path.Combine( documentsPath, "IoneVectron.sqlite")
         };
+        
+        Console.Write(stringBuilder.ToString());
+
         return stringBuilder.ToString();
     }
     

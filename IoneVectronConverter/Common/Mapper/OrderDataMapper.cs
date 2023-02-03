@@ -7,8 +7,6 @@ namespace IoneVectronConverter.Common.Mapper;
 
 public class OrderDataMapper : IOrderDataMapper
 {
-    private IOrderDataMapper _orderDataMapperImplementation;
-
     public Order Map(OrderListData orderListData)
     {
         Order order = new()

@@ -24,6 +24,11 @@ public class OrderService : IOrderService
         _repository.Insert(updatedOrderData);
     }
 
+    public IQueryable<Order> GetOrders()
+    {
+        return _repository.Load();
+    }
+
     public bool IsOrderNew(OrderListData orderListData)
     {
         throw new NotImplementedException();

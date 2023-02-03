@@ -1,9 +1,12 @@
 @page "/"
 @using IoneVectronConverter.Ione
+@using IoneVectronConverter.Common.Services
 @inject IIoneClient client
+@inject IOrderService service
 
 <h3>Orders</h3>
-<button class="btn btn-primary" @onclick="GetOrders">Get Orders</button>
+<button class="btn btn-primary" @onclick="GetOrders">Get Orders from Ione</button>
+<button class="btn btn-primary" @onclick="GetStoredOrders">Get stored Orders</button>
 
 @code {
 
@@ -12,6 +15,14 @@
         var result = await client.GetOrdersAsync(new DateTime(2022, 01, 01), new DateTime(2022, 12, 31));
         
         Console.Write(result.Data[0].Total);
+    }
+
+    private async Task GetStoredOrders()
+    {
+
+        var result = service.GetOrders();
+        Console.Write(result.First().Message);
+
     }
 
 }
