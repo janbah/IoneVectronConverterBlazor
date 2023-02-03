@@ -1,0 +1,87 @@
+
+
+        {
+            "Id": 50716,
+            "StatusId": 7,
+            "StatusText": "Berechnet",
+            "CustomerName": "FirstName_829068 LastName_829068",
+            "CustomerId": 14693,
+            "CustomerType": 1,
+            "OrderDate": "28.07.2021",
+            "Total": "13,13",
+            "TaxTotal": "0,82",
+            "SubTotal": "12,31",
+            "CustomerNotes": "Testbestellung im Shop",
+            "OrderItemList": [
+                {
+                    "Id": 61579,
+                    "OrderId": 50716,
+                    "ItemId": 23117,
+                    "ItemName": "Knigge Frühstück",
+                    "ItemIoneId": "ART-002107",
+                    "APIObjectId": "108",
+                    "Quantity": "1,00",
+                    "Price": "12,50",
+                    "TaxPercentage": "7,00",
+                    "Discount": "0,00",
+                    "DiscountedQuantity": "0,00",
+                    "Total": "12,50",
+                    "SerialNo": "1",
+                    "ItemList": [
+                        {
+                            "Id": 61580,
+                            "OrderId": 50716,
+                            "ItemId": 23355,
+                            "ItemName": "Prosecco im Glas 0,1L",
+                            "ItemIoneId": "ART-002345",
+                            "APIObjectId": "812",
+                            "Quantity": "1,00",
+                            "Price": "0,00",
+                            "TaxPercentage": "19,00",
+                            "Discount": "0,00",
+                            "DiscountedQuantity": "0,00",
+                            "Total": "0,00",
+                            "SerialNo": "1",
+                            "ParentId": 61579
+                        }
+                    ]
+                },
+                {
+                    "Id": 61581,
+                    "OrderId": 50716,
+                    "ItemId": -10,
+                    "ItemName": "Trinkgeld",
+                    "Quantity": "1,00",
+                    "Price": "0,63",
+                    "TaxPercentage": "0,00",
+                    "Discount": "0,00",
+                    "DiscountedQuantity": "0,00",
+                    "Total": "0,63",
+                    "SerialNo": "2"
+                }
+            ],
+            "TableId": "212",
+            "PreNotes": "Tisch # 212",
+            "PostNotes": "<br/>Paypal Transaktionsnummer: PAYID-MEAV6LA9Y3653337S885541V",
+            "BranchAddressId": 121495,
+            "BranchAddress": {
+                "Id": 121495,
+                "HouseNumber": "13",
+                "PostalCode": "33602",
+                "StreetName": "Bahnhofstraße",
+                "City": "Bielefeld",
+                "State": "Nordrhein-Westfalen",
+                "StateId": 8,
+                "Country": "Deutschland",
+                "CountryId": 1,
+                "FullAddress": "Bahnhofstraße  13 <br/>33602 Bielefeld"
+            },
+            "PaymentGatewayId": 1,
+            "IoneId": "AUF-000000041-21",
+            "SuccessMessage": null,
+            "ErrorMessage": null,
+            "CreatedBy": 4,
+            "CreatedByName": "",
+            "CreatedDate": "28.07.2021 15:44",
+            "ModifiedDate": "28.07.2021 15:44"
+        }
