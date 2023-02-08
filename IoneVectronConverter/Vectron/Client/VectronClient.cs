@@ -34,18 +34,28 @@ public class VectronClient : IVectronClient
     
     public async Task<VPosResponse> SendReceipt(Receipt receipt)
     {
-        return await Task.Run(() =>
-            {
-                Socket socket = GetVPosSocket();
-                SendBase64String(ref socket, receipt.ToJson());
+        return await Task.Run(() => waitForAnswer(receipt));
+    }
 
-                string jsonText = Encoding.UTF8.GetString(Convert.FromBase64String(Encoding.UTF8.GetString(GetResponse(socket))));
+    private static VPosResponse? waitForAnswer(Receipt receipt)
+    {
+        Socket socket = GetVPosSocket();
+        string jsonText = "";
+        
+        SendBase64String(ref socket, receipt.ToJson());
+        try
+        {
+            jsonText = Encoding.UTF8.GetString(Convert.FromBase64String(Encoding.UTF8.GetString(GetResponse(socket))));
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
 
-                socket.Close();
+        socket.Close();
 
-                return JsonConvert.DeserializeObject<VPosResponse>(jsonText);
-            }
-        );
+        return JsonConvert.DeserializeObject<VPosResponse>(jsonText);
     }
 
     static void SendBase64String(ref Socket socket, string text)
