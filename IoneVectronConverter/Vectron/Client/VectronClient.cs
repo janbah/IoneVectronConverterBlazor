@@ -3,6 +3,7 @@ using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
 using IoneVectronConverter.Ione.Orders.Models;
+using IoneVectronConverter.Vectron.Mapper;
 using IoneVectronConverter.Vectron.MasterData;
 using IoneVectronConverter.Vectron.Models;
 using Microsoft.AspNetCore.DataProtection;
@@ -15,11 +16,20 @@ public class VectronClient : IVectronClient
     public const string SendDelimiter = "\0";
     const int port = 1050;
     const string secret = "*6H@6TF7bDrCbU-V1.0";
+
+    private readonly ReceiptMapper _mapper;
     
-    //Todo: implement client
-    public VPosResponse Send(OrderListData order)
+    public VectronClient(ReceiptMapper mapper)
     {
-        throw new NotImplementedException();
+        _mapper = mapper;
+    }
+
+    //Todo: implement client
+    public async Task<VPosResponse> Send(OrderListData order)
+    {
+        var receipt = _mapper.Map(order);
+        var result = await SendReceipt(receipt);
+        return result;
     }
     
     public async Task<VPosResponse> SendReceipt(Receipt receipt)
@@ -62,13 +72,19 @@ public class VectronClient : IVectronClient
     
     static Socket GetVPosSocket()
     {
-        Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-        socket.Connect(new IPEndPoint(IPAddress.Parse("000.000.00.00"), port));
-        byte[] bytes = new byte[6];
-        socket.Receive(bytes);
-        string salt = Encoding.UTF8.GetString(bytes);
+        IPHostEntry host = Dns.GetHostEntry("localhost");
+        IPAddress ipAddress = host.AddressList[0];
+        //IPEndPoint remoteEP = new IPEndPoint(ipAddress, 1050);
+        
+        //Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        Socket socket = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+        socket.Connect(new IPEndPoint(ipAddress, port));
+        //byte[] bytes = new byte[6];
+        //socket.Receive(bytes);
+        //string salt = Encoding.UTF8.GetString(bytes);
         var md5 = MD5.Create();
-        socket.Send(md5.ComputeHash(Encoding.UTF8.GetBytes(secret + salt)));
+        //socket.Send(md5.ComputeHash(Encoding.UTF8.GetBytes(secret + salt)));
+        //socket.Send(md5.ComputeHash(Encoding.UTF8.GetBytes(secret + salt)));
         return socket;
     }
 }

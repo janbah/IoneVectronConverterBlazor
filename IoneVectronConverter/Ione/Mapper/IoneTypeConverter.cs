@@ -16,5 +16,10 @@
         {
             return Convert.ToDateTime(textValue, System.Globalization.CultureInfo.GetCultureInfo(cultureName));
         }
+        
+        public static string GetDateTimeString(this string textValue, string cultureName = "de-DE")
+        {
+            return textValue;
+        }
     }
 }

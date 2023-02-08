@@ -18,10 +18,13 @@
     </ItemGroup>
 
     <ItemGroup>
-        <InternalsVisibleTo Include="IoneVectronConverterTests"/>
+        <InternalsVisibleTo Include="IoneVectronConverterTests" />
+        <InternalsVisibleTo Include="IoneVectronConverterIntegrationTests" />
+        
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="Dapper.Contrib" Version="2.0.78" />
       <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.2" />
     </ItemGroup>
 

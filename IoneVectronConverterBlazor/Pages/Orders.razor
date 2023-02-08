@@ -1,12 +1,15 @@
 @page "/"
 @using IoneVectronConverter.Ione
 @using IoneVectronConverter.Ione.Services
+@using IoneVectronConverter.Common.Worker
 @inject IIoneClient client
 @inject IOrderService service
+@inject IWorker worker;
 
 <h3>Orders</h3>
-<button class="btn btn-primary" @onclick="GetOrders">Get Orders from Ione</button>
-<button class="btn btn-primary" @onclick="GetStoredOrders">Get stored Orders</button>
+<button class="btn btn-primary" @onclick="GetOrders">Get Orders from Ione</button><br>
+<button class="btn btn-primary" @onclick="GetStoredOrders">Get stored Orders</button><br>
+<button class="btn btn-primary" @onclick="ProcessOrders">Process Orders</button><br>
 
 @code {
 
@@ -23,6 +26,11 @@
         var result = service.GetOrders();
         Console.Write(result.First().Message);
 
+    }
+
+    private void ProcessOrders()
+    {
+        worker.ProcessOrdesfromIone();
     }
 
 }

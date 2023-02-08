@@ -1,4 +1,5 @@
 using Dapper;
+using Dapper.Contrib.Extensions;
 using IoneVectronConverter.Ione.Models;
 using Microsoft.Data.Sqlite;
 
@@ -6,7 +7,14 @@ namespace IoneVectronConverter.Ione.Datastoring;
 
 public class OrderRepository : IRepository<Order>
 {
- 
+
+    private readonly IConfiguration _configuration;
+
+    public OrderRepository(IConfiguration configuration)
+    {
+        _configuration = configuration;
+    }
+
     public IQueryable<Order> Load()
     {
         var con = loadConnectionstring();
@@ -24,7 +32,7 @@ public class OrderRepository : IRepository<Order>
             Message,
             VposErrorNumber,
             datetime(OrderDate),
-            IsCanceldOnPos
+            IsCanceledOnPos
             from ione_order";
         
         
@@ -35,9 +43,37 @@ public class OrderRepository : IRepository<Order>
         }
     }
 
-    public void Insert(Order entity)
+    public long Insert(Order entity)
     {
-        throw new NotImplementedException();
+        var con = loadConnectionstring();
+        //
+        // var sql = @"insert into ione_order
+        //                 (
+        //                 IoneRefId,
+        //                 IoneId,
+        //                 Status,
+        //                 OrderTotal,
+        //                 ReceiptTotal,
+        //                 ReceiptUUid,
+        //                 ReceiptMainNo,
+        //                 Message,
+        //                 VposErrorNumber,
+        //                 OrderDate,
+        //                 IsCanceldOnPos
+        //                 )
+        //             values
+        //                 (
+        //                     
+        //                 )";
+      
+
+        using (var connection = new SqliteConnection(con))
+        {
+            var id = connection.Insert<Order>(entity);
+            return id;
+        }
+        
+
     }
 
     public void Update(Order entity)
@@ -47,23 +83,19 @@ public class OrderRepository : IRepository<Order>
 
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        var con = loadConnectionstring();
+
+        using (var connection = new SqliteConnection(con))
+        {
+            var sql = @"delete from ione_order where id = @id";
+            connection.Execute(sql, new {id});
+        }
     }
 
     private string loadConnectionstring()
     {
         Console.Write(Directory.GetCurrentDirectory());
-        
-        string documentsPath = @"..\Resources";
-        var stringBuilder = new SqliteConnectionStringBuilder
-        {
-            Mode = SqliteOpenMode.ReadWriteCreate,
-            DataSource = Path.Combine( documentsPath, "IoneVectron.sqlite")
-        };
-        
-        Console.Write(stringBuilder.ToString());
-
-        return stringBuilder.ToString();
+        return _configuration.GetConnectionString("Default");
     }
     
     

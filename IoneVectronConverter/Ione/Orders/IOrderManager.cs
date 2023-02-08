@@ -4,5 +4,5 @@ namespace IoneVectronConverter.Ione.Orders;
 
 public interface IOrderManager
 {
-    void ProcessOrder(OrderListData order);
+    Task ProcessOrder(OrderListData order);
 }

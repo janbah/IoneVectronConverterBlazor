@@ -12,16 +12,19 @@ public class OrderService : IOrderService
     private readonly IOrderMapper _mapper;
     private readonly IMerger _merger;
 
-    public OrderService(IRepository<Order> repository)
+    public OrderService(IRepository<Order> repository, IOrderMapper mapper, IMerger merger)
     {
         _repository = repository;
+        _mapper = mapper;
+        _merger = merger;
     }
 
-    public void PersistOrderToDB(OrderListData orderData, VPosResponse response)
+    public long PersistOrderToDB(OrderListData orderData, VPosResponse response)
     {
         var orderToSave = mapOrderDataToOrder(orderData);
         var updatedOrderData = mergeOrderDataWithResponse(orderToSave, response);
-        _repository.Insert(updatedOrderData);
+        var id = _repository.Insert(updatedOrderData);
+        return id;
     }
 
     public IQueryable<Order> GetOrders()
@@ -31,7 +34,10 @@ public class OrderService : IOrderService
 
     public bool IsOrderNew(OrderListData orderListData)
     {
-        throw new NotImplementedException();
+        var resultList = _repository.Load().Where(storedOrder => storedOrder.IoneRefId == orderListData.Id);
+        var resultCount = resultList.Count();
+        var result = resultCount > 0;
+        return result;
     }
 
     private Order mapOrderDataToOrder(OrderListData updatedOrderData)

@@ -1,7 +1,11 @@
-﻿namespace IoneVectronConverter.Ione.Models
+﻿using Dapper.Contrib.Extensions;
+
+namespace IoneVectronConverter.Ione.Models
 {
+    [Table ("ione_order")]
     public class Order
     {
+        [Key]
         public int Id { get; set; }
         public int IoneRefId { get; set; }
         public string IoneId { get; set; }

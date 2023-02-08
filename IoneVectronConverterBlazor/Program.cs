@@ -1,7 +1,13 @@
+using IoneVectronConverter.Common.Worker;
 using IoneVectronConverter.Ione;
 using IoneVectronConverter.Ione.Datastoring;
+using IoneVectronConverter.Ione.Mapper;
 using IoneVectronConverter.Ione.Models;
+using IoneVectronConverter.Ione.Orders;
 using IoneVectronConverter.Ione.Services;
+using IoneVectronConverter.Ione.Validators;
+using IoneVectronConverter.Vectron.Client;
+using IoneVectronConverter.Vectron.Mapper;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using IoneVectronConverterBlazor.Data;
@@ -13,7 +19,17 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddSingleton<IIoneClient, IoneClient>();
+
+builder.Services.AddTransient<IOrderMapper, OrderMapper>();
+builder.Services.AddTransient<IMerger, Merger>();
+
+builder.Services.AddTransient<IOrderValidator, OrderValidator>();
+builder.Services.AddTransient<IVectronClient, VectronClient>();
+builder.Services.AddTransient<IOrderManager, OrderManager>();
+
 builder.Services.AddTransient<IOrderService, OrderService>();
+builder.Services.AddTransient<ReceiptMapper>();
+
 builder.Services.AddTransient<IRepository<Order>, OrderRepository>();
 
 //builder.Services.AddHttpClient("ioneClient",client =>
@@ -29,6 +45,7 @@ builder.Services.AddHttpClient<IIoneClient, IoneClient>("ioneClient",client =>
 });
 
 builder.Services.AddTransient<IoneClient>();
+builder.Services.AddSingleton<IWorker, Worker>();
 
 
 var app = builder.Build();

@@ -6,7 +6,7 @@ namespace IoneVectronConverter.Vectron.Client;
 
 public interface IVectronClient
 {
-    VPosResponse Send(OrderListData order);
+    Task<VPosResponse> Send(OrderListData order);
 
     MasterDataResponse GetMasterData();
 

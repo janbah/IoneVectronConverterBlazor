@@ -19,14 +19,14 @@ namespace IoneVectronConverter.Ione.Orders
             _orderValidator = orderValidator;
         }
 
-        public void ProcessOrder(OrderListData order)
+        public async Task ProcessOrder(OrderListData order)
         {
             if (_orderValidator.IsValid(order) is false)
             {
                 return;
             }
             
-            var result = _vectronClient.Send(order);
+            var result = await _vectronClient.Send(order);
             _orderService.PersistOrderToDB(order, result);
         }
     }

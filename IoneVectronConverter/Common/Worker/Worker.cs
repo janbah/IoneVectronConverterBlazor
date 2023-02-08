@@ -3,7 +3,12 @@ using IoneVectronConverter.Ione.Orders;
 
 namespace IoneVectronConverter.Common.Worker;
 
-public class Worker
+public interface IWorker
+{
+    Task ProcessOrdesfromIone();
+}
+
+public class Worker : IWorker
 {
     private readonly IIoneClient _ioneClient;
     private readonly IOrderManager _orderManager;
