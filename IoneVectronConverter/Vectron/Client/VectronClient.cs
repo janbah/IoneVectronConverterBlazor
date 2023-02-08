@@ -47,10 +47,15 @@ public class VectronClient : IVectronClient
             }
         );
     }
-    
+
     static void SendBase64String(ref Socket socket, string text)
     {
-        socket.Send(Encoding.UTF8.GetBytes(Convert.ToBase64String(Encoding.UTF8.GetBytes(text)) + SendDelimiter));
+        var bytes = Encoding.UTF8.GetBytes(text);
+        var base64String = Convert.ToBase64String(bytes); 
+        var message = base64String  + SendDelimiter;
+        var buffer = Encoding.UTF8.GetBytes(message);
+        
+        socket.Send(buffer);
     }
     
     static byte[] GetResponse(Socket socket)
@@ -79,6 +84,7 @@ public class VectronClient : IVectronClient
         //Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         Socket socket = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
         socket.Connect(new IPEndPoint(ipAddress, port));
+        Console.WriteLine("Socket connected to {0}", socket.RemoteEndPoint);
         //byte[] bytes = new byte[6];
         //socket.Receive(bytes);
         //string salt = Encoding.UTF8.GetString(bytes);
