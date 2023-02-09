@@ -73,10 +73,15 @@ public class VectronClient : IVectronClient
         var buffer = new byte[256];
         int bytesRead;
         List<byte> responseBytes = new List<byte>();
-        while ((bytesRead = socket.Receive(buffer)) > 0)
-        {
-            responseBytes.AddRange(buffer.Take(bytesRead));
-        }
+        
+        // while ((bytesRead = socket.Receive(buffer)) > 0)
+        // {
+        //     responseBytes.AddRange(buffer.Take(bytesRead));
+        // }
+
+        bytesRead = socket.Receive(buffer);
+        
+        responseBytes.AddRange(buffer.Take(bytesRead));
         return responseBytes.ToArray();
     }
 

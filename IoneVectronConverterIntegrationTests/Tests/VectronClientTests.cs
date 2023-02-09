@@ -38,5 +38,6 @@ public class VectronClientTests
 
         //Assert
         Assert.False(result.IsError);
+        Assert.True(result.Message == "success");
     }   
 }

@@ -78,16 +78,60 @@ public class OrderServiceTest
         Assert.True(count > 1);
         
         repo.Delete(Convert.ToInt32(id));
-        //resetDataBase();
 
     }
-
-    private void resetDataBase()
+    
+    [Fact]
+    public void IsOrderNew_NoEntryWithMatchingIdInDb_ReturnsFalse()
     {
-        string path = @"..\..\..\Resources";
-        string databaseName = @"IoneVectronTest.sqlite";
-        string databaseBackupName = @"IoneVectronTestBackup.sqlite";
+        //Arrange
+        var webApplicationFactory = new CustomWebApplicationFactory<Program>();
+        IRepository<Order> repo = _webApplicationFactory.Services.GetRequiredService<IRepository<Order>>();
+
+        IOrderService sut = webApplicationFactory.Services.GetRequiredService<IOrderService>();
+
+        OrderListData order = new()
+        {
+            IoneId = "IO37895",
+            CustomerNotes = "test order 2",
+            OrderItemList = new OrderItemListItem[2],
+            Id = 23,
+            Total = "19,11",
+            CreatedDate = "2023-02-06",
+
+        };
         
-        File.Move(Path.Combine(path, databaseBackupName),Path.Combine(path,databaseName), true);
-    }
+        //Act
+        var result = sut.IsOrderNew(order);
+
+        //Assert
+        Assert.False(result);
+    }   
+    
+    [Fact]
+    public void IsOrderNew_EntryWithMatchingIdInDb_ReturnsTrue()
+    {
+        //Arrange
+        var webApplicationFactory = new CustomWebApplicationFactory<Program>();
+        IRepository<Order> repo = _webApplicationFactory.Services.GetRequiredService<IRepository<Order>>();
+
+        IOrderService sut = webApplicationFactory.Services.GetRequiredService<IOrderService>();
+
+        OrderListData order = new()
+        {
+            IoneId = "IO37895",
+            CustomerNotes = "test order 2",
+            OrderItemList = new OrderItemListItem[2],
+            Id = 37894,
+            Total = "19,11",
+            CreatedDate = "2023-02-06",
+
+        };
+        
+        //Act
+        var result = sut.IsOrderNew(order);
+
+        //Assert
+        Assert.True(result);
+    }   
 }
