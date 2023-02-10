@@ -26,6 +26,11 @@
     <ItemGroup>
       <PackageReference Include="Dapper.Contrib" Version="2.0.78" />
       <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.2" />
+      <PackageReference Include="MudBlazor" Version="6.1.8" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Data" />
     </ItemGroup>
 
 </Project>

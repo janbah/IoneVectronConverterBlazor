@@ -15,10 +15,11 @@ public class ReceiptMapper
         
             Receipt receipt = new Receipt
             {
+                //Todo: Connect to AppSettings 
                 Gc = Convert.ToInt32(orderData.TableId),
-                Operator = AppSettings.Default.Operator,
-                OperatorCode = AppSettings.Default.OperatorCode,
-                MediaNo = AppSettings.Default.ReceiptMediaNo,
+                Operator = 0, //AppSettings.Default.OperatorCode,
+                OperatorCode = 0, //AppSettings.Default.OperatorCode,
+                MediaNo = 0, //AppSettings.Default.ReceiptMediaNo,
                 GcText = gcText
             };
 
@@ -58,7 +59,9 @@ public class ReceiptMapper
                     receipt.Plus.Add(newPlu);
                 }
                 else
-                    receipt.Discounts.Add(new Discount { Number = AppSettings.Default.TipDiscountNumber, Value = orderItem.Total.GetDecimal() });
+                    // Todo: Appsettings
+                    //receipt.Discounts.Add(new Discount { Number = AppSettings.Default.TipDiscountNumber, Value = orderItem.Total.GetDecimal() });
+                    receipt.Discounts.Add(new Discount { Number = 0, Value = orderItem.Total.GetDecimal() });
             }
             return receipt;
     }
