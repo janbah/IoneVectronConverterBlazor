@@ -1,3 +1,4 @@
+using IoneVectronConverter.Common;
 using IoneVectronConverter.Common.Worker;
 using IoneVectronConverter.Ione;
 using IoneVectronConverter.Ione.Datastoring;
@@ -8,16 +9,17 @@ using IoneVectronConverter.Ione.Services;
 using IoneVectronConverter.Ione.Validators;
 using IoneVectronConverter.Vectron.Client;
 using IoneVectronConverter.Vectron.Mapper;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using IoneVectronConverterBlazor.Data;
+using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddMudServices();
+
+builder.Services.AddTransient<AppSettings>();
+
 builder.Services.AddSingleton<IIoneClient, IoneClient>();
 
 builder.Services.AddTransient<IOrderMapper, OrderMapper>();

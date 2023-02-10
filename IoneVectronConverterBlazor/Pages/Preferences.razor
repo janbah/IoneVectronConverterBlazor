@@ -1,6 +1,54 @@
 @page "/"
-<h3>Einstellungen</h3>
+@inject AppSettings Settings
+
+
+@using System.Text.RegularExpressions
+@using System.ComponentModel.DataAnnotations
+@using IoneVectronConverter.Common
+
+<MudGrid>
+    <MudItem xs="12" sm="7">
+        <MudPaper Class="pa-4">
+            <MudForm>
+                    <MudTextField T="int" Label="OperatorCode" @bind-value="Settings.OperatorCode"/>
+                    <MudTextField T="int" Label="AttributeNoForWebShop" @bind-value="Settings.AttributeNoForWebShop"/>
+                    <MudTextField T="int" Label="Operator" @bind-value="Settings.Operator" />
+                    <MudTextField T="int" Label="ReceiptMediaNo" @bind-value="Settings.ReceiptMediaNo" />
+                    <MudTextField T="int" Label="TipDiscountNumber" @bind-value="Settings.TipDiscountNumber" />
+                    <MudTextField T="string" Label="VPosIPAddress" @bind-value="Settings.VPosIPAddress" />
+                    <MudTextField T="int" Label="VPosIpPort" @bind-value="Settings.VPosIpPort" />
+                    <br/>
+                    <MudTextField T="string" Label="ApiBaseAddress" @bind-value="Settings.ApiBaseAddress"/>
+                    <MudTextField T="int" Label="BranchAddressId" @bind-value="Settings.BranchAddressId"/>
+                    <MudTextField T="string" Label="IoneApiIdentifier" @bind-value="Settings.IoneApiIdentifier"/>
+                    <MudTextField T="string" Label="IoneApiToken"@bind-value="Settings.IoneApiToken"/>
+                    <MudDivider />
+                    <MudTextField T="string" Label="WebServiceUrlPrefix" @bind-value="Settings.WebServiceUrlPrefix"/>
+                    
+            </MudForm>   
+        </MudPaper>
+        <MudPaper Class="pa-4 mt-4">
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" DisableElevation="true" OnClick="@(() => Submit())">Speichern</MudButton>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" DisableElevation="true" OnClick="@(() => Reset())">Reset</MudButton>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="5">
+        <MudPaper Class="pa-4 mud-height-full">
+          
+        </MudPaper>
+    </MudItem>
+</MudGrid>
+
 
 @code {
-    
+
+    private void Submit()
+    {
+        Settings.Save();
+    }
+
+    private void Reset()
+    {
+    }
+
 }
