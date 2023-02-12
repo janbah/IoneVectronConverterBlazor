@@ -1,37 +1,43 @@
 @page "/"
-@inject AppSettings Settings
-
+@inject SettingService SettingService
 
 @using System.Text.RegularExpressions
 @using System.ComponentModel.DataAnnotations
 @using IoneVectronConverter.Common
 
-<MudGrid>
+<MudText Typo="Typo.h3">Einstellungen</MudText><MudGrid>
     <MudItem xs="12" sm="7">
-        <MudPaper Class="pa-4">
+        <MudPaper Class="pa-4 mt-4">
+            <MudText Typo="Typo.h4">Ione Api</MudText>
             <MudForm>
-                    <MudTextField T="int" Label="OperatorCode" @bind-value="Settings.OperatorCode"/>
-                    <MudTextField T="int" Label="AttributeNoForWebShop" @bind-value="Settings.AttributeNoForWebShop"/>
-                    <MudTextField T="int" Label="Operator" @bind-value="Settings.Operator" />
-                    <MudTextField T="int" Label="ReceiptMediaNo" @bind-value="Settings.ReceiptMediaNo" />
-                    <MudTextField T="int" Label="TipDiscountNumber" @bind-value="Settings.TipDiscountNumber" />
-                    <MudTextField T="string" Label="VPosIPAddress" @bind-value="Settings.VPosIPAddress" />
-                    <MudTextField T="int" Label="VPosIpPort" @bind-value="Settings.VPosIpPort" />
-                    <br/>
-                    <MudTextField T="string" Label="ApiBaseAddress" @bind-value="Settings.ApiBaseAddress"/>
-                    <MudTextField T="int" Label="BranchAddressId" @bind-value="Settings.BranchAddressId"/>
-                    <MudTextField T="string" Label="IoneApiIdentifier" @bind-value="Settings.IoneApiIdentifier"/>
-                    <MudTextField T="string" Label="IoneApiToken"@bind-value="Settings.IoneApiToken"/>
-                    <MudDivider />
-                    <MudTextField T="string" Label="WebServiceUrlPrefix" @bind-value="Settings.WebServiceUrlPrefix"/>
-                    
-            </MudForm>   
+
+                <MudTextField T="string" Label="ApiBaseAddress" @bind-value="vectronSettings.ApiBaseAddress"/>
+                <MudTextField T="int" Label="BranchAddressId" @bind-value="vectronSettings.BranchAddressId"/>
+                <MudTextField T="string" Label="IoneApiIdentifier" @bind-value="vectronSettings.IoneApiIdentifier"/>
+                <MudTextField T="string" Label="IoneApiToken"@bind-value="vectronSettings.IoneApiToken"/>
+                <MudTextField T="string" Label="WebServiceUrlPrefix" @bind-value="vectronSettings.WebServiceUrlPrefix"/>
+
+            </MudForm>
+        </MudPaper>
+        <MudPaper Class="pa-4 mt-4">
+            <MudText Typo="Typo.h4">Vectron Einstellungen</MudText>
+            <MudForm>
+                <MudTextField T="int" Label="OperatorCode" @bind-value="vectronSettings.OperatorCode"/>
+                <MudTextField T="int" Label="AttributeNoForWebShop" @bind-value="vectronSettings.AttributeNoForWebShop"/>
+                <MudTextField T="int" Label="Operator" @bind-value="vectronSettings.Operator"/>
+                <MudTextField T="int" Label="ReceiptMediaNo" @bind-value="vectronSettings.ReceiptMediaNo"/>
+                <MudTextField T="int" Label="TipDiscountNumber" @bind-value="vectronSettings.TipDiscountNumber"/>
+                <MudTextField T="string" Label="VPosIPAddress" @bind-value="vectronSettings.VPosIPAddress"/>
+                <MudTextField T="int" Label="VPosIpPort" @bind-value="vectronSettings.VPosIpPort"/>
+
+            </MudForm>
         </MudPaper>
         <MudPaper Class="pa-4 mt-4">
             <MudButton Variant="Variant.Filled" Color="Color.Primary" DisableElevation="true" OnClick="@(() => Submit())">Speichern</MudButton>
             <MudButton Variant="Variant.Filled" Color="Color.Primary" DisableElevation="true" OnClick="@(() => Reset())">Reset</MudButton>
         </MudPaper>
     </MudItem>
+    <MudItem></MudItem>
     <MudItem xs="12" sm="5">
         <MudPaper Class="pa-4 mud-height-full">
           
@@ -42,9 +48,16 @@
 
 @code {
 
+    VectronSettings vectronSettings;
+
+    protected override void OnInitialized()
+    {
+        vectronSettings = SettingService.GetSettings().Vectron;
+    }
+
     private void Submit()
     {
-        Settings.Save();
+        SettingService.SetSettings();
     }
 
     private void Reset()

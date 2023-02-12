@@ -1,17 +1,19 @@
 {
   "Logging": {
-    "Loglevel": {
+    "LogLevel": {
       "Default": "Information",
-      "AspNetCore": "Warning"
+      "Microsoft.AspNetCore": "Warning"
     }
   },
   "AllowedHosts": "*",
+
   "ConnectionStrings": {
     "Default": "Data Source=..\\Resources\\IoneVectron.sqlite;Mode=ReadWriteCreate"
   },
-  "Vectron": {
-    "OperatorCode": 42,
-    "AttributeNoForWebShop": 43,
+  "Vectron": 
+  {
+    "OperatorCode": 10,
+    "AttributeNoForWebShop": 2,
     "Operator": 3,
     "ReceiptMediaNo": 4,
     "TipDiscountNumber": 5,
@@ -24,6 +26,7 @@
     "IoneApiToken": "12",
     "PriceListAssignmentList": null,
     "TimerActive": true,
-    "WebServiceUrlPrefix": "15"
+    "WebServiceUrlPrefix": "15",
+    "NameNr": 16
   }
 }
