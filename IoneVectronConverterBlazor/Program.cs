@@ -18,7 +18,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddMudServices();
 
-builder.Services.AddTransient<AppSettings>();
+builder.Services.AddTransient<Settings>();
 
 builder.Services.AddSingleton<IIoneClient, IoneClient>();
 
@@ -45,6 +45,8 @@ builder.Services.AddHttpClient<IIoneClient, IoneClient>("ioneClient",client =>
 
     client.BaseAddress = new Uri(builder.Configuration["ioneClient"]);
 });
+
+builder.Services.AddTransient<SettingService>();
 
 builder.Services.AddTransient<IoneClient>();
 builder.Services.AddSingleton<IWorker, Worker>();
