@@ -13,7 +13,7 @@ namespace IoneVectronConverter.Vectron.Client;
 
 public class VectronClient : IVectronClient
 {
-    public const string SendDelimiter = "\0";
+    public const string SendDelimiter = "<EOF>";
     const int port = 1050;
     const string secret = "*6H@6TF7bDrCbU-V1.0";
 
@@ -34,7 +34,25 @@ public class VectronClient : IVectronClient
     
     public async Task<VPosResponse> SendReceipt(Receipt receipt)
     {
-        return await Task.Run(() => waitForAnswer(receipt));
+        await Task.Run(() => SendTest(receipt));
+        
+        return new VPosResponse()
+        {
+            IsError = false
+        };
+    }
+
+    private async Task SendTest(Receipt receipt)
+    {
+        Socket socket = GetVPosSocket();
+        SendBase64String(ref socket, receipt.ToJson());
+        
+        //var bytes = GetResponse(socket);
+                
+        //string jsonText = Encoding.UTF8.GetString(Convert.FromBase64String(Encoding.UTF8.GetString(bytes)));
+        //string jsonText = Encoding.UTF8.GetString(Convert.FromBase64String(Encoding.UTF8.GetString(GetResponse(socket))));
+
+        //socket.Close();
     }
 
     private static VPosResponse? waitForAnswer(Receipt receipt)
@@ -43,6 +61,7 @@ public class VectronClient : IVectronClient
         string jsonText = "";
         
         SendBase64String(ref socket, receipt.ToJson());
+        
         try
         {
             jsonText = Encoding.UTF8.GetString(Convert.FromBase64String(Encoding.UTF8.GetString(GetResponse(socket))));
@@ -74,10 +93,10 @@ public class VectronClient : IVectronClient
         int bytesRead;
         List<byte> responseBytes = new List<byte>();
         
-        // while ((bytesRead = socket.Receive(buffer)) > 0)
-        // {
-        //     responseBytes.AddRange(buffer.Take(bytesRead));
-        // }
+        while ((bytesRead = socket.Receive(buffer)) > 0)
+        {
+            responseBytes.AddRange(buffer.Take(bytesRead));
+        }
 
         bytesRead = socket.Receive(buffer);
         
@@ -94,18 +113,19 @@ public class VectronClient : IVectronClient
     {
         IPHostEntry host = Dns.GetHostEntry("localhost");
         IPAddress ipAddress = host.AddressList[0];
-        //IPEndPoint remoteEP = new IPEndPoint(ipAddress, 1050);
-        
-        //Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         Socket socket = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
         socket.Connect(new IPEndPoint(ipAddress, port));
-        Console.WriteLine("Socket connected to {0}", socket.RemoteEndPoint);
-        //byte[] bytes = new byte[6];
-        //socket.Receive(bytes);
-        //string salt = Encoding.UTF8.GetString(bytes);
-        var md5 = MD5.Create();
-        //socket.Send(md5.ComputeHash(Encoding.UTF8.GetBytes(secret + salt)));
-        //socket.Send(md5.ComputeHash(Encoding.UTF8.GetBytes(secret + salt)));
+        Console.WriteLine("Socket connected to {0}");
+        sendSecret(socket);
         return socket;
+    }
+
+    private static void sendSecret(Socket socket)
+    {
+        // byte[] bytes = new byte[6];
+        // socket.Receive(bytes);
+        // string salt = Encoding.UTF8.GetString(bytes);
+        // var md5 = MD5.Create();
+        // socket.Send(md5.ComputeHash(Encoding.UTF8.GetBytes(secret + salt)));
     }
 }

@@ -72,8 +72,6 @@ public class OrderRepository : IRepository<Order>
             var id = connection.Insert<Order>(entity);
             return id;
         }
-        
-
     }
 
     public void Update(Order entity)

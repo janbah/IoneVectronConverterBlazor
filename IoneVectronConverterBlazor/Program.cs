@@ -20,6 +20,7 @@ builder.Services.AddMudServices();
 
 builder.Services.AddTransient<Settings>();
 
+
 builder.Services.AddSingleton<IIoneClient, IoneClient>();
 
 builder.Services.AddTransient<IOrderMapper, OrderMapper>();
@@ -43,8 +44,10 @@ builder.Services.AddHttpClient<IIoneClient, IoneClient>("ioneClient",client =>
     // client.DefaultRequestHeaders.Add("Identifier", AppSettings.Default.IoneApiIdentifier);
     // client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-    client.BaseAddress = new Uri(builder.Configuration["ioneClient"]);
+    client.BaseAddress = new Uri(builder.Configuration.GetSection("Vectron").GetValue<string>("ApiBaseAddress"));
 });
+
+builder.Services.AddHostedService<Worker>();
 
 builder.Services.AddTransient<SettingService>();
 
