@@ -8,7 +8,7 @@ public interface IWorker
     Task ProcessOrdesfromIone();
 }
 
-public class Worker : IWorker
+public class Worker : BackgroundService, IWorker
 {
     private readonly IIoneClient _ioneClient;
     private readonly IOrderManager _orderManager;
@@ -23,6 +23,15 @@ public class Worker : IWorker
         _to = DateTime.Now.AddHours(3);
     }
 
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+        while (!stoppingToken.IsCancellationRequested)
+        {
+            ProcessOrdesfromIone();
+            await Task.Delay(1000, stoppingToken);
+        }
+    }
+    
     public async Task ProcessOrdesfromIone()
     {
         var orders = await _ioneClient.GetOrdersAsync(_from, _to);
@@ -32,4 +41,6 @@ public class Worker : IWorker
             _orderManager.ProcessOrder(order);
         }
     }
+
+
 }

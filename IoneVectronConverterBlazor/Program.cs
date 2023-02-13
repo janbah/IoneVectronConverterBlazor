@@ -46,8 +46,6 @@ builder.Services.AddHttpClient<IIoneClient, IoneClient>("ioneClient",client =>
     client.BaseAddress = new Uri(builder.Configuration["ioneClient"]);
 });
 
-builder.Services.AddTransient<SettingService>();
-
 builder.Services.AddTransient<IoneClient>();
 builder.Services.AddSingleton<IWorker, Worker>();
 

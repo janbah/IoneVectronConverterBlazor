@@ -3,23 +3,24 @@ using System.Text.Json.Serialization;
 
 namespace IoneVectronConverter.Common;
 
-public class SettingService
+public class SettingService : ISettingService
 {
-    IConfiguration config;
+    IConfiguration _config;
 
      private readonly Settings _settings;
 
 // Get values from the config given their key and their target type.
 
-     public SettingService()
+     public SettingService(IConfiguration configuration)
      {
-         config = new ConfigurationBuilder()
-             .AddJsonFile("/home/wir/Projekte/IoneVectronConverterBlazor/IoneVectronConverterBlazor/appsettings.json")
-             .AddEnvironmentVariables()
-             .Build();
+         // config = new ConfigurationBuilder()
+         //     .AddJsonFile("/home/wir/Projekte/IoneVectronConverterBlazor/IoneVectronConverterBlazor/appsettings.json")
+         //     .AddEnvironmentVariables()
+         //     .Build();
+
+         _config = configuration;
          
-         
-         _settings = config.Get<Settings>();
+         _settings = _config.Get<Settings>();
      }
 
      public Settings GetSettings()
