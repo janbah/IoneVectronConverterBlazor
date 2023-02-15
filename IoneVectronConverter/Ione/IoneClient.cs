@@ -426,7 +426,11 @@ namespace IoneVectronConverter.Ione
 
         private async Task<ItemCategoryListResponse> GetAllCategoriesAsync()
         {
-            throw new NotImplementedException();
+            var responseMessage = await _httpClient.GetStringAsync("GetCategories");
+            
+            
+            var result = JsonConvert.DeserializeObject<ItemCategoryListResponse>(responseMessage);
+            return result;
         }
         
         
