@@ -6,7 +6,7 @@ using IoneVectronConverter.Vectron;
 using IoneVectronConverterTests;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace IoneVectrinConverterTests;
+namespace IoneVectronConverterTests;
 
 public class OrderServiceTest
 {

@@ -3,7 +3,7 @@ using IoneVectronConverter.Vectron.Models;
 using IoneVectronConverterTests;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace IoneVectrinConverterTests;
+namespace IoneVectronConverterTests;
 
 public class VectronClientTests
 {

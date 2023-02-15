@@ -5,7 +5,7 @@ using IoneVectronConverterTests;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace IoneVectrinConverterTests;
+namespace IoneVectronConverterTests;
 
 public class IoneClientTests
 {
