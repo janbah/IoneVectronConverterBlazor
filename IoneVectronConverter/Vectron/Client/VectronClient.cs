@@ -34,28 +34,33 @@ public class VectronClient : IVectronClient
     
     public async Task<VPosResponse> SendReceipt(Receipt receipt)
     {
-        await Task.Run(() => SendTest(receipt));
-        
-        return new VPosResponse()
-        {
-            IsError = false
-        };
+        return await Task.Run(() => SendTest(receipt));
+
     }
 
-    private async Task SendTest(Receipt receipt)
+    private async Task<VPosResponse> SendTest(Receipt receipt)
     {
         Socket socket = GetVPosSocket();
         SendBase64String(ref socket, receipt.ToJson());
         
-        //var bytes = GetResponse(socket);
-                
-        //string jsonText = Encoding.UTF8.GetString(Convert.FromBase64String(Encoding.UTF8.GetString(bytes)));
+        var bytes = await GetResponse(socket);
+
+        var text = Encoding.UTF8.GetString(bytes);
+        
+        Console.WriteLine(text);
+
+        //string jsonText = Encoding.UTF8.GetString(Convert.FromBase64String(text));
         //string jsonText = Encoding.UTF8.GetString(Convert.FromBase64String(Encoding.UTF8.GetString(GetResponse(socket))));
 
         //socket.Close();
+
+        var response = JsonConvert.DeserializeObject<VPosResponse>(text);
+
+        return response;
+
     }
 
-    private static VPosResponse? waitForAnswer(Receipt receipt)
+    private static async Task<VPosResponse?> waitForAnswer(Receipt receipt)
     {
         Socket socket = GetVPosSocket();
         string jsonText = "";
@@ -64,7 +69,8 @@ public class VectronClient : IVectronClient
         
         try
         {
-            jsonText = Encoding.UTF8.GetString(Convert.FromBase64String(Encoding.UTF8.GetString(GetResponse(socket))));
+            var dings = await GetResponse(socket);
+            jsonText = Encoding.UTF8.GetString(Convert.FromBase64String(Encoding.UTF8.GetString(dings)));
         }
         catch (Exception e)
         {
@@ -87,20 +93,18 @@ public class VectronClient : IVectronClient
         socket.Send(buffer);
     }
     
-    static byte[] GetResponse(Socket socket)
+    static async Task<byte[]> GetResponse(Socket socket)
     {
         var buffer = new byte[256];
-        int bytesRead;
         List<byte> responseBytes = new List<byte>();
         
-        while ((bytesRead = socket.Receive(buffer)) > 0)
-        {
-            responseBytes.AddRange(buffer.Take(bytesRead));
-        }
-
-        bytesRead = socket.Receive(buffer);
         
+        var bytesRead  = await socket.ReceiveAsync(buffer); 
         responseBytes.AddRange(buffer.Take(bytesRead));
+
+       // bytesRead = socket.Receive(buffer);
+        
+        //responseBytes.AddRange(buffer.Take(bytesRead));
         return responseBytes.ToArray();
     }
 
