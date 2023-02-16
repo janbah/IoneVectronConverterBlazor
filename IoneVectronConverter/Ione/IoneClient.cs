@@ -451,6 +451,7 @@ namespace IoneVectronConverter.Ione
             string mainCategoryName = $"Main [#{branchAdressId}]";
             
             var categoryListResponse = await GetAllCategoriesAsync();
+            
             var categories = categoryListResponse.Data;
             
             var mainCategory = categories.FirstOrDefault(x => x.Name == mainCategoryName && x.LevelId == 1 && x.APIObjectId == "-1");
