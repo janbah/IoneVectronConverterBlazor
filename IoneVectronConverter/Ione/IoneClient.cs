@@ -426,12 +426,21 @@ namespace IoneVectronConverter.Ione
 
         private async Task<ItemCategoryListResponse> GetAllCategoriesAsync()
         {
-            var responseMessage = await _httpClient.GetStringAsync("GetCategories");
-            
-            
-            var result = JsonConvert.DeserializeObject<ItemCategoryListResponse>(responseMessage);
+            var responseMessage = await _httpClient.PostAsync("GetCategories", new StringContent(""));
+            var result = await responseMessage.Content.ReadFromJsonAsync<ItemCategoryListResponse>();
             return result;
         }
+        
+        private async Task<ItemCategoryListResponse> SaveCategoryAsync(ItemCategory defaultCategory)
+        {
+            var categoryAsJson = JsonConvert.SerializeObject(defaultCategory); 
+            var content = new StringContent(categoryAsJson);
+            
+            var responseMessage = await _httpClient.PostAsync("GetCategories", content);
+            var result = await responseMessage.Content.ReadFromJsonAsync<ItemCategoryListResponse>();
+            return result;
+        }
+
         
         
         
@@ -458,12 +467,14 @@ namespace IoneVectronConverter.Ione
                 Name = mainCategoryName
             };
 
-            return sendCategory(defaultCategory);
+            return await sendCategory(defaultCategory);
         }
 
-        private int sendCategory(ItemCategory defaultCategory)
+        private async Task<int> sendCategory(ItemCategory defaultCategory)
         {
-            throw new NotImplementedException();
+            var response = await SaveCategoryAsync(defaultCategory);
+            var result = response.Data[0].Id;
+            return result;
         }
 
         private bool existsMainCategory(ItemCategory[] categories)

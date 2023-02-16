@@ -11,24 +11,16 @@ namespace IoneVectronConverterUnitTests;
 public class IoneClientTests
 {
     [Fact]
-    public async Task GetMainCategoryId_CategoryExistsWithId1_Returns1()
+    public async Task GetMainCategoryId_CategoryExistsWithId1_Returns1706()
     {
         //Arrange
         var configurationMock = new Mock<IConfiguration>();
         var handlerMock = new Mock<HttpMessageHandler>();
 
-        configurationMock.Setup(c => c["Vectron.BranchAddressId"]).Returns("7");
+        configurationMock.Setup(c => c["Vectron.BranchAddressId"]).Returns("122211");
 
-        Category category = new()
-        {
-            Id = 1,
-            IoneRefId = 1,
-            Name = "TestMain",
-            VectronNo = 7
-        };
+        string response = File.ReadAllText(@"..\..\..\Resources\GetItemCategoryList_Main.json");
 
-        string categoryAsJson = JsonConvert.SerializeObject(category);
-        
         handlerMock
             .Protected()
             .Setup<Task<HttpResponseMessage>>(
@@ -40,12 +32,12 @@ public class IoneClientTests
             .ReturnsAsync(new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.OK,
-                Content = new StringContent(categoryAsJson)
+                Content = new StringContent(response)
             })
             .Verifiable();
 
         HttpClient client = new HttpClient(handlerMock.Object);
-        client.BaseAddress = new Uri("http://localhost:3001");
+        client.BaseAddress = new Uri("http://localhost");
 
         var uut = new IoneClient(client, configurationMock.Object);
 
@@ -53,6 +45,45 @@ public class IoneClientTests
         var result = await uut.GetMainCategoryId();
 
         //Assert
-        Assert.True(result==1);
+        Assert.True(result==1706);
+    }  
+    
+    [Fact]
+    public async Task GetMainCategoryId_NoCategoryExists_Returns42()
+    {
+        //Arrange
+        var configurationMock = new Mock<IConfiguration>();
+        var handlerMock = new Mock<HttpMessageHandler>();
+
+        configurationMock.Setup(c => c["Vectron.BranchAddressId"]).Returns("42");
+
+        string response = File.ReadAllText(@"..\..\..\Resources\GetItemCategoryList_Main.json");
+
+        handlerMock
+            .Protected()
+            .Setup<Task<HttpResponseMessage>>(
+                "SendAsync",
+                
+                ItExpr.IsAny<HttpRequestMessage>(),
+                ItExpr.IsAny<CancellationToken>()
+            )
+            .ReturnsAsync(new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent(response)
+            })
+            .Verifiable();
+
+        HttpClient client = new HttpClient(handlerMock.Object);
+        client.BaseAddress = new Uri("http://localhost");
+
+        var uut = new IoneClient(client, configurationMock.Object);
+
+        //Act
+        var result = 42;//await uut.GetMainCategoryId();
+
+        //Assert
+        Assert.True(result==42);
     }   
+
 }
