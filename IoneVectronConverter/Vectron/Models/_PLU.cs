@@ -1,6 +1,6 @@
 ﻿namespace IoneVectronConverter.Vectron.MasterData
 {
-    public class PLU
+    public class _PLU
     {
         public int PLUno { get; set; }
         public string Name1 { get; set; }

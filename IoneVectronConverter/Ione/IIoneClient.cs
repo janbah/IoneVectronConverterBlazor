@@ -9,4 +9,6 @@ public interface IIoneClient
     Task<ItemCategoryListResponse> GetCategoriesAsync();
     int SaveItemCategory(ItemCategory category);
     Task<int> GetMainCategoryId();
+
+    Task<int> SaveCategoryAsync(ItemCategory category);
 }

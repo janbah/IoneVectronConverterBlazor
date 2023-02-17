@@ -60,10 +60,8 @@ public class CategoryManager
         {
             insertOrUpdateCategoryInDb(category);
         }
-
-
+        
         sendNewCategories(currentCategories);
-
     }
 
     private void sendNewCategories(IEnumerable<ItemCategory> currentCategories)

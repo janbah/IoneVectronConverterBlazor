@@ -53,7 +53,71 @@ namespace IoneVectronConverter.Ione
             throw new NotImplementedException();
         }
 
-        //    public Task<ItemCategoryListResponse> GetCategoriesAsync()
+    
+        public async Task<ItemListResponse> GetAllItemsAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<ItemLinkLayerListResponse> GetAllItemLinkLayersAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        private async Task<ItemCategoryListResponse> GetAllCategoriesAsync()
+        {
+            var responseMessage = await _httpClient.PostAsync("GetCategories", new StringContent(""));
+            var result = await responseMessage.Content.ReadFromJsonAsync<ItemCategoryListResponse>();
+            return result;
+        }
+        
+        public async Task<int> SaveCategoryAsync(ItemCategory category)
+        {
+            var categoryAsJson = JsonConvert.SerializeObject(category); 
+           
+            var content = new StringContent(categoryAsJson);
+            
+            var responseMessage = await _httpClient.PostAsync("SaveItemCategory", content);
+            var result = await responseMessage.Content.ReadFromJsonAsync<ItemCategoryResponse>();
+            return result.Data.Id;
+        }
+        
+        public async Task<int> GetMainCategoryId()
+        {
+                    
+            string branchAdressId = _iConfiguration["Vectron.BranchAddressId"];
+            string mainCategoryName = $"Main [#{branchAdressId}]";
+            
+            var categoryListResponse = await GetAllCategoriesAsync();
+            
+            var categories = categoryListResponse.Data;
+            
+            var mainCategory = categories.FirstOrDefault(x => x.Name == mainCategoryName && x.LevelId == 1 && x.APIObjectId == "-1");
+
+            if (mainCategory is not null)
+            {
+                return mainCategory.Id;
+            }
+
+            ItemCategory defaultCategory = new()
+            {
+                LevelId = 1,
+                APIObjectId = "-1",
+                Name = mainCategoryName
+            };
+
+            return await sendCategory(defaultCategory);
+        }
+
+        private async Task<int> sendCategory(ItemCategory defaultCategory)
+        {
+            var response = await SaveCategoryAsync(defaultCategory);
+            var result = response;
+            return result;
+        }
+
+        
+            //    public Task<ItemCategoryListResponse> GetCategoriesAsync()
      //    {
      //        throw new NotImplementedException();
      //    }
@@ -414,73 +478,5 @@ namespace IoneVectronConverter.Ione
      //
      //   
 
-        public async Task<ItemListResponse> GetAllItemsAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<ItemLinkLayerListResponse> GetAllItemLinkLayersAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        private async Task<ItemCategoryListResponse> GetAllCategoriesAsync()
-        {
-            var responseMessage = await _httpClient.PostAsync("GetCategories", new StringContent(""));
-            var result = await responseMessage.Content.ReadFromJsonAsync<ItemCategoryListResponse>();
-            return result;
-        }
-        
-        private async Task<ItemCategoryListResponse> SaveCategoryAsync(ItemCategory defaultCategory)
-        {
-            var categoryAsJson = JsonConvert.SerializeObject(defaultCategory); 
-            var content = new StringContent(categoryAsJson);
-            
-            var responseMessage = await _httpClient.PostAsync("GetCategories", content);
-            var result = await responseMessage.Content.ReadFromJsonAsync<ItemCategoryListResponse>();
-            return result;
-        }
-
-        
-        
-        
-        public async Task<int> GetMainCategoryId()
-        {
-                    
-            string branchAdressId = _iConfiguration["Vectron.BranchAddressId"];
-            string mainCategoryName = $"Main [#{branchAdressId}]";
-            
-            var categoryListResponse = await GetAllCategoriesAsync();
-            
-            var categories = categoryListResponse.Data;
-            
-            var mainCategory = categories.FirstOrDefault(x => x.Name == mainCategoryName && x.LevelId == 1 && x.APIObjectId == "-1");
-
-            if (mainCategory is not null)
-            {
-                return mainCategory.Id;
-            }
-
-            ItemCategory defaultCategory = new()
-            {
-                LevelId = 1,
-                APIObjectId = "-1",
-                Name = mainCategoryName
-            };
-
-            return await sendCategory(defaultCategory);
-        }
-
-        private async Task<int> sendCategory(ItemCategory defaultCategory)
-        {
-            var response = await SaveCategoryAsync(defaultCategory);
-            var result = response.Data[0].Id;
-            return result;
-        }
-
-        private bool existsMainCategory(ItemCategory[] categories)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

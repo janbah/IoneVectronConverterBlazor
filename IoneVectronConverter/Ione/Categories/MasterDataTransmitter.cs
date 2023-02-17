@@ -25,12 +25,7 @@ public class MasterDataTransmitter
         _categoriesFromVectron = _vectronClient.GetCategories();
         _categoriesFromIone = ioneClient.GetCategoriesAsync().Result.Data;
 
-        _mainCategoryId = getMainCategoryId();
-    }
-
-    private int getMainCategoryId()
-    {
-        return 1;
+        _mainCategoryId = _ioneClient.GetMainCategoryId().Result;
     }
 
 

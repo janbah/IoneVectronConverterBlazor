@@ -8,6 +8,7 @@ using IoneVectronConverter.Vectron.MasterData;
 using IoneVectronConverter.Vectron.Models;
 using Microsoft.AspNetCore.DataProtection;
 using Newtonsoft.Json;
+using Order2VPos.Core.IoneApi.ItemCategories;
 
 namespace IoneVectronConverter.Vectron.Client;
 
@@ -36,6 +37,11 @@ public class VectronClient : IVectronClient
     {
         return await Task.Run(() => SendTest(receipt));
 
+    }
+
+    public IEnumerable<ItemCategory> GetCategories()
+    {
+        throw new NotImplementedException();
     }
 
     private async Task<VPosResponse> SendTest(Receipt receipt)
