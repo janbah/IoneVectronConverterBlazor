@@ -13,11 +13,9 @@ public class LegacyVectronArticleManager
 {
     
     
-    ItemCategoryListResponse categoryListResponse; //= await GetAllCategoriesAsync();
     ItemLinkLayerListResponse itemLinkLayersListResponse; //= await GetAllItemLinkLayersAsync();
     ItemListResponse itemListResponse; //= await GetAllItemsAsync();
     private MasterDataResponse vposMasterData;
-    //private HttpClient _httpClient;
     private readonly IIoneClient _iIoneClient;
 
     
@@ -25,8 +23,6 @@ public class LegacyVectronArticleManager
     {
         _iIoneClient = iIoneClient;
         vposMasterData = vposCom.GetMasterData();
-      //  _httpClient = httpClient.CreateClient();
-        categoryListResponse = _iIoneClient.GetCategoriesAsync().Result;
         itemLinkLayersListResponse = _iIoneClient.GetLinkLayersAsync();
         itemListResponse = _iIoneClient.GetItemsAsync();
     }
@@ -34,46 +30,10 @@ public class LegacyVectronArticleManager
     public async Task SendPlus(bool allItems)
         {
             
-  
-
-            if (itemLinkLayersListResponse.StatusCode != 200 && itemLinkLayersListResponse.StatusCode != 0)
-                throw new Exception($"Fehler beim Abruf der IONE Artikelauswahl {itemLinkLayersListResponse.Message}");
-            
-            if (itemListResponse.StatusCode != 200 && itemListResponse.StatusCode != 0)
-                throw new Exception($"Fehler beim Abruf der IONE Artikel {itemListResponse.Message}");
-            
-            if (categoryListResponse.StatusCode != 200 && categoryListResponse.StatusCode != 0)
-                throw new Exception($"Fehler beim Abruf der IONE Kategorien {categoryListResponse.Message}");
-
             //CoreDbContext dbContext = CoreDbContext.GetContext();
 
             // Hauptkategorie ermitteln bzw. übertragen
-
-            string mainCategoryName = $"Main [#{AppSettings.Default.BranchAddressId}]";
-            ItemCategory mainCategory = categoryListResponse.Data
-                .FirstOrDefault(x => x.Name == mainCategoryName && x.LevelId == 1 && x.APIObjectId == "-1");
-            int mainCategoryIoneRefId;
-            if (mainCategory == null)
-            {
-                string jsonText = JsonConvert.SerializeObject(
-                    new ItemCategory { LevelId = 1, APIObjectId = "-1", Name = mainCategoryName });
-                var response = await httpClient.PostAsync(
-                    new Uri("SaveItemCategory", UriKind.Relative),
-                    new StringContent(jsonText));
-                response.EnsureSuccessStatusCode();
-                string responseContentText = await response.Content.ReadAsStringAsync();
-                
-                if (ApiResponse.IsValid(responseContentText, out string errorMessage1))
-                {
-                    var responseResult = JsonConvert.DeserializeObject<ItemCategoryResponse>(responseContentText);
-                    mainCategoryIoneRefId = responseResult.Data.Id;
-                }
-                else
-                    throw new Exception($"Fehler beim Übertragen der Haupt-Kategorie\r\n{errorMessage1}");
-            }
-            else
-                mainCategoryIoneRefId = mainCategory.Id;
-
+            
             // Artikel für Webshop aus Kasse ermitteln
 
             var vposMainPlusForWebShop = vposMasterData.PLUs.Where(x => x.IsForWebShop).ToArray();
@@ -218,7 +178,7 @@ public class LegacyVectronArticleManager
                     if (allItems || IsChanged(currentItem, newOrChangedItem))
                     {
                         string jsonText = JsonConvert.SerializeObject(newOrChangedItem);
-                        var response = await httpClient.PostAsync(
+                        var response = await _iIoneClient.PostAsync(
                             new Uri("SaveItem", UriKind.Relative),
                             new StringContent(jsonText));
                         response.EnsureSuccessStatusCode();
@@ -285,7 +245,7 @@ public class LegacyVectronArticleManager
             if (newBaseItemLinkLayers.Count > 0)
             {
                 string linkLayersJsonText = JsonConvert.SerializeObject(newBaseItemLinkLayers);
-                var addLinkLayersResponse = await httpClient.PostAsync(
+                var addLinkLayersResponse = await _iIoneClient.PostAsync(
                     new Uri("SaveItemLinkLayer", UriKind.Relative),
                     new StringContent(linkLayersJsonText));
                 addLinkLayersResponse.EnsureSuccessStatusCode();
@@ -309,7 +269,7 @@ public class LegacyVectronArticleManager
                 {
                     item.ItemWebshopLink = false;
                     string jsonText = JsonConvert.SerializeObject(item);
-                    var response = await httpClient.PostAsync(
+                    var response = await _iIoneClient.PostAsync(
                         new Uri("SaveItem", UriKind.Relative),
                         new StringContent(jsonText));
                     response.EnsureSuccessStatusCode();

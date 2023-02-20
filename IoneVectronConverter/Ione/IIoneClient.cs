@@ -14,4 +14,5 @@ public interface IIoneClient
     Task<int> SaveCategoryAsync(ItemCategory category);
     ItemLinkLayerListResponse GetLinkLayersAsync();
     ItemListResponse GetItemsAsync();
+    Task<HttpResponseMessage> PostAsync(Uri uri, StringContent stringContent);
 }
