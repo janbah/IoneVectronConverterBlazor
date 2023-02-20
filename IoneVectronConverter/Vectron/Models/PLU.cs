@@ -1,6 +1,6 @@
 ﻿namespace IoneVectronConverter.Vectron.MasterData
 {
-    public class _PLU
+    public class PLU
     {
         public int PLUno { get; set; }
         public string Name1 { get; set; }
@@ -15,6 +15,6 @@
         public int MainGroupA { get; set; }
         public int MainGroupB { get; set; }
 
-        //public bool IsForWebShop => Attributes?.Length >= AppSettings.Default.AttributeNoForWebShop && Attributes.Substring(AppSettings.Default.AttributeNoForWebShop - 1,1) == "1";
+        public bool IsForWebShop => Attributes?.Length >= AppSettings.Default.AttributeNoForWebShop && Attributes.Substring(AppSettings.Default.AttributeNoForWebShop - 1,1) == "1";
     }
 }

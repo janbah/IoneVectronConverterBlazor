@@ -7,7 +7,12 @@ using Newtonsoft.Json;
 
 namespace IoneVectronConverter.Vectron
 {
-    public static class VPosCom
+    public interface IVPosCom
+    {
+        MasterDataResponse GetMasterData();
+    }
+
+    public class VPosCom : IVPosCom
     {
         public const string SendDelimiter = "\0";
 
@@ -44,7 +49,7 @@ namespace IoneVectronConverter.Vectron
             return responseBytes.ToArray();
         }
 
-        public static MasterDataResponse GetMasterData()
+        public MasterDataResponse GetMasterData()
         {
             Socket socket = GetVPosSocket();
             SendBase64String(ref socket, "{\"GetMasterData\":1}");
