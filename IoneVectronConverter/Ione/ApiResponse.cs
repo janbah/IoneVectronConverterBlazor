@@ -8,9 +8,15 @@ namespace IoneVectronConverter.Ione
         public string Message { get; set; }
         public static bool IsValid (string responseText, out string errorMessage)
         {
-            var responseResult = JsonConvert.DeserializeObject<ApiResponse>(responseText);
-            errorMessage = responseResult.Message;
-            return responseResult.StatusCode == 200;
+
+            errorMessage = "";
+            return true;
+            
+            //Todo: Validation 
+            
+            // var responseResult = JsonConvert.DeserializeObject<ApiResponse>(responseText);
+            // errorMessage = responseResult.Message;
+            // return responseResult.StatusCode == 200;
         }
     }
 }

@@ -1,7 +1,9 @@
 using System.Collections;
+using IoneVectronConverter.Common;
 using IoneVectronConverter.Ione;
 using IoneVectronConverter.Ione.Mapper;
 using IoneVectronConverter.Ione.Models;
+using IoneVectronConverter.Ione.Services;
 using Newtonsoft.Json;
 using Order2VPos.Core.IoneApi;
 using Order2VPos.Core.IoneApi.ItemCategories;
@@ -9,31 +11,31 @@ using Order2VPos.Core.IoneApi.Items;
 
 namespace IoneVectronConverter.Vectron.MasterData;
 
-public class LegacyVectronArticleManager 
+public class LegacyMasterdataManager 
 {
     
     
-    ItemLinkLayerListResponse itemLinkLayersListResponse; //= await GetAllItemLinkLayersAsync();
-    ItemListResponse itemListResponse; //= await GetAllItemsAsync();
-    private MasterDataResponse vposMasterData;
-    private readonly IIoneClient _iIoneClient;
-
+    private readonly ItemLinkLayerListResponse itemLinkLayersListResponse; //= await GetAllItemLinkLayersAsync();
+    private readonly ItemListResponse itemListResponse; //= await GetAllItemsAsync();
+    private readonly IConfiguration _configuration;
     
-    public LegacyVectronArticleManager(IIoneClient iIoneClient, IVPosCom vposCom, IHttpClientFactory httpClient)
+    private readonly MasterDataResponse vposMasterData;
+    private readonly IIoneClient _iIoneClient;
+    private readonly int _branchAdressId;
+
+
+    public LegacyMasterdataManager(IIoneClient iIoneClient, IMasterdataService masterdataService, IConfiguration configuration)
     {
         _iIoneClient = iIoneClient;
-        vposMasterData = vposCom.GetMasterData();
+        _configuration = configuration;
+        _branchAdressId = _configuration.GetValue<int>("Vectron:BranchAddressId");
+        vposMasterData = masterdataService.GetMasterdataResponse();
         itemLinkLayersListResponse = _iIoneClient.GetLinkLayersAsync();
         itemListResponse = _iIoneClient.GetItemsAsync();
     }
 
     public async Task SendPlus(bool allItems)
         {
-            
-            //CoreDbContext dbContext = CoreDbContext.GetContext();
-
-            // Hauptkategorie ermitteln bzw. übertragen
-            
             // Artikel für Webshop aus Kasse ermitteln
 
             var vposMainPlusForWebShop = vposMasterData.PLUs.Where(x => x.IsForWebShop).ToArray();
@@ -136,7 +138,7 @@ public class LegacyVectronArticleManager
                     if (i == 0 && isMain)
                     {
                         id = mappingArticle?.IoneRefIdMain ?? 0;
-                        itemCategoryId = getCatgoryId(); //dbContext.Categories.FirstOrDefault(x => x.VectronNo == vposPlu.MainGroupB)?.IoneRefId ?? 0;
+                        itemCategoryId = getCatgoryId(); 
                     }
                     else
                     {
@@ -147,13 +149,16 @@ public class LegacyVectronArticleManager
 
                     List<ItemPrice> itemPrices = new List<ItemPrice>();
 
-                    foreach (var priceListAssigment in AppSettings.Default.PriceListAssignmentList)
+                    var priceListAssignmentList = _configuration.GetSection("Vectron:PriceListAssignmentList").Get<PriceListAssignment[]>();
+                    
+                    foreach (var priceListAssigment in priceListAssignmentList)
                     {
                         ItemPrice itemPrice = new ItemPrice
                         {
-                            BasePriceWithTax = getPrices(),
-                            PriceListId = getPriceListId(),
+                            BasePriceWithTax =  getPrices(vposPlu, priceListAssigment),
+                            PriceListId = priceListAssigment.PriceListId,
                             PriceListType = 1,
+                            //Todo: control statement
                             TaxPercentage = vposMasterData.Taxes.FirstOrDefault(x => x.TaxNo == vposPlu.TaxNo)?.Rate.GetDecimalString().Trim() ?? "0"
                         };
 
@@ -169,7 +174,7 @@ public class LegacyVectronArticleManager
                         Name = GetName(vposPlu),
                         ItemCategoryId = itemCategoryId,
                         TaxPercentage = vposMasterData.Taxes.FirstOrDefault(x => x.TaxNo == vposPlu.TaxNo)?.Rate.GetDecimalString().Trim() ?? "0",
-                        BranchAddressIdList = new int[] { AppSettings.Default.BranchAddressId },
+                        BranchAddressIdList = new int[] { _branchAdressId },
                         ItemPriceList = itemPrices
                     };
 
@@ -223,14 +228,14 @@ public class LegacyVectronArticleManager
                         {
                             APIObjectId = $"{selPluNo}",
                             ItemID = mappingArticles.First(x => x.VectronPluNo == selPluNo).IoneRefIdCondiment,
-                            BranchAddressId = AppSettings.Default.BranchAddressId
+                            BranchAddressId = _branchAdressId
                         });
                 }
 
                 ItemLinkLayer linkLayer = new ItemLinkLayer
                 {
                     APIObjectId = $"{vposPlu.PLUno}",
-                    BranchAddressId = AppSettings.Default.BranchAddressId,
+                    BranchAddressId = _branchAdressId,
                     ItemID = mappingArticles.First(x => x.VectronPluNo == vposPlu.PLUno).IoneRefIdMain,
                     Name = selWin.Name,
                     ItemLinkLayerList = itemLinkLayerList.ToArray(),
@@ -280,13 +285,14 @@ public class LegacyVectronArticleManager
                     }
                 }
             }
-
+            // Todo: Write Log   
             //new LogWriter().WriteEntry($"Artikelstammdaten wurden erfolgreich zum Webshop übertragen!", System.Diagnostics.EventLogEntryType.Information, 200);
         }
 
             private bool IsChanged(Item currentItem, Item newOrChangedItem)
             {
-                throw new NotImplementedException();
+                //Todo: implement function
+                return true;
             }
 
             private int getPriceListId()
@@ -294,30 +300,34 @@ public class LegacyVectronArticleManager
                 throw new NotImplementedException();
             }
 
-            private string getPrices()
+            private string getPrices(PLU vposPlu, PriceListAssignment priceListAssignment)
             {
-                throw new NotImplementedException();
+                var prices = vposPlu.Prices;
+                var priceData = prices.Where(p => p.Level == priceListAssignment.VectronPriceLevel).FirstOrDefault();
+                var result = priceData.Price.GetDecimalString() ?? "0";
+                return result;
+
             }
 
             private string GetName(PLU vposPlu)
             {
-                throw new NotImplementedException();
+                return "test name";
             }
 
             private int getCatgoryId()
             {
-                throw new NotImplementedException();
+                return 1;
             }
     
 }
 
-public class AppSettings
-{
-    public class Default
-    {
-        public static int BranchAddressId { get; set; }
-        public static int AttributeNoForWebShop { get; set; }
-        public static IEnumerable PriceListAssignmentList { get; set; }
-    }
-}
+// public class AppSettings
+// {
+//     public class Default
+//     {
+//         public static int BranchAddressId { get; set; }
+//         public static int AttributeNoForWebShop { get; set; }
+//         public static IEnumerable PriceListAssignmentList { get; set; }
+//     }
+// }
 

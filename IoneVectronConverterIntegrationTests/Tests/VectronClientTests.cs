@@ -9,7 +9,7 @@ public class VectronClientTests
 {
     
     private readonly CustomWebApplicationFactory<Program> _webApplicationFactory;
-
+    
     public VectronClientTests()
     {
         _webApplicationFactory= new CustomWebApplicationFactory<Program>();

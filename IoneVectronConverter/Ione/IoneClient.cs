@@ -81,7 +81,22 @@ namespace IoneVectronConverter.Ione
             var result = await responseMessage.Content.ReadFromJsonAsync<ItemCategoryResponse>();
             return result.Data.Id;
         }
-        
+
+        public ItemLinkLayerListResponse GetLinkLayersAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ItemListResponse GetItemsAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<HttpResponseMessage> PostAsync(Uri uri, StringContent stringContent)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<int> GetMainCategoryId()
         {
                     

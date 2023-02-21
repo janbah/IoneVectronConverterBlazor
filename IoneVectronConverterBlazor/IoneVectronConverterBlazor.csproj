@@ -18,7 +18,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <InternalsVisibleTo Include="IoneVectronConverterTests" />
+        <InternalsVisibleTo Include="IoneVectronConverterUnitTests" />
         <InternalsVisibleTo Include="IoneVectronConverterIntegrationTests" />
         
     </ItemGroup>

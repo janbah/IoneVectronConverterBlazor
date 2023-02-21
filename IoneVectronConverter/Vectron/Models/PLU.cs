@@ -15,6 +15,7 @@
         public int MainGroupA { get; set; }
         public int MainGroupB { get; set; }
 
-        public bool IsForWebShop => Attributes?.Length >= AppSettings.Default.AttributeNoForWebShop && Attributes.Substring(AppSettings.Default.AttributeNoForWebShop - 1,1) == "1";
+        public bool IsForWebShop { get; set; }
+        //public bool IsForWebShop => Attributes?.Length >= AppSettings.Default.AttributeNoForWebShop && Attributes.Substring(AppSettings.Default.AttributeNoForWebShop - 1,1) == "1";
     }
 }
