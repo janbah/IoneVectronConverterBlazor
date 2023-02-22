@@ -25,6 +25,25 @@ public class IoneClientMock : Mock<IIoneClient>
     {
         Item item = new()
         {
+            Id = 1,
+            APIObjectId = "2",
+            TaxPercentage = "19",
+            ItemCategoryId = 1,
+            Name = "test item",
+            ItemPriceList = new List<ItemPrice>( )
+            {
+                new()
+                {
+                    PriceListId = 1,
+                    TaxPercentage = "19",
+                    PriceListType = 1,
+                    BasePriceWithTax = "10",
+                    PriceListTypeText = "common"
+                }
+            },
+            BasePriceWithTax = "20",
+            ItemWebshopLink = true,
+            BranchAddressIdList = new []{1}
         };
         
         ItemListResponse response = new()
