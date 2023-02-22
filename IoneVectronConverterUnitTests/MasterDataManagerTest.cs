@@ -19,10 +19,7 @@ public class MasterDataManagerTest
     public MasterDataManagerTest()
     {
         _configuration = getConfiguration();
-
     }
-
-
 
     [Fact]
     public void SendPlus_IsForWebshop_DataIsPosted()
@@ -30,17 +27,16 @@ public class MasterDataManagerTest
         Console.Write(Directory.GetCurrentDirectory());
         
         //Arrange
-        var masterDataRepositoryMock = new Mock<IMasterdataService>();
         var ioneClientMock = new IoneClientMock()
             .MockGetItems()
             .MockPostAsync();
 
-        MasterDataResponse masterdata = getMasterDataForMock();
-        masterDataRepositoryMock.Setup(s => s.GetMasterdataResponse()).Returns(masterdata);
+        var masterdataMock = new MasterdataServiceMock()
+            .GetMasterdataMock();
         
         var sendAllItems = false;
         
-        var uut = new LegacyMasterdataManager(ioneClientMock.Object, masterDataRepositoryMock.Object, _configuration);
+        var uut = new LegacyMasterdataManager(ioneClientMock.Object, masterdataMock.Object, _configuration);
 
         //Act
         uut.SendPlus(sendAllItems);
@@ -50,46 +46,7 @@ public class MasterDataManagerTest
         
     }
 
-    private MasterDataResponse getMasterDataForMock()
-    {
-        int[] selectWin = { };
-        PLU plu = new()
-        {
-            MainGroupB = 1,
-            IsForWebShop = true,
-            SelectWin = selectWin,
-            Prices = getPrices()
-        };
 
-        Tax tax = new()
-        {
-            TaxNo = 1,
-            Name = "common",
-            Rate = 19,
-        };
-        
-        
-        SelWin[] selWin = { };
-        
-        MasterDataResponse masterData = new()
-        {
-            PLUs = new []{plu},
-            Taxes = new[]{tax},
-            SelWins = selWin
-        };
-        return masterData;
-    }
-
-    private static PriceData[] getPrices()
-    {
-        return new PriceData[]{
-            new ()
-            {
-                Price = 11,
-                Level = 1
-            }
-        };
-    }
     
     private IConfigurationRoot getConfiguration()
     {
