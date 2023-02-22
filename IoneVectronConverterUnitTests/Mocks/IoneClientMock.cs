@@ -1,4 +1,5 @@
 using System.Net;
+using System.Net.Http.Json;
 using IoneVectronConverter.Ione;
 using Moq;
 using Newtonsoft.Json;
@@ -8,6 +9,7 @@ namespace IoneVectronConverterUnitTests.Mocks;
 
 public class IoneClientMock : Mock<IIoneClient>
 {
+    public Item SentItem { get; set; }
     public IoneClientMock MockGetItems()
     {
         Setup(x => x.GetItemsAsync()).Returns(getItemListResponse());
@@ -16,9 +18,16 @@ public class IoneClientMock : Mock<IIoneClient>
     
     public IoneClientMock MockPostAsync()
     {
-        Setup(c => c.PostAsync(It.IsAny<Uri>(), It.IsAny<StringContent>())).Returns(getSaveResponse());
+        string args ="";
+        Setup(c => c.PostAsync(It.IsAny<Uri>(), It.IsAny<StringContent>())).Returns(getSaveResponse()).Callback<Uri, StringContent>(
+            (uri, content) =>
+            {
+                SentItem = content.ReadFromJsonAsync<Item>().Result;
+            });
         return this;
     }
+
+   
     
     
     private ItemListResponse getItemListResponse()
