@@ -46,7 +46,7 @@ public class MasterDataManagerTest
         
     }    [Fact]
     
-    public void SendPlus_IsNotForWebshop_DataIsPosted()
+    public async Task SendPlus_IsNotForWebshop_DataIsPosted()
     {
         //Arrange
         var ioneClientMock = new IoneClientMock()
@@ -66,9 +66,11 @@ public class MasterDataManagerTest
 
         //Act
         uut.SendPlus(sendAllItems);
+        var sentItem = ioneClientMock.SentItem;
 
         //Assert
-        ioneClientMock.Verify(x=>x.PostAsync(It.IsAny<Uri>(), It.IsAny<StringContent>()), Times.Never);
+        ioneClientMock.Verify(x=>x.PostAsync(It.IsAny<Uri>(), It.IsAny<StringContent>()).Result, Times.Once);
+        Assert.True(sentItem.ItemWebshopLink is false);
         
     }
 
@@ -135,9 +137,11 @@ public class MasterDataManagerTest
     
     private IConfigurationRoot getConfiguration()
     {
+        string path = Path.Combine(Directory.GetCurrentDirectory(),"../../../../IoneVectronConverterUnitTests/Resources");
+        Console.WriteLine(path);
         return new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile(@"C:\Users\JanBahlmann\source\IoneVectronConverterBlazor\IoneVectronConverterUnitTests\Resources\appsettings.json")
+            .SetBasePath(path)
+            .AddJsonFile("appsettings.json")
             .Build();
     }
     
