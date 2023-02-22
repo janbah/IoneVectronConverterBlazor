@@ -56,11 +56,13 @@ public class LegacyMasterdataManager
 
             List<MappingArticle> mappingArticles = new List<MappingArticle>();
             List<Item> orphandItems = new List<Item>();
+            
             if (itemListResponse.Data != null)
             {
                 // Liste mit Artikeln füllen und zu deaktivierende Artikel für Webshop ermitteln
 
                 List<Item> apiItemsWithPluNo = new List<Item>();
+                
                 foreach (var currentApiItem in itemListResponse.Data)
                 {
                     var apiObjectIdIsDigit = int.TryParse(currentApiItem.APIObjectId, out int vectronPluNo);

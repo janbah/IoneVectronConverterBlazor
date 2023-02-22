@@ -19,68 +19,149 @@ public class MasterDataManagerTest
     public MasterDataManagerTest()
     {
         _configuration = getConfiguration();
-
     }
-
-
 
     [Fact]
     public void SendPlus_IsForWebshop_DataIsPosted()
     {
-        Console.Write(Directory.GetCurrentDirectory());
-        
         //Arrange
-        var masterDataRepositoryMock = new Mock<IMasterdataService>();
         var ioneClientMock = new IoneClientMock()
             .MockGetItems()
             .MockPostAsync();
 
-        MasterDataResponse masterdata = getMasterDataForMock();
-        masterDataRepositoryMock.Setup(s => s.GetMasterdataResponse()).Returns(masterdata);
+        var plus = getDefaultPLUs();
+        
+        var masterdataMock = new MasterdataServiceMock()
+            .GetMasterdataMock(plus);
         
         var sendAllItems = false;
         
-        var uut = new LegacyMasterdataManager(ioneClientMock.Object, masterDataRepositoryMock.Object, _configuration);
+        var uut = new LegacyMasterdataManager(ioneClientMock.Object, masterdataMock.Object, _configuration);
 
         //Act
         uut.SendPlus(sendAllItems);
 
         //Assert
-        ioneClientMock.Verify(x=>x.PostAsync(It.IsAny<Uri>(), It.IsAny<StringContent>()));
+        ioneClientMock.Verify(x=>x.PostAsync(It.IsAny<Uri>(), It.IsAny<StringContent>()),Times.Once);
+        
+    }    [Fact]
+    
+    public void SendPlus_IsNotForWebshop_DataIsPosted()
+    {
+        //Arrange
+        var ioneClientMock = new IoneClientMock()
+            .MockGetItems()
+            .MockPostAsync();
+        
+        var plus = getDefaultPLUs();
+        
+        plus[0].IsForWebShop = false;
+        
+        var masterdataMock = new MasterdataServiceMock()
+            .GetMasterdataMock(plus);
+        
+        var sendAllItems = false;
+        
+        var uut = new LegacyMasterdataManager(ioneClientMock.Object, masterdataMock.Object, _configuration);
+
+        //Act
+        uut.SendPlus(sendAllItems);
+
+        //Assert
+        ioneClientMock.Verify(x=>x.PostAsync(It.IsAny<Uri>(), It.IsAny<StringContent>()), Times.Never);
         
     }
 
-    private MasterDataResponse getMasterDataForMock()
+    [Fact]
+    public void SendPlus_SelWinMatch_DataIsPostedAsCondiment()
     {
-        int[] selectWin = { };
+        //Arrange
+        var ioneClientMock = new IoneClientMock()
+            .MockGetItems()
+            .MockPostAsync();
+        
+        var plus = getDefaultPLUs();
+        
+        plus[0].IsForWebShop = true;
+        plus[0].SelectWin[0] = 1;
+        
+        var masterdataMock = new MasterdataServiceMock()
+            .GetMasterdataMock(plus);
+        
+        var sendAllItems = false;
+        
+        var uut = new LegacyMasterdataManager(ioneClientMock.Object, masterdataMock.Object, _configuration);
+
+        //Act
+        uut.SendPlus(sendAllItems);
+
+        //Assert
+        ioneClientMock.Verify(x=>x.PostAsync(It.IsAny<Uri>(), It.IsAny<StringContent>()), Times.Exactly(3));
+        
+    }
+    
+    [Fact]
+    public void SendPlus_PluIsAlreadyInIone_DontEvenKnow()
+    {
+        //Arrange
+        var ioneClientMock = new IoneClientMock()
+            .MockGetItems()
+            .MockPostAsync();
+        
+        var plus = getDefaultPLUs();
+        
+        plus[0].IsForWebShop = true;
+        plus[0].SelectWin[0] = 1;
+        
+        var masterdataMock = new MasterdataServiceMock()
+            .GetMasterdataMock(plus);
+        
+        var sendAllItems = false;
+        
+        var uut = new LegacyMasterdataManager(ioneClientMock.Object, masterdataMock.Object, _configuration);
+
+        //Act
+        uut.SendPlus(sendAllItems);
+
+        //Assert
+        ioneClientMock.Verify(x=>x.PostAsync(It.IsAny<Uri>(), It.IsAny<StringContent>()), Times.Exactly(3));
+        
+    }
+
+
+    
+    
+    
+    private IConfigurationRoot getConfiguration()
+    {
+        return new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile(@"C:\Users\JanBahlmann\source\IoneVectronConverterBlazor\IoneVectronConverterUnitTests\Resources\appsettings.json")
+            .Build();
+    }
+    
+    private PLU[] getDefaultPLUs()
+    {
         PLU plu = new()
         {
-            MainGroupB = 1,
-            IsForWebShop = true,
-            SelectWin = selectWin,
-            Prices = getPrices()
-        };
-
-        Tax tax = new()
-        {
             TaxNo = 1,
-            Name = "common",
-            Rate = 19,
+            IsForWebShop = true,
+            SelectWin = new[] { 0 },
+            Prices = getDefaultPrices(),
+            MainGroupB = 1,
+            Name1 = "",
+            Name2 = "",
+            Name3 = "",
+            Attributes = "",
+            DepartmentNo = 1,
+            SaleAllowed = true,
+            PLUno = 1
         };
-        
-        
-        SelWin[] selWin = { };
-        
-        MasterDataResponse masterData = new()
-        {
-            PLUs = new []{plu},
-            Taxes = new[]{tax},
-            SelWins = selWin
-        };
-        return masterData;
-    }
 
-    private static PriceData[] getPrices()
+        return new[] { plu };
+    }
+    
+    private static PriceData[] getDefaultPrices()
     {
         return new PriceData[]{
             new ()
@@ -89,13 +170,5 @@ public class MasterDataManagerTest
                 Level = 1
             }
         };
-    }
-    
-    private IConfigurationRoot getConfiguration()
-    {
-        return new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile(@"C:\Users\JanBahlmann\source\IoneVectronConverterBlazor\IoneVectronConverterUnitTests\Resources\appsettings.json")
-            .Build();
     }
 }
