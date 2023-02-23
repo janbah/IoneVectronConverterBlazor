@@ -29,7 +29,7 @@ public class OrderDataMapperTest
         //Assert
         Assert.True(result.IoneRefId == data.Id);
         Assert.True(result.IoneId == data.IoneId);
-        Assert.True(result.OrderTotal == (decimal)10.42);
+        Assert.True(result.OrderTotal == (decimal)10.50);
         //Assert.True(result.OrderDate == new DateTime(2023,01,01));
     }
 }

@@ -1,0 +1,27 @@
+using IoneVectronConverter.Ione.Datastoring;
+using IoneVectronConverter.Ione.Models;
+
+namespace IoneVectronConverter.Ione.Services;
+
+public class DepartmentRepository : IRepository<Department>
+{
+    public IQueryable<Department> Load()
+    {
+        throw new NotImplementedException();
+    }
+
+    public long Insert(Department entity)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Update(Department entity)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Delete(int id)
+    {
+        throw new NotImplementedException();
+    }
+}
