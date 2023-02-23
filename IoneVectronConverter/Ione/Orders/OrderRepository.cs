@@ -92,7 +92,6 @@ public class OrderRepository : IRepository<Order>
 
     private string loadConnectionstring()
     {
-        Console.Write(Directory.GetCurrentDirectory());
         return _configuration.GetConnectionString("Default");
     }
     

@@ -17,7 +17,9 @@ public class MasterdataReceiverTests
 
         vectronClientMock.Setup(v => v.GetMasterData()).Returns(masterDataResponse);
 
-        IPluService pluService = new PluService();
+        PluRepository pluRepository = new();
+        
+        IPluService pluService = new PluService(pluRepository);
         IDepartmentService departmentService = new DepartmentService();
         ITaxService taxService = new TaxService();
         ISelWinService selWinService = new SelWinService();
@@ -26,7 +28,10 @@ public class MasterdataReceiverTests
         
         //Act
         sut.ReceiveAndStoreMasterdata();
-        
+        var result = pluService.GetAll();
+
+
         //Assert
+        Assert.True(result.Any());
     }
 }
