@@ -10,8 +10,7 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
     {
         builder.ConfigureAppConfiguration((context, config) =>
         {
-            Console.Write(Directory.GetCurrentDirectory());
-            config.AddJsonFile(@"C:\Users\JanBahlmann\source\IoneVectronConverterBlazor\IoneVectronConverterIntegrationTests\Resources\appsettings.json");
+            config.AddJsonFile(@"../../../../IoneVectronConverterUnitTests/Resources");
         });
     }
 }
