@@ -1,6 +1,7 @@
 using Dapper;
 using Dapper.Contrib.Extensions;
 using IoneVectronConverter.Ione.Models;
+using IoneVectronConverter.Vectron.MasterData;
 using Microsoft.Data.Sqlite;
 
 namespace IoneVectronConverter.Ione.Datastoring;
@@ -70,7 +71,7 @@ public class OrderRepository : IRepository<Order>
         using (var connection = new SqliteConnection(con))
         {
             var id = connection.Insert<Order>(entity);
-            return id;
+            return Convert.ToInt64(id);
         }
     }
 

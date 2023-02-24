@@ -1,4 +1,6 @@
-﻿using Dapper.Contrib.Extensions;
+﻿
+using Dapper;
+using Dapper.Contrib.Extensions;
 
 namespace IoneVectronConverter.Ione.Models
 {

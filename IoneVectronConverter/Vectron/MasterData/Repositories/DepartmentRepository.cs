@@ -1,5 +1,6 @@
 using IoneVectronConverter.Ione.Datastoring;
-using IoneVectronConverter.Ione.Models;
+using IoneVectronConverter.Vectron.MasterData;
+using Department = IoneVectronConverter.Ione.Models.Department;
 
 namespace IoneVectronConverter.Ione.Services;
 

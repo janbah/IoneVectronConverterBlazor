@@ -13,8 +13,10 @@ public class PluService : IPluService
 
     public void StorePluIfNew(IEnumerable<PLU> plus)
     {
-        throw new NotImplementedException();
-
+        foreach (var plu in plus)
+        {
+            _repository.Insert(plu);
+        }
     }
 
     public IQueryable<PLU> GetAll()
