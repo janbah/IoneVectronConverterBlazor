@@ -26,5 +26,7 @@ public class MasterdataReceiver
         var masterdataResponse = _vectronClient.GetMasterData();
         
         _pluService.StorePluIfNew(masterdataResponse.PLUs);
+        _taxService.StoreTaxesIfNew(masterdataResponse.Taxes);
+        _selWinService.StoreSelWinsIfNew(masterdataResponse.SelWins);
     }
 }
