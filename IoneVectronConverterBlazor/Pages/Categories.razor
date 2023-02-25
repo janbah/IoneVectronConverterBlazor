@@ -1,0 +1,52 @@
+@page "/Masterdata"
+@using IoneVectronConverter.Ione.Services
+@using IoneVectronConverter.Ione.Models
+@using Order2VPos.Core.IoneApi.ItemCategories
+@inject ICategoryService categoryService
+
+      <MudTable Items="@categories" Hover="true" Breakpoint="Breakpoint.Sm">
+        <HeaderContent>
+          <MudTh>Datum</MudTh>
+          <MudTh>Zeit</MudTh>
+          <MudTh>Projekt</MudTh>
+          <MudTh>Kategorie</MudTh>
+          <MudTh>Kommentar</MudTh>
+          <MudTh></MudTh>
+          <MudTh></MudTh>
+        </HeaderContent>
+        <RowTemplate>
+          <MudTd DataLabel="Name">@context.Name</MudTd>
+          <MudTd DataLabel="Api Object">@context.APIObjectId</MudTd>
+          <MudTd DataLabel="Branchadressen">@context.Id</MudTd>
+          <MudTd DataLabel="Level">@context.Category.Name</MudTd>
+          <MudTd DataLabel="Status">@context.Comment</MudTd>
+          <MudTd DataLabel="Webshoplink">@context.Comment</MudTd>
+          <MudTd DataLabel="Parent">@context.Comment</MudTd>
+          <MudTd>
+            <MudIconButton Icon="@Icons.Material.Filled.Edit" Size="Size.Small" OnClick="() => EditEntry(context)"></MudIconButton>
+          </MudTd>
+          <MudTd>
+            <MudIconButton Icon="@Icons.Material.Filled.Delete" Size="Size.Small" OnClick="() => DeleteEntry(context.Id)"></MudIconButton>
+          </MudTd>
+        </RowTemplate>
+      </MudTable>
+
+@code {
+  IEnumerable<ItemCategory> categories;
+  
+  protected override async Task OnInitializedAsync()
+  {
+    categories = categoryService.GetAll();
+  }
+
+  private Task EditEntry(ItemCategory context)
+  {
+    throw new NotImplementedException();
+  }
+
+  private Task DeleteEntry(int contextId)
+  {
+    throw new NotImplementedException();
+  }
+
+}

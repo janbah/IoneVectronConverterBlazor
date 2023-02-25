@@ -18,6 +18,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddMudServices();
 
+builder.Services.AddTransient<ISettingService, SettingService>();
 builder.Services.AddTransient<Settings>();
 
 builder.Services.AddSingleton<IIoneClient, IoneClient>();
@@ -34,15 +35,8 @@ builder.Services.AddTransient<ReceiptMapper>();
 
 builder.Services.AddTransient<IRepository<Order>, OrderRepository>();
 
-//builder.Services.AddHttpClient("ioneClient",client =>
 builder.Services.AddHttpClient<IIoneClient, IoneClient>("ioneClient",client =>
 {
-    // client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
-    //     "Bearer",
-    //     AppSettings.Default.IoneApiToken);
-    // client.DefaultRequestHeaders.Add("Identifier", AppSettings.Default.IoneApiIdentifier);
-    // client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
     client.BaseAddress = new Uri(builder.Configuration["ioneClient"]);
 });
 
