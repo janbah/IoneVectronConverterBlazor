@@ -15,8 +15,18 @@ public class PluService : IPluService
     {
         foreach (var plu in plus)
         {
+            if (pluExistsAlready(plu))
+            {
+                break;
+            }
             _repository.Insert(plu);
         }
+    }
+
+    private bool pluExistsAlready(PLU plu)
+    {
+        var result = GetAll().Any(p => p.PLUno == plu.PLUno);
+        return result;
     }
 
     public IQueryable<PLU> GetAll()

@@ -14,8 +14,18 @@ public class TaxService : ITaxService
     {
         foreach (var tax in taxes)
         {
+            if (taxExistsAlready(tax))
+            {
+                break;
+            }
             _taxRepository.Insert(tax);
         }
+    }
+
+    private bool taxExistsAlready(Tax tax)
+    {
+        var result = GetAll().Any(t => t.TaxNo == tax.TaxNo);
+        return result;
     }
 
     public IEnumerable<Tax> GetAll()
