@@ -1,27 +1,28 @@
-@page "/Masterdata"
+@page "/"
 @using IoneVectronConverter.Ione.Services
 @using IoneVectronConverter.Ione.Models
-@using Order2VPos.Core.IoneApi.ItemCategories
 @inject ICategoryService categoryService
 
+
+
+<MudGrid>
+
+  <MudItem xs="8">
+    <MudText Typo="Typo.h4">Ione Api</MudText>
+    <MudPaper Class="pa-4 mt-4">
+      
       <MudTable Items="@categories" Hover="true" Breakpoint="Breakpoint.Sm">
         <HeaderContent>
-          <MudTh>Datum</MudTh>
-          <MudTh>Zeit</MudTh>
-          <MudTh>Projekt</MudTh>
           <MudTh>Kategorie</MudTh>
-          <MudTh>Kommentar</MudTh>
+          <MudTh>Api Nummer</MudTh>
+          <MudTh>Ione Nummer</MudTh>
           <MudTh></MudTh>
           <MudTh></MudTh>
         </HeaderContent>
         <RowTemplate>
           <MudTd DataLabel="Name">@context.Name</MudTd>
-          <MudTd DataLabel="Api Object">@context.APIObjectId</MudTd>
-          <MudTd DataLabel="Branchadressen">@context.Id</MudTd>
-          <MudTd DataLabel="Level">@context.Category.Name</MudTd>
-          <MudTd DataLabel="Status">@context.Comment</MudTd>
-          <MudTd DataLabel="Webshoplink">@context.Comment</MudTd>
-          <MudTd DataLabel="Parent">@context.Comment</MudTd>
+          <MudTd DataLabel="Api Object">@context.VectronNo</MudTd>
+          <MudTd DataLabel="Branchadressen">@context.IoneRefId</MudTd>
           <MudTd>
             <MudIconButton Icon="@Icons.Material.Filled.Edit" Size="Size.Small" OnClick="() => EditEntry(context)"></MudIconButton>
           </MudTd>
@@ -30,23 +31,81 @@
           </MudTd>
         </RowTemplate>
       </MudTable>
+    </MudPaper>
+    <MudPaper Class="pa-4 mt-4">
+      <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Text" Class="ml-auto" @onclick="() => CreateEntry()">Kategorie anlegen</MudButton>
+    </MudPaper>
+  </MudItem>
+  <MudItem xs="8">
+    
+    <MudPaper Class="pa-4 mt-4">
+
+      <MudTextField T="string" Label="Name" @bind-Value="category.Name"></MudTextField>
+      <MudTextField T="int" Label="Ione Nummer" @bind-Value="category.IoneRefId"></MudTextField>
+      <MudTextField T="int" Label="Vectron Nummer" @bind-Value="category.VectronNo"></MudTextField>
+    </MudPaper>
+    <MudPaper Class="pa-4 mt-4">
+      <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Class="ml-auto" @onclick="() => SaveEntry()">Speichern</MudButton>
+    </MudPaper>
+  </MudItem>
+</MudGrid>
+
 
 @code {
-  IEnumerable<ItemCategory> categories;
+  IEnumerable<Category> categories;
+  bool editMode;
   
+  Category category = getDefauCategory();
+
+
+
   protected override async Task OnInitializedAsync()
   {
     categories = categoryService.GetAll();
+    editMode = false;  
   }
 
-  private Task EditEntry(ItemCategory context)
+  private async Task EditEntry(Category categoryToEdit)
   {
-    throw new NotImplementedException();
+    category = categoryToEdit;
+    await OnInitializedAsync();
+    editMode = true;
   }
 
-  private Task DeleteEntry(int contextId)
+  private async Task DeleteEntry(int id)
   {
-    throw new NotImplementedException();
+    categoryService.Delete(id);
+    await OnInitializedAsync();
+  }
+
+  private async Task CreateEntry()
+  {
+
+  }
+
+  private async Task SaveEntry()
+  {
+    var newCategory = category;
+    if (editMode)
+    {
+      categoryService.Update(category);
+    }
+    else
+    {
+      categoryService.Save(newCategory);
+    }
+    category = getDefauCategory();
+    await OnInitializedAsync();
+  }
+  
+  private static Category getDefauCategory()
+  {
+    return new()
+    {
+      Name = "",
+      VectronNo = 0 ,
+      IoneRefId = 0,
+    };
   }
 
 }

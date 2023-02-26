@@ -1,6 +1,7 @@
 using IoneVectronConverter.Common;
 using IoneVectronConverter.Common.Worker;
 using IoneVectronConverter.Ione;
+using IoneVectronConverter.Ione.Categories;
 using IoneVectronConverter.Ione.Datastoring;
 using IoneVectronConverter.Ione.Mapper;
 using IoneVectronConverter.Ione.Models;
@@ -34,6 +35,9 @@ builder.Services.AddTransient<IOrderService, OrderService>();
 builder.Services.AddTransient<ReceiptMapper>();
 
 builder.Services.AddTransient<IRepository<Order>, OrderRepository>();
+builder.Services.AddTransient<IRepository<Category>, CategoryRepository>();
+builder.Services.AddTransient<ICategoryService, CategoryService>();
+
 
 builder.Services.AddHttpClient<IIoneClient, IoneClient>("ioneClient",client =>
 {

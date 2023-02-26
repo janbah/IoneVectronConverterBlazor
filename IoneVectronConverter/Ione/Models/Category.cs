@@ -1,7 +1,11 @@
-﻿namespace IoneVectronConverter.Ione.Models
+﻿using Dapper.Contrib.Extensions;
+
+namespace IoneVectronConverter.Ione.Models
 {
+    [Table("category")]
     public class Category
     {
+        [Key]
         public int Id { get; set; }
         public string Name { get; set; }
         
