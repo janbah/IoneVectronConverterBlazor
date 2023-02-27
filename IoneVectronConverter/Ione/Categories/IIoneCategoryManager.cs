@@ -5,7 +5,5 @@ namespace IoneVectronConverter.Ione.Categories;
 
 public interface IIoneCategoryManager
 {
-    Task CreateMainCategoryIfNotExists();
-    void SendCategories(IEnumerable<Category> categories);
     void SynchronizeArticlesFromDatabaseToIoneClient();
 }

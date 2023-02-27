@@ -4,12 +4,12 @@ using Order2VPos.Core.IoneApi.ItemCategories;
 
 namespace IoneVectronConverter.Ione.Categories;
 
-public class CategoryManager
+public class _CategoryManager
 {
     private readonly IIoneClient _iIoneClient;
     private readonly IConfiguration _iConfiguration;
 
-    public CategoryManager(IIoneClient iIoneClient, IConfiguration iConfiguration)
+    public _CategoryManager(IIoneClient iIoneClient, IConfiguration iConfiguration)
     {
         _iIoneClient = iIoneClient;
         _iConfiguration = iConfiguration;

@@ -33,6 +33,11 @@ public class MasterdataManager
         _priceListAssignmentList =  _configuration.GetSection("Vectron:PriceListAssignmentList").Get<PriceListAssignment[]>();
     }
 
+    public async Task SyncCategories()
+    {
+        
+    }
+    
     public async Task SendPlus(bool allItems)
     {
 

@@ -23,7 +23,54 @@ public class IoneCategoryManager : IIoneCategoryManager
         _categoryMapper = categoryMapper;
     }
 
-    public async Task CreateMainCategoryIfNotExists()
+
+    public void SynchronizeArticlesFromDatabaseToIoneClient()
+    {
+        
+        //Todo: Write Tests
+        var categories = getStoredCategories();
+
+        var categoriesNotEvenSend = filterCategories(categories);
+
+        sendCategories(categoriesNotEvenSend);
+    }
+    
+    private IEnumerable<Category> getStoredCategories()
+    {
+        return _categoryService.GetAll();
+    }
+
+    private IEnumerable<Category> filterCategories(IEnumerable<Category> categories)
+    {
+        return categories.Where(c => c.IsSent == false);
+    }
+    
+    private void sendCategories(IEnumerable<Category> categories)
+    {
+        foreach (var category in categories)
+        {
+            ItemCategory itemCategory = _categoryMapper.ToItemCategory(category);
+            _iIoneClient.SaveCategoryAsync(itemCategory);
+            category.IsSent = true;
+            _categoryService.Update(category);
+        }
+    }
+    
+  
+    
+    private void storeCategoryToDb(ItemCategory itemCategory)
+    {
+        //Todo: what is stored?
+        
+        _categoryService.Save(itemCategory);
+    }
+
+    private async Task<int> sendCategoryToIone(ItemCategory itemCategory)
+    {
+        return await _iIoneClient.SaveCategoryAsync(itemCategory);
+    }
+    
+    private async Task createMainCategoryIfNotExists()
     {
         if (_categoryService.ExistsMainCategory() is false)
         {
@@ -34,44 +81,6 @@ public class IoneCategoryManager : IIoneCategoryManager
         var mainCategoryId = await sendCategoryToIone(itemCategory);
         itemCategory.Id = mainCategoryId;
         storeCategoryToDb(itemCategory);
-    }
-
-    public void SendCategories(IEnumerable<Category> categories)
-    {
-        foreach (var category in categories)
-        {
-            ItemCategory itemCategory = _categoryMapper.ToItemCategory(category);
-            _iIoneClient.SaveCategoryAsync(itemCategory);
-        }
-    }
-
-    public void SynchronizeArticlesFromDatabaseToIoneClient()
-    {
-        var categories = getStoredCategories();
-
-        var categoriesNotSend = filterCategories(categories);
-
-        SendCategories(categoriesNotSend);
-    }
-
-    private IEnumerable<Category> filterCategories(IEnumerable<Category> categories)
-    {
-        return categories.Where(c => c.IsSent == false);
-    }
-    
-    private IEnumerable<Category> getStoredCategories()
-    {
-        return _categoryService.GetAll();
-    }
-    
-    private void storeCategoryToDb(ItemCategory itemCategory)
-    {
-        _categoryService.Save(itemCategory);
-    }
-
-    private async Task<int> sendCategoryToIone(ItemCategory itemCategory)
-    {
-        return await _iIoneClient.SaveCategoryAsync(itemCategory);
     }
 
     private ItemCategory createMainCategory()
