@@ -120,7 +120,6 @@ public class MasterdataReceiverTests : IDisposable
         Assert.True(result.First().Name == "testSelWin1");
         Assert.True(result.First().SelectCount == 1);
         Assert.True(result.First().PLUs.Length == 3);
-    
     }
 
 }
