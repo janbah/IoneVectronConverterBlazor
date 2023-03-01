@@ -1,4 +1,5 @@
 using IoneVectronConverter.Ione.Datastoring;
+using IoneVectronConverter.Ione.Mapper;
 using IoneVectronConverter.Ione.Models;
 using IoneVectronConverter.Ione.Services;
 using Order2VPos.Core.IoneApi.ItemCategories;
@@ -16,12 +17,15 @@ public class CategoryService : ICategoryService
 
     public bool ExistsMainCategory()
     {
-        throw new NotImplementedException();
+        var result = GetAll().Where(c => c.IsMain).Any();
+        return result;
     }
 
     public void Save(ItemCategory itemCategory)
     {
-        throw new NotImplementedException();
+        CategoryMapper mapper = new();
+        Category category = mapper.ToCategory(itemCategory);
+        Save(category);
     }
 
     public long Save(Category category)

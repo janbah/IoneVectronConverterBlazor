@@ -13,6 +13,7 @@ namespace IoneVectronConverter.Ione.Models
         public int IoneRefId { get; set; }
         
         public bool IsSent { get; set; }
+        public bool IsMain { get; set; }
 
 
     }

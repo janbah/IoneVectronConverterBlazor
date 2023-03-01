@@ -14,4 +14,16 @@ public class CategoryMapper
             
         };
     }
+
+    public Category ToCategory(ItemCategory itemCategory)
+    {
+        Category category = new()
+        {
+            Name = itemCategory.Name,
+            VectronNo = Convert.ToInt32(itemCategory.APIObjectId),
+            IoneRefId = itemCategory.Id,
+            IsMain = itemCategory.IsMain
+        };
+        return category;
+    }
 }

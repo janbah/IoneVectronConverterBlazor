@@ -26,8 +26,10 @@ public class IoneCategoryManager : IIoneCategoryManager
 
     public void SynchronizeArticlesFromDatabaseToIoneClient()
     {
-        
         //Todo: Write Tests
+        
+        createMainCategoryIfNotExists();
+        
         var categories = getStoredCategories();
 
         var categoriesNotEvenSend = filterCategories(categories);
@@ -72,7 +74,7 @@ public class IoneCategoryManager : IIoneCategoryManager
     
     private async Task createMainCategoryIfNotExists()
     {
-        if (_categoryService.ExistsMainCategory() is false)
+        if (_categoryService.ExistsMainCategory())
         {
             return;
         }
@@ -92,7 +94,8 @@ public class IoneCategoryManager : IIoneCategoryManager
         {
             LevelId = 1,
             APIObjectId = "-1",
-            Name = mainCategoryName
+            Name = mainCategoryName,
+            IsMain = true
         };
     }
 }

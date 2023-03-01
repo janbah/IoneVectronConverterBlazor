@@ -19,6 +19,8 @@ namespace Order2VPos.Core.IoneApi.ItemCategories
         public int ItemCategoryWebshopLink { get; set; } = 1;
 
         public int? ParentId { get; set; }
+        
+        public bool IsMain { get; set; }
 
 
     }

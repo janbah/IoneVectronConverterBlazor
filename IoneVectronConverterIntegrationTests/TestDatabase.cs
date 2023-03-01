@@ -13,13 +13,14 @@ public class TestDatabase
         var connectionString = configuration.GetConnectionString("Default");
 
         string sql = 
-            @"drop table tax;
-            drop table sel_win_plu_name;
-            drop table select_win;
-            drop table sel_win;
-            drop table price_data;
-            drop table plu;
-            drop table ione_order;
+            @"drop table if exists tax;
+            drop table if exists sel_win_plu_name;
+            drop table if exists select_win;
+            drop table if exists sel_win;
+            drop table if exists price_data;
+            drop table if exists plu;
+            drop table if exists ione_order;
+            drop table if exists category;
 
 
 
@@ -114,6 +115,19 @@ public class TestDatabase
                 rate  text    not null,
                 name  text
             );
+
+            create table main.category
+            (
+                Id        integer
+                    constraint category_pk
+                        primary key,
+                Name      text,
+                VectronNo integer,
+                IoneRefId integer,
+                isSent    integer,
+                isMain    integer
+            );
+
 
             ";
 
