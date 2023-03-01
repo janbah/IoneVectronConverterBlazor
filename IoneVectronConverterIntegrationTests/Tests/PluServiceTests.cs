@@ -6,17 +6,25 @@ using Microsoft.Extensions.Configuration;
 
 namespace IoneVectronConverterTests;
 
-public class PluServiceTests
+[Collection("database")]
+public class PluServiceTests : IDisposable
 {
+    private IConfiguration configuration;
+    
+    public PluServiceTests()
+    {
+        TestDatabase testDatabase = new TestDatabase();
+        configuration = testDatabase.GetConfiguration();
+        testDatabase.ResetDatabase();
+    }
+    
+    
+    
     [Fact]
-    public void StorePluIfNew_SecondPluWithSamePluNo_OluIsNotStored()
+    public void StorePluIfNew_SecondPluWithSamePluNo_PluIsNotStored()
     {
         //Arrange
-        cleanTable("price_data");
-        cleanTable("select_win");
-        cleanTable("plu");    
-        
-        var configuration = getConfiguration();
+  
         var pluRepository = new PluRepository(configuration);
         IPluService pluService = new PluService(pluRepository);
         
@@ -34,19 +42,13 @@ public class PluServiceTests
         //Assert
         var result = pluService.GetAll();
         Assert.True(result.Count()==1);
-        
-        cleanTable("price_data");
-        cleanTable("select_win");
-        cleanTable("plu");    
+
     }
     
     [Fact]
     public void StorePluIfNew_SecondPluWithDifferentPluNo_PluIsStored()
     {
         //Arrange
-        cleanTable("price_data");
-        cleanTable("select_win");
-        cleanTable("plu");    
         
         var configuration = getConfiguration();
         var pluRepository = new PluRepository(configuration);
@@ -66,10 +68,10 @@ public class PluServiceTests
         //Assert
         var result = pluService.GetAll();
         Assert.True(result.Count()== 2);
-        
-        cleanTable("price_data");
-        cleanTable("select_win");
-        cleanTable("plu");    }
+
+    }
+    
+    
 
     private PLU[] createTestPlus()
     {
@@ -171,4 +173,9 @@ public class PluServiceTests
             .Build();
     }
 
+    public void Dispose()
+    {
+        TestDatabase testDatabase = new TestDatabase();
+        testDatabase.ResetDatabase();
+    }
 }
