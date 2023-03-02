@@ -32,7 +32,7 @@ public class IoneCategoryManager : IIoneCategoryManager
         
         var categories = getStoredCategories();
 
-        var categoriesNotEvenSend = filterCategories(categories);
+        var categoriesNotEvenSend = getStoredCategories().Where(c => c.IsSent is false).ToList();
 
         sendCategories(categoriesNotEvenSend);
     }
