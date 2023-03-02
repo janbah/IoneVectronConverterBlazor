@@ -323,13 +323,15 @@ public class MasterdataManager
 
     private PLU[] getMainPlus()
     {
-        return _pluService.GetAll().Where(x => x.IsForWebShop).ToArray();
+        var plus = _pluService.GetAll();
+        return plus.Where(x => x.IsForWebShop).ToArray();
     }
 
     private PLU[] getCondimentPlus(PLU[] vposMainPlusForWebShop)
     {
         PLU[] plus = _pluService.GetAll().ToArray();
         SelWin[] selWins = _selWinService.GetAll().ToArray();
+        
         return plus
             .Where(
                 x => vposMainPlusForWebShop.Any(

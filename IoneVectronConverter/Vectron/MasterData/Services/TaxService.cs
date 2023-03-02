@@ -9,6 +9,9 @@ public class TaxService : ITaxService
     {
         _taxRepository = taxRepository;
     }
+    public TaxService()
+    {
+    }
 
     public void StoreTaxesIfNew(IEnumerable<Tax> taxes)
     {

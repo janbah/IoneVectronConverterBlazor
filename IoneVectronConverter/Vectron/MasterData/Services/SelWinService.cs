@@ -10,6 +10,9 @@ public class SelWinService : ISelWinService
     {
         _repository = selWinRepository;
     }
+    public SelWinService()
+    {
+    }
 
     public void StoreSelWinsIfNew(IEnumerable<SelWin> selWins)
     {

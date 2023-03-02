@@ -31,9 +31,9 @@ public class MasterDataManagerTest
 
         var plus = getDefaultPLUs();
 
-        var pluServiceMock = new PluServiceMock(plus);
-        var taxServiceMock = new Mock<TaxService>();
-        var selWinServiceMock = new Mock<SelWinService>();
+        var pluServiceMock = new PluServiceMock().GetAllMock(plus);
+        var taxServiceMock = new TaxServiceMock().GetAllMock();
+        var selWinServiceMock = new SelWinServiceMock().GetAllMock();
         
         var sendAllItems = false;
         
@@ -58,9 +58,9 @@ public class MasterDataManagerTest
         
         plus[0].IsForWebShop = false;
         
-        var pluServiceMock = new PluServiceMock(plus);
-        var taxServiceMock = new Mock<TaxService>();
-        var selWinServiceMock = new Mock<SelWinService>();
+        var pluServiceMock = new PluServiceMock().GetAllMock(plus);
+        var taxServiceMock = new TaxServiceMock().GetAllMock();
+        var selWinServiceMock = new SelWinServiceMock().GetAllMock();
         
         var sendAllItems = false;
         
@@ -90,9 +90,9 @@ public class MasterDataManagerTest
         plus[0].IsForWebShop = true;
         plus[0].SelectWin[0] = 1;
         
-        var pluServiceMock = new PluServiceMock(plus);
-        var taxServiceMock = new Mock<TaxService>();
-        var selWinServiceMock = new Mock<SelWinService>();
+        var pluServiceMock = new PluServiceMock().GetAllMock(plus);
+        var taxServiceMock = new TaxServiceMock().GetAllMock();
+        var selWinServiceMock = new SelWinServiceMock().GetAllMock();
         
         var sendAllItems = false;
         
@@ -132,9 +132,9 @@ public class MasterDataManagerTest
         plus[0].SelectWin[0] = 1;
         plus[0].PLUno = 2;
         
-        var pluServiceMock = new PluServiceMock(plus);
-        var taxServiceMock = new Mock<TaxService>();
-        var selWinServiceMock = new Mock<SelWinService>();
+        var pluServiceMock = new PluServiceMock().GetAllMock(plus);
+        var taxServiceMock = new TaxServiceMock().GetAllMock();
+        var selWinServiceMock = new SelWinServiceMock().GetAllMock();
         
         var sendAllItems = false;
         
@@ -166,9 +166,9 @@ public class MasterDataManagerTest
         plus[0].SelectWin[0] = 1;
         plus[0].PLUno = 3;
         
-        var pluServiceMock = new PluServiceMock(plus);
-        var taxServiceMock = new Mock<TaxService>();
-        var selWinServiceMock = new Mock<SelWinService>();
+        var pluServiceMock = new PluServiceMock().GetAllMock(plus);
+        var taxServiceMock = new TaxServiceMock().GetAllMock();
+        var selWinServiceMock = new SelWinServiceMock().GetAllMock();
         
         var sendAllItems = false;
         

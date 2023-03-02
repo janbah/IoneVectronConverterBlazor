@@ -4,17 +4,16 @@ using Moq;
 
 namespace IoneVectronConverterUnitTests.Mocks;
 
-public class PluServiceMock : Mock<PluService>
+public class PluServiceMock : Mock<IPluService>
 {
     private readonly PLU[] _plus;
-    public PluServiceMock(PLU[] plus)
+    public PluServiceMock()
     {
-        _plus = plus;
     }
 
-    public PluServiceMock GetAllMock()
+    public PluServiceMock GetAllMock(PLU[] plus)
     {
-        Setup(s => s.GetAll()).Returns(_plus.AsQueryable);
+        Setup(s => s.GetAll()).Returns(plus.AsQueryable);
         return this;
     }
 }

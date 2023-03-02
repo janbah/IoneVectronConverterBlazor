@@ -9,6 +9,9 @@ public class PluService : IPluService
     public PluService(PluRepository repository)
     {
         _repository = repository;
+    } 
+    public PluService()
+    {
     }
 
     public void StorePluIfNew(IEnumerable<PLU> plus)
