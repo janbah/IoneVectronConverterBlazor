@@ -40,7 +40,6 @@ public class MasterdataManager
     
     public async Task SendPlus(bool allItems)
     {
-
         var vectronMainPlusForWebShop = getMainPlus();
         
         var vectronCondimentPlusForWebShop = getCondimentPlus(vectronMainPlusForWebShop);

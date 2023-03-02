@@ -73,22 +73,11 @@ public class IoneClientMock : Mock<IIoneClient>
     public IoneClientMock MockSaveCategoryPostAsync()
     {
         SentCategories = new();
-        Setup(c => c.PostAsync(new Uri("SaveItemCategory",UriKind.Relative), It.IsAny<StringContent>())).Returns(getSaveCatgoryResponse()).Callback<Uri, StringContent>(
-            (uri, content) =>
+        Setup(c=>c.SaveCategoryAsync(It.IsAny<ItemCategory>())).ReturnsAsync(1).Callback<ItemCategory>(cat => 
             {
-                ItemCategory itemCategory = null;
-                try
+                if (cat is not null)
                 {
-                    itemCategory = content.ReadFromJsonAsync<ItemCategory>().Result;
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                }
-
-                if (itemCategory is not null)
-                {
-                    SentCategories.Add(itemCategory);
+                    SentCategories.Add(cat);
                 }
             });
         return this;

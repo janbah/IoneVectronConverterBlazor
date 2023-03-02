@@ -18,8 +18,6 @@ public class PluServiceTests : IDisposable
         testDatabase.ResetDatabase();
     }
     
-    
-    
     [Fact]
     public void StorePluIfNew_SecondPluWithSamePluNo_PluIsNotStored()
     {

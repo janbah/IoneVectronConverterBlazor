@@ -21,7 +21,6 @@ namespace Order2VPos.Core.IoneApi.ItemCategories
         public int? ParentId { get; set; }
         
         public bool IsMain { get; set; }
-
-
+        public bool IsSent { get; set; }
     }
 }

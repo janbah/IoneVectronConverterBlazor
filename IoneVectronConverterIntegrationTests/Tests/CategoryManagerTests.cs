@@ -49,9 +49,7 @@ public class CategoryManagerTests
     public void SynchronizeArticlesFromDatabaseToIoneClient_MainCategory_NoMainCategoryIsCreated()
     {
         //Arrange
-        var ioneClientMock = new Mock<IoneClient>();
-            new IoneClientMock()
-            .MockSaveItemPostAsync();
+        var ioneClientMock = new IoneClientMock();
 
         CategoryRepository categoryRepository = new(_configuration);
         ICategoryService categoryService = new CategoryService(categoryRepository);
@@ -83,7 +81,7 @@ public class CategoryManagerTests
 
     }
     [Fact]
-    public void SynchronizeArticlesFromDatabaseToIoneClient_OneCategoryNotSendInDb_OneCategoryIsSent()
+    public void SynchronizeArticlesFromDatabaseToIoneClient_OneCategoryNotSentInDb_OneCategoryPlusMainIsSent()
     {
         //Arrange
         var ioneClientMock = new IoneClientMock().MockSaveCategoryPostAsync();
@@ -112,10 +110,43 @@ public class CategoryManagerTests
         var result = ioneClientMock.SentCategories;
         
         //Assert
-        Assert.True(result.Count()==1);
-        Assert.True(!result.First().IsMain);
-        Assert.True(result.First().Name == "test");
-//        Assert.True(result.First().APIObjectId == "123");
+        Assert.True(result.Count()==2);
+        Assert.True(!result[1].IsMain);
+        Assert.True(result[1].Name == "test");
+    }
+    
+    [Fact]
+    public void SynchronizeArticlesFromDatabaseToIoneClient_OneCategoryAlreadySentInDb_JustMainIsSent()
+    {
+        //Arrange
+        var ioneClientMock = new IoneClientMock().MockSaveCategoryPostAsync();
 
+        CategoryRepository categoryRepository = new(_configuration);
+        ICategoryService categoryService = new CategoryService(categoryRepository);
+        CategoryMapper categoryMapper = new();
+        
+        IoneCategoryManager categoryManager = new IoneCategoryManager(ioneClientMock.Object, categoryService,
+        _configuration, categoryMapper);
+
+        Category category = new()
+        {
+            Name = "test",
+            IsMain = false,
+            IsSent = true,
+            VectronNo = 425,
+            IoneRefId = 123
+        };
+
+        categoryRepository.Insert(category);
+            
+        //Act
+
+        categoryManager.SynchronizeArticlesFromDatabaseToIoneClient();
+        var result = ioneClientMock.SentCategories;
+        
+        //Assert
+        Assert.True(result.Count()==1);
+        Assert.True(result[0].IsMain);
+        Assert.True(result[0].Name == "Main [#10]");
     }
 }

@@ -82,6 +82,7 @@ public class IoneCategoryManager : IIoneCategoryManager
         ItemCategory itemCategory = createMainCategory();
         var mainCategoryId = await sendCategoryToIone(itemCategory);
         itemCategory.Id = mainCategoryId;
+        itemCategory.IsSent = true;
         storeCategoryToDb(itemCategory);
     }
 

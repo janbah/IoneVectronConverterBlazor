@@ -116,8 +116,18 @@ public class VectronClient : IVectronClient
 
     public MasterDataResponse GetMasterData()
     {
-        throw new NotImplementedException();
+        Socket socket = GetVPosSocket();
+        SendBase64String(ref socket, "{\"GetMasterData\":1}");
+
+        byte[] response = GetResponse(socket).Result;
+        string jsonText = Encoding.UTF8.GetString(Convert.FromBase64String(Encoding.UTF8.GetString(response)));
+
+        socket.Close();
+
+        return JsonConvert.DeserializeObject<MasterDataResponse>(jsonText);
     }
+
+    
     
     static Socket GetVPosSocket()
     {

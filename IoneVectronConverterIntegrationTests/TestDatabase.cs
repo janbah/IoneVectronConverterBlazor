@@ -24,7 +24,7 @@ public class TestDatabase
 
 
 
-            create table ione_order
+            create table if not exists ione_order
             (
                 Id              integer not null
                     primary key autoincrement,
@@ -41,7 +41,7 @@ public class TestDatabase
                 IsCanceledOnPos bit
             );
 
-            create table plu
+            create table if not exists plu
             (
                 id           integer
                     constraint plu_pk
@@ -59,7 +59,7 @@ public class TestDatabase
                 IsForWebShop integer
             );
 
-            create table price_data
+            create table if not exists price_data
             (
                 id     integer
                     constraint price_data_pk
@@ -71,7 +71,7 @@ public class TestDatabase
                 Price  text
             );
 
-            create table sel_win
+            create table if not exists sel_win
             (
                 id               integer
                     constraint sel_win_pk
@@ -83,7 +83,7 @@ public class TestDatabase
                 zeroPriceAllowed integer
             );
 
-            create table select_win
+            create table if not exists select_win
             (
                 id     integer
                     constraint select_win_pk
@@ -94,7 +94,7 @@ public class TestDatabase
                         references plu
             );
 
-            create table sel_win_plu_name
+            create table if not exists sel_win_plu_name
             (
                 id            integer
                     constraint sel_win_plu_name_pk
@@ -106,7 +106,7 @@ public class TestDatabase
                         on update cascade on delete cascade
             );
 
-            create table tax
+            create table if not exists tax
             (
                 id    integer not null
                     constraint tax_pk
@@ -116,7 +116,7 @@ public class TestDatabase
                 name  text
             );
 
-            create table main.category
+            create table if not exists category
             (
                 Id        integer
                     constraint category_pk

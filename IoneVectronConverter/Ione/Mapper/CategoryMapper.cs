@@ -22,7 +22,8 @@ public class CategoryMapper
             Name = itemCategory.Name,
             VectronNo = Convert.ToInt32(itemCategory.APIObjectId),
             IoneRefId = itemCategory.Id,
-            IsMain = itemCategory.IsMain
+            IsMain = itemCategory.IsMain,
+            IsSent = itemCategory.IsSent
         };
         return category;
     }

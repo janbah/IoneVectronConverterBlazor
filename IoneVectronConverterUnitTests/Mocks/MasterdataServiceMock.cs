@@ -46,9 +46,6 @@ public class MasterdataServiceMock : Mock<IMasterdataService>
         
         return new[] { selWin };
     }
-    
-
-
 
     private Tax[] getDefaultTaxes()
     {
