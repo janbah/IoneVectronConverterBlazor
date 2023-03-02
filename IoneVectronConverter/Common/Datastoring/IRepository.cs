@@ -1,6 +1,4 @@
-using IoneVectronConverter.Vectron.MasterData;
-
-namespace IoneVectronConverter.Ione.Datastoring;
+namespace IoneVectronConverter.Common.Datastoring;
 
 public interface IRepository<T>
 {

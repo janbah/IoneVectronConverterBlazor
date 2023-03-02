@@ -1,7 +1,7 @@
-using IoneVectronConverter.Ione.Services;
+using IoneVectronConverter.Common.Masterdata.Services;
 using IoneVectronConverter.Vectron.Client;
 
-namespace IoneVectronConverter.Vectron.MasterData;
+namespace IoneVectronConverter.Vectron.MasterData.Manager;
 
 public class MasterdataReceiver
 {

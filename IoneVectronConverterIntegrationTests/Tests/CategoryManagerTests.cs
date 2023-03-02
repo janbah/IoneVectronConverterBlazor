@@ -1,8 +1,5 @@
 using IoneVectronConverter.Ione;
 using IoneVectronConverter.Ione.Categories;
-using IoneVectronConverter.Ione.Mapper;
-using IoneVectronConverter.Ione.Models;
-using IoneVectronConverter.Ione.Services;
 using IoneVectronConverterUnitTests.Mocks;
 using Microsoft.Extensions.Configuration;
 using Moq;

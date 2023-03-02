@@ -1,7 +1,6 @@
-using IoneVectronConverter.Ione.Datastoring;
-using IoneVectronConverter.Ione.Models;
+using IoneVectronConverter.Common.Datastoring;
+using IoneVectronConverter.Ione.Orders;
 using IoneVectronConverter.Ione.Orders.Models;
-using IoneVectronConverter.Ione.Services;
 using IoneVectronConverter.Vectron;
 using IoneVectronConverterTests;
 using Microsoft.Extensions.DependencyInjection;

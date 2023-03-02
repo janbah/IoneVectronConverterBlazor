@@ -1,5 +1,5 @@
-using IoneVectronConverter.Ione.Services;
-using IoneVectronConverter.Vectron.MasterData;
+using IoneVectronConverter.Common.Masterdata.Services;
+using IoneVectronConverter.Common.Models;
 using Moq;
 
 namespace IoneVectronConverterUnitTests.Mocks;

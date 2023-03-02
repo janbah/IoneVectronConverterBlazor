@@ -1,4 +1,4 @@
-namespace IoneVectronConverter.Common;
+namespace IoneVectronConverter.Common.Config;
 
 public class VectronSettings
 {

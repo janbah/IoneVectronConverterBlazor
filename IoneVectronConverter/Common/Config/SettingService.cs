@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace IoneVectronConverter.Common;
+namespace IoneVectronConverter.Common.Config;
 
 public class SettingService : ISettingService
 {

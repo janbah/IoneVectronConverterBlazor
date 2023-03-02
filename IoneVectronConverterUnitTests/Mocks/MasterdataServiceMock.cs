@@ -1,10 +1,10 @@
 using System.Net;
+using IoneVectronConverter.Common.Masterdata.Services;
+using IoneVectronConverter.Common.Models;
 using IoneVectronConverter.Ione;
-using IoneVectronConverter.Ione.Services;
-using IoneVectronConverter.Vectron.MasterData;
+using IoneVectronConverter.Vectron.MasterData.Models;
 using Moq;
 using Newtonsoft.Json;
-using Order2VPos.Core.IoneApi.Items;
 
 namespace IoneVectronConverterUnitTests.Mocks;
 

@@ -1,6 +1,5 @@
+using IoneVectronConverter.Ione.Categories;
 using IoneVectronConverter.Ione.Orders.Models;
-using Order2VPos.Core.IoneApi.ItemCategories;
-using Order2VPos.Core.IoneApi.Items;
 
 namespace IoneVectronConverter.Ione;
 

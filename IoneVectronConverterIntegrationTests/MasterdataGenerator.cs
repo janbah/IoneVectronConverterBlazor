@@ -1,4 +1,6 @@
-using IoneVectronConverter.Vectron.MasterData;
+using IoneVectronConverter.Common.Models;
+using IoneVectronConverter.Vectron.MasterData.Models;
+using IoneVectronConverter.Vectron.Models;
 
 namespace IoneVectronConverterTests;
 

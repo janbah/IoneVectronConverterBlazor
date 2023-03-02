@@ -1,4 +1,4 @@
-﻿namespace IoneVectronConverter.Vectron.Models
+﻿namespace IoneVectronConverter.Vectron.Mapper
 {
     public class Plu
     {
