@@ -13,19 +13,24 @@ public class MasterdataManager
     private readonly ItemLinkLayerListResponse _itemLinkLayersListResponse; 
     private readonly Item[] _webshopItems;
     private readonly IConfiguration _configuration;
-    private readonly MasterDataResponse _vectronMasterData;
     private readonly IIoneClient _iIoneClient;
+    private readonly IPluService _pluService;
+    private readonly ITaxService _taxService;
+    private readonly ISelWinService _selWinService;
+    
     
     private readonly int _branchAdressId;
     private readonly PriceListAssignment[]? _priceListAssignmentList;
 
 
-    public MasterdataManager(IIoneClient iIoneClient, IMasterdataService masterdataService, IConfiguration configuration)
+    public MasterdataManager(IIoneClient iIoneClient, IConfiguration configuration, IPluService pluService, ITaxService taxService, ISelWinService selWinService)
     {
         _iIoneClient = iIoneClient;
         _configuration = configuration;
-        
-        _vectronMasterData = masterdataService.GetMasterdataResponse();
+        _pluService = pluService;
+        _taxService = taxService;
+        _selWinService = selWinService;
+
         _itemLinkLayersListResponse = _iIoneClient.GetLinkLayersAsync();
         _webshopItems = _iIoneClient.GetItemsAsync().Data;
        
@@ -113,9 +118,11 @@ public class MasterdataManager
     private List<ItemLinkLayer> getBaseLinkLayer(PLU[] vectronMainPlusForWebShop, List<MappingArticle> mappingArticles)
     {
         List<ItemLinkLayer> result = new();
+        SelWin[] selWins = _selWinService.GetAll().ToArray();
+        
         foreach (var vposPlu in vectronMainPlusForWebShop.Where(x => x.SelectWin?.Length > 0))      
         {
-            var selWin = _vectronMasterData.SelWins.First(x => x.Number == vposPlu.SelectWin.First());
+            var selWin = selWins.First(x => x.Number == vposPlu.SelectWin.First());
 
             List<ItemLinkLayer> itemLinkLayerList = new List<ItemLinkLayer> { };
             foreach (var selPluNo in selWin.PLUNos)
@@ -178,18 +185,21 @@ public class MasterdataManager
 
             foreach (var priceListAssigment in _priceListAssignmentList)
             {
+                Tax[] taxes = _taxService.GetAll().ToArray();
                 ItemPrice itemPrice = new ItemPrice
                 {
                     BasePriceWithTax = getPrices(vposPlu, priceListAssigment),
                     PriceListId = priceListAssigment.PriceListId,
                     PriceListType = 1,
                     //Todo: control statement
-                    TaxPercentage = _vectronMasterData.Taxes.FirstOrDefault(x => x.TaxNo == vposPlu.TaxNo)?.Rate
+                    TaxPercentage = taxes.FirstOrDefault(x => x.TaxNo == vposPlu.TaxNo)?.Rate
                         .GetDecimalString().Trim() ?? "0"
                 };
 
                 itemPrices.Add(itemPrice);
             }
+            
+            
 
             Item newOrChangedItem = new Item
             {
@@ -199,7 +209,7 @@ public class MasterdataManager
                 Id = id,
                 Name = GetName(vposPlu),
                 ItemCategoryId = itemCategoryId,
-                TaxPercentage = _vectronMasterData.Taxes.FirstOrDefault(x => x.TaxNo == vposPlu.TaxNo)?.Rate
+                TaxPercentage = _taxService.GetAll().FirstOrDefault(x => x.TaxNo == vposPlu.TaxNo)?.Rate
                     .GetDecimalString().Trim() ?? "0",
                 BranchAddressIdList = new int[] { _branchAdressId },
                 ItemPriceList = itemPrices
@@ -313,16 +323,18 @@ public class MasterdataManager
 
     private PLU[] getMainPlus()
     {
-        return _vectronMasterData.PLUs.Where(x => x.IsForWebShop).ToArray();
+        return _pluService.GetAll().Where(x => x.IsForWebShop).ToArray();
     }
 
     private PLU[] getCondimentPlus(PLU[] vposMainPlusForWebShop)
     {
-        return _vectronMasterData.PLUs
+        PLU[] plus = _pluService.GetAll().ToArray();
+        SelWin[] selWins = _selWinService.GetAll().ToArray();
+        return plus
             .Where(
                 x => vposMainPlusForWebShop.Any(
                     y => y.SelectWin
-                        .Join(_vectronMasterData.SelWins, 
+                        .Join(selWins, 
                             z => z, 
                             a => a.Number, 
                                 

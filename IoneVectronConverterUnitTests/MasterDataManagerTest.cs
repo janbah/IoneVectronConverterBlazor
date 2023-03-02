@@ -30,13 +30,14 @@ public class MasterDataManagerTest
             .MockSaveItemPostAsync();
 
         var plus = getDefaultPLUs();
-        
-        var masterdataMock = new MasterdataServiceMock()
-            .GetMasterdataMock(plus);
+
+        var pluServiceMock = new PluServiceMock(plus);
+        var taxServiceMock = new Mock<TaxService>();
+        var selWinServiceMock = new Mock<SelWinService>();
         
         var sendAllItems = false;
         
-        var uut = new MasterdataManager(ioneClientMock.Object, masterdataMock.Object, _configuration);
+        var uut = new MasterdataManager(ioneClientMock.Object, _configuration, pluServiceMock.Object, taxServiceMock.Object, selWinServiceMock.Object);
 
         //Act
         uut.SendPlus(sendAllItems);
@@ -57,12 +58,13 @@ public class MasterDataManagerTest
         
         plus[0].IsForWebShop = false;
         
-        var masterdataMock = new MasterdataServiceMock()
-            .GetMasterdataMock(plus);
+        var pluServiceMock = new PluServiceMock(plus);
+        var taxServiceMock = new Mock<TaxService>();
+        var selWinServiceMock = new Mock<SelWinService>();
         
         var sendAllItems = false;
         
-        var uut = new MasterdataManager(ioneClientMock.Object, masterdataMock.Object, _configuration);
+        var uut = new MasterdataManager(ioneClientMock.Object, _configuration, pluServiceMock.Object, taxServiceMock.Object, selWinServiceMock.Object);
 
         //Act
         uut.SendPlus(sendAllItems);
@@ -88,13 +90,14 @@ public class MasterDataManagerTest
         plus[0].IsForWebShop = true;
         plus[0].SelectWin[0] = 1;
         
-        var masterdataMock = new MasterdataServiceMock()
-            .GetMasterdataMock(plus);
+        var pluServiceMock = new PluServiceMock(plus);
+        var taxServiceMock = new Mock<TaxService>();
+        var selWinServiceMock = new Mock<SelWinService>();
         
         var sendAllItems = false;
         
-        var uut = new MasterdataManager(ioneClientMock.Object, masterdataMock.Object, _configuration);
-
+        var uut = new MasterdataManager(ioneClientMock.Object, _configuration, pluServiceMock.Object, taxServiceMock.Object, selWinServiceMock.Object);
+        
         //Act
         uut.SendPlus(sendAllItems);
 
@@ -129,12 +132,13 @@ public class MasterDataManagerTest
         plus[0].SelectWin[0] = 1;
         plus[0].PLUno = 2;
         
-        var masterdataMock = new MasterdataServiceMock()
-            .GetMasterdataMock(plus);
+        var pluServiceMock = new PluServiceMock(plus);
+        var taxServiceMock = new Mock<TaxService>();
+        var selWinServiceMock = new Mock<SelWinService>();
         
         var sendAllItems = false;
         
-        var uut = new MasterdataManager(ioneClientMock.Object, masterdataMock.Object, _configuration);
+        var uut = new MasterdataManager(ioneClientMock.Object, _configuration, pluServiceMock.Object, taxServiceMock.Object, selWinServiceMock.Object);
 
         //Act
         uut.SendPlus(sendAllItems);
@@ -162,12 +166,13 @@ public class MasterDataManagerTest
         plus[0].SelectWin[0] = 1;
         plus[0].PLUno = 3;
         
-        var masterdataMock = new MasterdataServiceMock()
-            .GetMasterdataMock(plus);
+        var pluServiceMock = new PluServiceMock(plus);
+        var taxServiceMock = new Mock<TaxService>();
+        var selWinServiceMock = new Mock<SelWinService>();
         
         var sendAllItems = false;
         
-        var uut = new MasterdataManager(ioneClientMock.Object, masterdataMock.Object, _configuration);
+        var uut = new MasterdataManager(ioneClientMock.Object, _configuration, pluServiceMock.Object, taxServiceMock.Object, selWinServiceMock.Object);
 
         //Act
         uut.SendPlus(sendAllItems);
