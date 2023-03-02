@@ -1,7 +1,6 @@
 using Dapper;
 using Dapper.Contrib.Extensions;
-using IoneVectronConverter.Ione.Datastoring;
-using IoneVectronConverter.Ione.Models;
+using IoneVectronConverter.Common.Datastoring;
 using Microsoft.Data.Sqlite;
 
 namespace IoneVectronConverter.Ione.Categories;

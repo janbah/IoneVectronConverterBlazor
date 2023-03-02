@@ -1,6 +1,4 @@
 using IoneVectronConverter.Ione.Orders.Models;
-using IoneVectronConverter.Ione.Services;
-using IoneVectronConverter.Ione.Validators;
 using IoneVectronConverter.Vectron.Client;
 
 namespace IoneVectronConverter.Ione.Orders

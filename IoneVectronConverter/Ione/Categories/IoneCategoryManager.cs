@@ -1,10 +1,3 @@
-using IoneVectronConverter.Ione.Datastoring;
-using IoneVectronConverter.Ione.Mapper;
-using IoneVectronConverter.Ione.Models;
-using IoneVectronConverter.Ione.Services;
-using Order2VPos.Core.IoneApi.ItemCategories;
-using Order2VPos.Core.IoneApi.Items;
-
 namespace IoneVectronConverter.Ione.Categories;
 
 public class IoneCategoryManager : IIoneCategoryManager

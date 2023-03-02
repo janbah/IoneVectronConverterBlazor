@@ -1,7 +1,4 @@
-using IoneVectronConverter.Ione.Models;
-using Order2VPos.Core.IoneApi.ItemCategories;
-
-namespace IoneVectronConverter.Ione.Services;
+namespace IoneVectronConverter.Ione.Categories;
 
 public interface ICategoryService
 {

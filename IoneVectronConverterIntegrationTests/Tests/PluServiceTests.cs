@@ -1,6 +1,8 @@
 using Dapper;
-using IoneVectronConverter.Ione.Services;
-using IoneVectronConverter.Vectron.MasterData;
+using IoneVectronConverter.Common.Masterdata.Repositories;
+using IoneVectronConverter.Common.Masterdata.Services;
+using IoneVectronConverter.Common.Models;
+using IoneVectronConverter.Vectron.Models;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Configuration;
 

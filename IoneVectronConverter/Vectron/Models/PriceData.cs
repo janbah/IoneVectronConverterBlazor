@@ -1,4 +1,4 @@
-﻿namespace IoneVectronConverter.Vectron.MasterData
+﻿namespace IoneVectronConverter.Vectron.Models
 {
     public class PriceData
     {

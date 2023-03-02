@@ -1,10 +1,10 @@
 using Dapper;
 using Dapper.Contrib.Extensions;
-using IoneVectronConverter.Ione.Models;
-using IoneVectronConverter.Vectron.MasterData;
+using IoneVectronConverter.Common.Datastoring;
+using IoneVectronConverter.Ione.Orders.Models;
 using Microsoft.Data.Sqlite;
 
-namespace IoneVectronConverter.Ione.Datastoring;
+namespace IoneVectronConverter.Ione.Orders;
 
 public class OrderRepository : IRepository<Order>
 {

@@ -1,12 +1,7 @@
-using IoneVectronConverter.Ione.Mapper;
-using IoneVectronConverter.Ione.Models;
+using IoneVectronConverter.Ione.Categories;
 using IoneVectronConverter.Ione.Orders.Models;
 using IoneVectronConverter.Vectron;
-using IoneVectronConverter.Vectron.MasterData;
 using Newtonsoft.Json;
-using Order2VPos.Core.IoneApi;
-using Order2VPos.Core.IoneApi.ItemCategories;
-using Order2VPos.Core.IoneApi.Items;
 
 namespace IoneVectronConverter.Ione
 {

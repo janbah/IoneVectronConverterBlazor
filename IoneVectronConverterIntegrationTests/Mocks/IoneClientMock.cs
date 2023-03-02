@@ -1,11 +1,10 @@
 using System.Net;
 using System.Net.Http.Json;
 using IoneVectronConverter.Ione;
-using IoneVectronConverter.Ione.Models;
+using IoneVectronConverter.Ione.Categories;
+using IoneVectronConverter.Ione.Orders.Models;
 using Moq;
 using Newtonsoft.Json;
-using Order2VPos.Core.IoneApi.ItemCategories;
-using Order2VPos.Core.IoneApi.Items;
 
 namespace IoneVectronConverterUnitTests.Mocks;
 

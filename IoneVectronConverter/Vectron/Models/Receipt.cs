@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using IoneVectronConverter.Vectron.Mapper;
+using Newtonsoft.Json;
 
 namespace IoneVectronConverter.Vectron.Models
 {

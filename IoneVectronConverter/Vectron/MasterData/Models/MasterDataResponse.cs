@@ -1,4 +1,6 @@
-﻿namespace IoneVectronConverter.Vectron.MasterData
+﻿using IoneVectronConverter.Common.Models;
+
+namespace IoneVectronConverter.Vectron.MasterData.Models
 {
     public class MasterDataResponse
     {

@@ -1,7 +1,4 @@
-﻿using System.ComponentModel;
-using Newtonsoft.Json;
-
-namespace IoneVectronConverter.Common
+﻿namespace IoneVectronConverter.Common.Config
 {
     public class Settings{
 
@@ -19,7 +16,7 @@ namespace IoneVectronConverter.Common
 
     public class Logging
     {
-        public IoneVectronConverter.Common.LogLevel Loglevel { get; set; }
+        public LogLevel Loglevel { get; set; }
     }
 
     public class LogLevel

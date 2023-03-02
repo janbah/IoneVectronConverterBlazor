@@ -1,7 +1,7 @@
+using IoneVectronConverter.Ione.Categories;
 using IoneVectronConverter.Ione.Orders.Models;
-using IoneVectronConverter.Vectron.MasterData;
+using IoneVectronConverter.Vectron.MasterData.Models;
 using IoneVectronConverter.Vectron.Models;
-using Order2VPos.Core.IoneApi.ItemCategories;
 
 namespace IoneVectronConverter.Vectron.Client;
 

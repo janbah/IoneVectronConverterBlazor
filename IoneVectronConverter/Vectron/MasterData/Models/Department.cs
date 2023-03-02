@@ -1,4 +1,4 @@
-﻿namespace IoneVectronConverter.Vectron.MasterData
+﻿namespace IoneVectronConverter.Vectron.MasterData.Models
 {
     public class Department
     {

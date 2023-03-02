@@ -1,6 +1,7 @@
-using IoneVectronConverter.Ione.Services;
+using IoneVectronConverter.Common.Masterdata.Repositories;
+using IoneVectronConverter.Common.Masterdata.Services;
 using IoneVectronConverter.Vectron.Client;
-using IoneVectronConverter.Vectron.MasterData;
+using IoneVectronConverter.Vectron.MasterData.Manager;
 using Microsoft.Extensions.Configuration;
 using Moq;
 

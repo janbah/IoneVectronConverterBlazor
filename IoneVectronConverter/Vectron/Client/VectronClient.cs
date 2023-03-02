@@ -2,13 +2,13 @@ using System.Net;
 using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
+using IoneVectronConverter.Ione.Categories;
 using IoneVectronConverter.Ione.Orders.Models;
 using IoneVectronConverter.Vectron.Mapper;
-using IoneVectronConverter.Vectron.MasterData;
+using IoneVectronConverter.Vectron.MasterData.Models;
 using IoneVectronConverter.Vectron.Models;
 using Microsoft.AspNetCore.DataProtection;
 using Newtonsoft.Json;
-using Order2VPos.Core.IoneApi.ItemCategories;
 
 namespace IoneVectronConverter.Vectron.Client;
 
