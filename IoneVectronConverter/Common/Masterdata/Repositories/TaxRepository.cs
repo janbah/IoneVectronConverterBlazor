@@ -9,7 +9,7 @@ namespace IoneVectronConverter.Common.Masterdata.Repositories;
 public class TaxRepository : IRepository<Tax>
 {
     private readonly string _connectionString;
-    public TaxRepository(IConfigurationRoot configuration)
+    public TaxRepository(IConfiguration configuration)
     {
         _connectionString = configuration.GetConnectionString("Default");
     }

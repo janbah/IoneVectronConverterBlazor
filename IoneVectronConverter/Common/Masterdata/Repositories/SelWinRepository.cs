@@ -9,7 +9,7 @@ namespace IoneVectronConverter.Common.Masterdata.Repositories;
 public class SelWinRepository : IRepository<SelWin>
 {
     private readonly string _connectionString;
-    public SelWinRepository(IConfigurationRoot configuration)
+    public SelWinRepository(IConfiguration configuration)
     {
         _connectionString = configuration.GetConnectionString("Default");
     }

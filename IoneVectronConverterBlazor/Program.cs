@@ -1,6 +1,9 @@
 using IoneVectronConverter.Common;
 using IoneVectronConverter.Common.Config;
 using IoneVectronConverter.Common.Datastoring;
+using IoneVectronConverter.Common.Masterdata.Repositories;
+using IoneVectronConverter.Common.Masterdata.Services;
+using IoneVectronConverter.Common.Models;
 using IoneVectronConverter.Common.Worker;
 using IoneVectronConverter.Ione;
 using IoneVectronConverter.Ione.Categories;
@@ -21,20 +24,29 @@ builder.Services.AddTransient<ISettingService, SettingService>();
 builder.Services.AddTransient<Settings>();
 
 builder.Services.AddSingleton<IIoneClient, IoneClient>();
+builder.Services.AddTransient<ReceiptMapper>();
 
-builder.Services.AddTransient<IOrderMapper, OrderMapper>();
-builder.Services.AddTransient<IMerger, Merger>();
 
 builder.Services.AddTransient<IOrderValidator, OrderValidator>();
 builder.Services.AddTransient<IVectronClient, VectronClient>();
 builder.Services.AddTransient<IOrderManager, OrderManager>();
 
-builder.Services.AddTransient<IOrderService, OrderService>();
-builder.Services.AddTransient<ReceiptMapper>();
-
 builder.Services.AddTransient<IRepository<Order>, OrderRepository>();
+builder.Services.AddTransient<IOrderService, OrderService>();
+builder.Services.AddTransient<IMerger, Merger>();
+builder.Services.AddTransient<IOrderMapper, OrderMapper>();
+
 builder.Services.AddTransient<IRepository<Category>, CategoryRepository>();
 builder.Services.AddTransient<ICategoryService, CategoryService>();
+
+builder.Services.AddTransient<IRepository<PLU>, PluRepository>();
+builder.Services.AddTransient<IPluService, PluService>();
+
+builder.Services.AddTransient<IRepository<Tax>, TaxRepository>();
+builder.Services.AddTransient<ITaxService, TaxService>();
+
+builder.Services.AddTransient<IRepository<SelWin>, SelWinRepository>();
+builder.Services.AddTransient<ISelWinService, SelWinService>();
 
 
 builder.Services.AddHttpClient<IIoneClient, IoneClient>("ioneClient",client =>
@@ -42,7 +54,6 @@ builder.Services.AddHttpClient<IIoneClient, IoneClient>("ioneClient",client =>
     client.BaseAddress = new Uri(builder.Configuration["ioneClient"]);
 });
 
-builder.Services.AddTransient<IoneClient>();
 builder.Services.AddSingleton<IWorker, Worker>();
 
 

@@ -5,27 +5,34 @@
 @inject IPluService pluService
 
 <MudGrid>
-<MudItem xs="8">
-  <MudText Typo="Typo.h4">Ione Api</MudText>
-  <MudPaper Class="pa-4 mt-4">
-    <MudTable Items="@plus" Hover="true" Breakpoint="Breakpoint.Sm">
-    <HeaderContent>
-      <MudTh>PLU Nummer</MudTh>
-      <MudTh>Name</MudTh>
-      <MudTh>Verkauf</MudTh>
-      <MudTh>Hauptgruppe B></MudTh>
-      <MudTh>Webshop</MudTh>
-    </HeaderContent>
-      <RowTemplate>
-        <MudTd DataLabel="Plu Nummer">@context.PLUno</MudTd>
-        <MudTd DataLabel="Name">@context.Name1</MudTd>
-        <MudTd DataLabel="Verkauf">@context.SaleAllowed</MudTd>
-        <MudTd DataLabel="Hauptgruppe B">@context.MainGroupB</MudTd>
-        <MudTd DataLabel="Webshop">@context.IsForWebShop</MudTd>
-      </RowTemplate>
+  <MudItem xs="8">
+    <MudText Typo="Typo.h4">Ione Api</MudText>
+    <MudPaper Class="pa-4 mt-4">
+      <MudTable Items="@plus" Hover="true" Breakpoint="Breakpoint.Sm">
+        <HeaderContent>
+          <MudTh>PLU Nummer</MudTh>
+          <MudTh>Name</MudTh>
+          <MudTh>Verkauf</MudTh>
+          <MudTh>Hauptgruppe B></MudTh>
+          <MudTh>Webshop</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+          <MudTd DataLabel="Plu Nummer">@context.PLUno</MudTd>
+          <MudTd DataLabel="Name">@context.Name1</MudTd>
+          <MudTd DataLabel="Verkauf">@context.SaleAllowed</MudTd>
+          <MudTd DataLabel="Hauptgruppe B">@context.MainGroupB</MudTd>
+          <MudTd DataLabel="Webshop">@context.IsForWebShop</MudTd>
+        </RowTemplate>
       </MudTable>
-  </MudPaper>
-</MudItem>
+    </MudPaper>
+  </MudItem>
+  <MudItem xs="8">
+    <MudPaper Class="pa-4 mt-4">
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Class="ml-auto" @onclick="() => GetPlus()">PLU's holen(Vectron)</MudButton>
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Class="ml-auto" @onclick="() => SendPlus()">PLU's senden(Ione)</MudButton>
+
+    </MudPaper>
+  </MudItem>
 </MudGrid>
 
 @code {
@@ -35,6 +42,16 @@
   protected override void OnInitialized()
   {
     plus = pluService.GetAll();
+  }
+
+  private void GetPlus()
+  {
+    throw new NotImplementedException();
+  }
+
+  private void SendPlus()
+  {
+    throw new NotImplementedException();
   }
 
 }

@@ -1,3 +1,4 @@
+using IoneVectronConverter.Common.Datastoring;
 using IoneVectronConverter.Common.Masterdata.Repositories;
 using IoneVectronConverter.Common.Models;
 
@@ -5,9 +6,9 @@ namespace IoneVectronConverter.Common.Masterdata.Services;
 
 public class PluService : IPluService
 {
-    private readonly PluRepository _repository;
+    private readonly IRepository<PLU> _repository;
 
-    public PluService(PluRepository repository)
+    public PluService(IRepository<PLU> repository)
     {
         _repository = repository;
     } 

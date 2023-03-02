@@ -23,10 +23,12 @@ public class PluRepository : IRepository<PLU>
         
         var connectionString = _configuration.GetConnectionString("Default");
 
+        var dir = Environment.CurrentDirectory;
+
         using (var connection = new SqliteConnection(connectionString))
         {
 
-            var sql = "select * from plu";
+            var sql = @"select * from plu";
 
             var plus = connection.Query<PLU>(sql);
 
