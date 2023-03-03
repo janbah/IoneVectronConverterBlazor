@@ -3,7 +3,7 @@ using IoneVectronConverter.Vectron.Client;
 
 namespace IoneVectronConverter.Vectron.MasterData.Manager;
 
-public class MasterdataReceiver
+public class MasterdataReceiver : IMasterdataReceiver
 {
     private readonly IPluService _pluService;
     private readonly ITaxService _taxService;

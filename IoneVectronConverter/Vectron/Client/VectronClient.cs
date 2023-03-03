@@ -49,7 +49,7 @@ public class VectronClient : IVectronClient
         Socket socket = GetVPosSocket();
         SendBase64String(ref socket, receipt.ToJson());
         
-        var bytes = await GetResponse(socket);
+        var bytes = GetResponse(socket);
 
         var text = Encoding.UTF8.GetString(bytes);
         
@@ -66,28 +66,6 @@ public class VectronClient : IVectronClient
 
     }
 
-    private static async Task<VPosResponse?> waitForAnswer(Receipt receipt)
-    {
-        Socket socket = GetVPosSocket();
-        string jsonText = "";
-        
-        SendBase64String(ref socket, receipt.ToJson());
-        
-        try
-        {
-            var dings = await GetResponse(socket);
-            jsonText = Encoding.UTF8.GetString(Convert.FromBase64String(Encoding.UTF8.GetString(dings)));
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
-
-        socket.Close();
-
-        return JsonConvert.DeserializeObject<VPosResponse>(jsonText);
-    }
 
     static void SendBase64String(ref Socket socket, string text)
     {
@@ -99,13 +77,13 @@ public class VectronClient : IVectronClient
         socket.Send(buffer);
     }
     
-    static async Task<byte[]> GetResponse(Socket socket)
+    static byte[] GetResponse(Socket socket)
     {
-        var buffer = new byte[256];
+        var buffer = new byte[1024];
         List<byte> responseBytes = new List<byte>();
         
         
-        var bytesRead  = await socket.ReceiveAsync(buffer); 
+        var bytesRead  = socket.ReceiveAsync(buffer).Result; 
         responseBytes.AddRange(buffer.Take(bytesRead));
 
        // bytesRead = socket.Receive(buffer);
@@ -116,18 +94,27 @@ public class VectronClient : IVectronClient
 
     public MasterDataResponse GetMasterData()
     {
+        byte[] response = new byte[1024];
+        byte[] responseBytes = new byte[1024];
+        
         Socket socket = GetVPosSocket();
         SendBase64String(ref socket, "{\"GetMasterData\":1}");
 
-        byte[] response = GetResponse(socket).Result;
-        string jsonText = Encoding.UTF8.GetString(Convert.FromBase64String(Encoding.UTF8.GetString(response)));
+        response = GetResponse(socket);
+        var responseText = Encoding.UTF8.GetString(response);
+        responseBytes = Convert.FromBase64String(responseText);
+        var jsonResponseText = Encoding.UTF8.GetString(responseBytes);
 
         socket.Close();
 
-        return JsonConvert.DeserializeObject<MasterDataResponse>(jsonText);
-    }
+        var error = "";
 
-    
+        
+        
+        return JsonConvert.DeserializeObject<MasterDataResponse>(jsonResponseText);
+
+        
+    }
     
     static Socket GetVPosSocket()
     {

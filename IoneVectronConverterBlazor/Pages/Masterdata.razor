@@ -1,8 +1,10 @@
 @page "/Masterdata"
 @using IoneVectronConverter.Common.Masterdata.Services
 @using IoneVectronConverter.Common.Models
+@using IoneVectronConverter.Vectron.MasterData.Manager
 
 @inject IPluService pluService
+@inject IMasterdataReceiver masterdataReceiver
 
 <MudGrid>
   <MudItem xs="8">
@@ -28,7 +30,7 @@
   </MudItem>
   <MudItem xs="8">
     <MudPaper Class="pa-4 mt-4">
-            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Class="ml-auto" @onclick="() => GetPlus()">PLU's holen(Vectron)</MudButton>
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Class="ml-auto" @onclick="() => getPlus()">PLU's holen(Vectron)</MudButton>
             <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Class="ml-auto" @onclick="() => SendPlus()">PLU's senden(Ione)</MudButton>
 
     </MudPaper>
@@ -39,14 +41,15 @@
 
   IEnumerable<PLU> plus;
 
-  protected override void OnInitialized()
+  protected override async Task OnInitializedAsync()
   {
     plus = pluService.GetAll();
   }
 
-  private void GetPlus()
+  private async Task getPlus()
   {
-    throw new NotImplementedException();
+    masterdataReceiver.ReceiveAndStoreMasterdata();
+    await OnInitializedAsync();
   }
 
   private void SendPlus()

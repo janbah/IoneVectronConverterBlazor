@@ -7,7 +7,7 @@ namespace IoneVectronConverter.Common.Masterdata.Services;
 public class SelWinService : ISelWinService
 {
     private readonly IRepository<SelWin> _repository;
-    public SelWinService(SelWinRepository selWinRepository)
+    public SelWinService(IRepository<SelWin> selWinRepository)
     {
         _repository = selWinRepository;
     }

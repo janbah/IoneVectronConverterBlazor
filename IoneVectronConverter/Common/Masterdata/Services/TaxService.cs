@@ -1,3 +1,4 @@
+using IoneVectronConverter.Common.Datastoring;
 using IoneVectronConverter.Common.Masterdata.Repositories;
 using IoneVectronConverter.Common.Models;
 
@@ -5,8 +6,8 @@ namespace IoneVectronConverter.Common.Masterdata.Services;
 
 public class TaxService : ITaxService
 {
-    private readonly TaxRepository _taxRepository;
-    public TaxService(TaxRepository taxRepository)
+    private readonly IRepository<Tax> _taxRepository;
+    public TaxService(IRepository<Tax> taxRepository)
     {
         _taxRepository = taxRepository;
     }

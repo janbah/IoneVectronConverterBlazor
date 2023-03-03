@@ -11,6 +11,7 @@ using IoneVectronConverter.Ione.Orders;
 using IoneVectronConverter.Ione.Orders.Models;
 using IoneVectronConverter.Vectron.Client;
 using IoneVectronConverter.Vectron.Mapper;
+using IoneVectronConverter.Vectron.MasterData.Manager;
 using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -47,6 +48,11 @@ builder.Services.AddTransient<ITaxService, TaxService>();
 
 builder.Services.AddTransient<IRepository<SelWin>, SelWinRepository>();
 builder.Services.AddTransient<ISelWinService, SelWinService>();
+
+builder.Services.AddTransient<IRepository<Department>, DepartmentRepository>();
+builder.Services.AddTransient<IDepartmentService, DepartmentService>();
+
+builder.Services.AddTransient<IMasterdataReceiver, MasterdataReceiver>();
 
 
 builder.Services.AddHttpClient<IIoneClient, IoneClient>("ioneClient",client =>
