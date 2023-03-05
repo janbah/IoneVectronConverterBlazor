@@ -40,4 +40,9 @@ public class TaxRepository : IRepository<Tax>
     {
         throw new NotImplementedException();
     }
+
+    public void Clear()
+    {
+        throw new NotImplementedException();
+    }
 }

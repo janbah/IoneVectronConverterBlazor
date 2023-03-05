@@ -56,7 +56,12 @@ public class SelWinRepository : IRepository<SelWin>
     {
         throw new NotImplementedException();
     }
-    
+
+    public void Clear()
+    {
+        throw new NotImplementedException();
+    }
+
     private void insertSelWins(SelWin entity, long id, SqliteConnection connection)
     {
         foreach (var plu in entity.PLUs)

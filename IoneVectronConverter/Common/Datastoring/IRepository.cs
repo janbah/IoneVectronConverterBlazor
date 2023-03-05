@@ -6,4 +6,5 @@ public interface IRepository<T>
     long Insert(T entity);
     void Update(T entity);
     void Delete(int id);
+    void Clear();
 }

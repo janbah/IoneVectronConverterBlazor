@@ -18,6 +18,7 @@ public class PluService : IPluService
 
     public void StorePluIfNew(IEnumerable<PLU> plus)
     {
+        _repository.Clear();
         foreach (var plu in plus)
         {
             if (pluExistsAlready(plu))
@@ -32,6 +33,11 @@ public class PluService : IPluService
     {
         var result = GetAll().Any(p => p.PLUno == plu.PLUno);
         return result;
+    }
+
+    public void ClearTable()
+    {
+        _repository.Clear();
     }
 
     public IQueryable<PLU> GetAll()

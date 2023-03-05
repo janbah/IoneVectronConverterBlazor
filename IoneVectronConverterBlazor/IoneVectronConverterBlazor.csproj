@@ -15,6 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\ConnectorBlazorLib\ConnectorBlazorLib.csproj" />
       <ProjectReference Include="..\IoneVectronConverter\IoneVectronConverter.csproj" />
     </ItemGroup>
 

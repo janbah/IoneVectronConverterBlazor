@@ -23,4 +23,9 @@ public class DepartmentRepository : IRepository<Department>
     {
         throw new NotImplementedException();
     }
+
+    public void Clear()
+    {
+        throw new NotImplementedException();
+    }
 }

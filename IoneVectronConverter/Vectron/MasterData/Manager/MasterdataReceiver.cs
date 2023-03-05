@@ -27,6 +27,6 @@ public class MasterdataReceiver : IMasterdataReceiver
         
         _pluService.StorePluIfNew(masterdataResponse.PLUs);
         _taxService.StoreTaxesIfNew(masterdataResponse.Taxes);
-        _selWinService.StoreSelWinsIfNew(masterdataResponse.SelWins);
+        //_selWinService.StoreSelWinsIfNew(masterdataResponse.SelWins);
     }
 }
