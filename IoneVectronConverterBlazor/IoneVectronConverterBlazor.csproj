@@ -12,6 +12,9 @@
         <Link>.dockerignore</Link>
       </Content>
       <Content Remove="Data\**" />
+      <Content Remove="Pages\Categories.razor" />
+      <Content Remove="Pages\Orders.razor" />
+      <Content Remove="Pages\Settings.razor" />
     </ItemGroup>
 
     <ItemGroup>

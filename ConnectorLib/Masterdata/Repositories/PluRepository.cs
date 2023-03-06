@@ -24,7 +24,7 @@ public class PluRepository : IRepository<PLU>
         
         var connectionString = _configuration.GetConnectionString("Default");
 
-        var dir = Environment.CurrentDirectory;
+        var dir = AppDomain.CurrentDomain.BaseDirectory;
 
         using (var connection = new SqliteConnection(connectionString))
         {
