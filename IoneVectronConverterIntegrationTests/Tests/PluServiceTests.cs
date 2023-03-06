@@ -21,7 +21,7 @@ public class PluServiceTests : IDisposable
     }
     
     [Fact]
-    public void StorePluIfNew_SecondPluWithSamePluNo_PluIsNotStored()
+    public void StorePluIfNew_ThreePlusInList_DatatableCountIs3()
     {
         //Arrange
   
@@ -29,24 +29,22 @@ public class PluServiceTests : IDisposable
         IPluService pluService = new PluService(pluRepository);
         
         PLU plu1 = createTestPlus()[0];
-        PLU pluWithSamePluNo = createTestPlus()[1];
+        PLU plu2 = createTestPlus()[1];
+        PLU plu3 = createTestPlus()[2];
         
-        var message1 = new[] { plu1 };
-        var message2 = new[] { pluWithSamePluNo };
-        
-        pluService.StorePluIfNew(message1);
+        var plus1 = new[] { plu1, plu2,plu3 };
 
         //Act
-        pluService.StorePluIfNew(message2);
+        pluService.StorePlus(plus1);
 
         //Assert
         var result = pluService.GetAll();
-        Assert.True(result.Count()==1);
+        Assert.True(result.Count()==3);
 
     }
     
     [Fact]
-    public void StorePluIfNew_SecondPluWithDifferentPluNo_PluIsStored()
+    public void StorePluIfNew_FirstListContains3SecondListContains1_DatatableCountIs1()
     {
         //Arrange
         
@@ -55,19 +53,19 @@ public class PluServiceTests : IDisposable
         IPluService pluService = new PluService(pluRepository);
         
         PLU plu1 = createTestPlus()[0];
-        PLU pluWithDifferentPluNo = createTestPlus()[2];
+        PLU plu2 = createTestPlus()[1];
+        PLU plu3 = createTestPlus()[2];
         
-        var message1 = new[] { plu1 };
-        var message2 = new[] { pluWithDifferentPluNo };
-        
-        pluService.StorePluIfNew(message1);
+        var plus1 = new[] { plu1, plu2,plu3 };
+        var plus2 = new[] { plu1 };
 
         //Act
-        pluService.StorePluIfNew(message2);
+        pluService.StorePlus(plus1);
+        pluService.StorePlus(plus2);
 
         //Assert
         var result = pluService.GetAll();
-        Assert.True(result.Count()== 2);
+        Assert.True(result.Count()== 1);
 
     }
     

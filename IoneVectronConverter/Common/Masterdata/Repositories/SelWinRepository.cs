@@ -42,7 +42,7 @@ public class SelWinRepository : IRepository<SelWin>
         using (var connection = new SqliteConnection(_connectionString))
         {
            var id =connection.Insert(entity);
-           insertSelWins(entity, id, connection);
+           //insertPlus(entity, id, connection);
            return id;
         }
     }
@@ -62,15 +62,15 @@ public class SelWinRepository : IRepository<SelWin>
         throw new NotImplementedException();
     }
 
-    private void insertSelWins(SelWin entity, long id, SqliteConnection connection)
+    private void insertPlus(SelWin entity, long id, SqliteConnection connection)
     {
         foreach (var plu in entity.PLUs)
         {
-            var sql = "INSERT INTO sel_win_plu_name (select_win_id, name) VALUES(@id, @plu)";
+            var sql = "INSERT INTO sel_win_plu_name (select_win_id, name) VALUES(@selWinId, @name)";
             var selWinData = new
             {
-                id,
-                plu,
+                selWinId = id,
+                name = "some name",
             };
 
             connection.Execute(sql, selWinData);

@@ -16,15 +16,11 @@ public class PluService : IPluService
     {
     }
 
-    public void StorePluIfNew(IEnumerable<PLU> plus)
+    public void StorePlus(IEnumerable<PLU> plus)
     {
         _repository.Clear();
         foreach (var plu in plus)
         {
-            if (pluExistsAlready(plu))
-            {
-                break;
-            }
             _repository.Insert(plu);
         }
     }

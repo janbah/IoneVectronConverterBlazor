@@ -79,7 +79,8 @@ public class VectronClient : IVectronClient
     
     static byte[] GetResponse(Socket socket)
     {
-        var buffer = new byte[1024];
+        //Todo: set buffersize
+        var buffer = new byte[2048];
         List<byte> responseBytes = new List<byte>();
         
         
@@ -94,8 +95,8 @@ public class VectronClient : IVectronClient
 
     public MasterDataResponse GetMasterData()
     {
-        byte[] response = new byte[1024];
-        byte[] responseBytes = new byte[1024];
+        byte[] response = new byte[2048];
+        byte[] responseBytes = new byte[2048];
         
         Socket socket = GetVPosSocket();
         SendBase64String(ref socket, "{\"GetMasterData\":1}");
