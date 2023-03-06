@@ -10,7 +10,7 @@ public class TestDatabase
     public void ResetDatabase()
     {
         var configuration = GetConfiguration();
-        var connectionString = configuration.GetConnectionString("Default");
+        var connectionString = @"Data Source=..\..\..\Resources\IoneVectronTest.sqlite;Mode=ReadWriteCreate";
 
         string sql = 
             @"drop table if exists tax;
