@@ -53,4 +53,9 @@
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\ConnectorBlazorLib\ConnectorBlazorLib.csproj" />
+      <ProjectReference Include="..\ConnectorLib\ConnectorLib.csproj" />
+    </ItemGroup>
+
 </Project>
