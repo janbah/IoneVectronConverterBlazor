@@ -18,7 +18,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\IoneVectronConverter\IoneVectronConverter.csproj" />
+      <ProjectReference Include="..\ConnectorLib\ConnectorLib.csproj" />
     </ItemGroup>
 
 </Project>

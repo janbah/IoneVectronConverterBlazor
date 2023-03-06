@@ -1,4 +1,10 @@
 ﻿
+using ConnectorLib.Client;
+using ConnectorLib.Datastoring;
+using ConnectorLib.Manager;
+using ConnectorLib.Masterdata.Models;
+using ConnectorLib.Masterdata.Repositories;
+using ConnectorLib.Masterdata.Services;
 using IoneVectronConverterMaui.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -22,9 +28,6 @@ namespace IoneVectronConverterMaui
 
 
             builder.Services.AddTransient<IVectronClient, VectronClient>();
-
-            builder.Services.AddTransient<IRepository<Order>, OrderRepository>();
-
 
             builder.Services.AddTransient<IRepository<PLU>, PluRepository>();
             builder.Services.AddTransient<IPluService, PluService>();
@@ -51,7 +54,7 @@ namespace IoneVectronConverterMaui
 
 #if DEBUG
             builder.Services.AddBlazorWebViewDeveloperTools();
-		    builder.Logging.AddDebug();
+		    //builder.Logging.AddDebug();
 #endif
 
             builder.Services.AddSingleton<WeatherForecastService>();

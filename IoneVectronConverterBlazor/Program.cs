@@ -49,7 +49,6 @@ builder.Services.AddTransient<ITaxService, TaxService>();
 builder.Services.AddTransient<IRepository<SelWin>, SelWinRepository>();
 builder.Services.AddTransient<ISelWinService, SelWinService>();
 
-builder.Services.AddTransient<IRepository<Department>, DepartmentRepository>();
 builder.Services.AddTransient<IDepartmentService, DepartmentService>();
 
 builder.Services.AddTransient<IMasterdataReceiver, MasterdataReceiver>();
