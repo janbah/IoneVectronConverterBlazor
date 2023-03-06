@@ -25,6 +25,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\ConnectorLib\ConnectorLib.csproj" />
       <ProjectReference Include="..\IoneVectronConverterBlazor\IoneVectronConverterBlazor.csproj" />
       <ProjectReference Include="..\IoneVectronConverterIntegrationTests\IoneVectronConverterIntegrationTests.csproj" />
       <ProjectReference Include="..\IoneVectronConverter\IoneVectronConverter.csproj" />

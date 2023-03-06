@@ -25,4 +25,8 @@
       <Folder Include="Common\Masterdata" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\ConnectorLib\ConnectorLib.csproj" />
+    </ItemGroup>
+
 </Project>
