@@ -8,6 +8,7 @@ using ConnectorLib.Masterdata.Services;
 using IoneVectronConverterMaui.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using MudBlazor.Services;
 
 namespace IoneVectronConverterMaui
 {
@@ -25,7 +26,7 @@ namespace IoneVectronConverterMaui
 
 
 
-
+         
 
             builder.Services.AddTransient<IVectronClient, VectronClient>();
 
@@ -51,7 +52,9 @@ namespace IoneVectronConverterMaui
                 .Build();
 
             builder.Configuration.AddConfiguration(config);
-
+            
+            builder.Services.AddMudServices();
+            
 #if DEBUG
             builder.Services.AddBlazorWebViewDeveloperTools();
 		    //builder.Logging.AddDebug();
