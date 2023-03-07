@@ -1,0 +1,78 @@
+
+@using ConnectorLib.Manager;
+@using ConnectorLib.Masterdata.Models;
+@using ConnectorLib.Masterdata.Services;
+@using MudBlazor
+
+@inject IPluService pluService
+@inject IMasterdataReceiver masterdataReceiver
+
+<MudGrid>
+  <MudItem xs="8">
+    <MudText Typo="Typo.h4">Ione Api</MudText>
+ 
+
+    <MudTable Items="@plus" Hover="true" Breakpoint="Breakpoint.Sm">
+      <HeaderContent>
+        <MudTh>PLU Nummer</MudTh>
+        <MudTh>Name</MudTh>
+        <MudTh>Verkauf</MudTh>
+        <MudTh>Hauptgruppe B</MudTh>
+        <MudTh>Webshop</MudTh>
+      </HeaderContent>
+      <RowTemplate>
+        <MudTd DataLabel="Plu Nummer">@context.PLUno</MudTd>
+        <MudTd DataLabel="Name">@context.Name1</MudTd>
+        <MudTd DataLabel="Verkauf">@context.SaleAllowed</MudTd>
+        <MudTd DataLabel="Hauptgruppe B">@context.MainGroupB</MudTd>
+        <MudTd DataLabel="Webshop">@context.IsForWebShop</MudTd>
+      </RowTemplate>
+    </MudTable>
+ 
+  </MudItem>
+  
+   <MudItem xs="8">
+     <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Text" Class="ml-auto" OnClick="SendPlus">Kategorie anlegen</MudButton>
+     @* <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Class="ml-auto" @onclick="() => SendPlus()">PLU's senden(Ione)</MudButton> *@
+   </MudItem>
+
+
+</MudGrid>
+
+@code {
+
+  IEnumerable<PLU> plus;
+
+  protected override async Task OnInitializedAsync()
+  {
+    plus = pluService.GetAll();
+  }
+  //
+  // private async Task getPlus()
+  // {
+  //   throw new NotImplementedException();
+
+  // }
+
+  private async Task SendPlus()
+  {
+  masterdataReceiver.ReceiveAndStoreMasterdata();
+  await OnInitializedAsync();
+  }
+
+  private EventCallback getPlus()
+  {
+    throw new NotImplementedException();
+  }
+
+  void CreateEntry()
+  {
+    throw new NotImplementedException();
+  }
+
+  private Task ButtonOnClick()
+  {
+    throw new NotImplementedException();
+  }
+
+}

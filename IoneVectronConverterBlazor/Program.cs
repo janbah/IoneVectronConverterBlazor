@@ -1,17 +1,10 @@
-using IoneVectronConverter.Common;
-using IoneVectronConverter.Common.Config;
-using IoneVectronConverter.Common.Datastoring;
-using IoneVectronConverter.Common.Masterdata.Repositories;
-using IoneVectronConverter.Common.Masterdata.Services;
-using IoneVectronConverter.Common.Models;
-using IoneVectronConverter.Common.Worker;
-using IoneVectronConverter.Ione;
-using IoneVectronConverter.Ione.Categories;
-using IoneVectronConverter.Ione.Orders;
-using IoneVectronConverter.Ione.Orders.Models;
-using IoneVectronConverter.Vectron.Client;
-using IoneVectronConverter.Vectron.Mapper;
-using IoneVectronConverter.Vectron.MasterData.Manager;
+
+using ConnectorLib.Client;
+using ConnectorLib.Datastoring;
+using ConnectorLib.Manager;
+using ConnectorLib.Masterdata.Models;
+using ConnectorLib.Masterdata.Repositories;
+using ConnectorLib.Masterdata.Services;
 using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,24 +14,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddMudServices();
 
-builder.Services.AddTransient<ISettingService, SettingService>();
-builder.Services.AddTransient<Settings>();
-
-builder.Services.AddSingleton<IIoneClient, IoneClient>();
-builder.Services.AddTransient<ReceiptMapper>();
-
-
-builder.Services.AddTransient<IOrderValidator, OrderValidator>();
 builder.Services.AddTransient<IVectronClient, VectronClient>();
-builder.Services.AddTransient<IOrderManager, OrderManager>();
-
-builder.Services.AddTransient<IRepository<Order>, OrderRepository>();
-builder.Services.AddTransient<IOrderService, OrderService>();
-builder.Services.AddTransient<IMerger, Merger>();
-builder.Services.AddTransient<IOrderMapper, OrderMapper>();
-
-builder.Services.AddTransient<IRepository<Category>, CategoryRepository>();
-builder.Services.AddTransient<ICategoryService, CategoryService>();
 
 builder.Services.AddTransient<IRepository<PLU>, PluRepository>();
 builder.Services.AddTransient<IPluService, PluService>();
@@ -49,18 +25,19 @@ builder.Services.AddTransient<ITaxService, TaxService>();
 builder.Services.AddTransient<IRepository<SelWin>, SelWinRepository>();
 builder.Services.AddTransient<ISelWinService, SelWinService>();
 
-builder.Services.AddTransient<IRepository<Department>, DepartmentRepository>();
 builder.Services.AddTransient<IDepartmentService, DepartmentService>();
 
 builder.Services.AddTransient<IMasterdataReceiver, MasterdataReceiver>();
 
+var path = @"C:\Users\JanBahlmann\source\IoneVectronConverterBlazor\IoneVectronConverterMaui";
+            
+var config = new ConfigurationBuilder()
+    .SetBasePath(path)
+    .AddJsonFile("appsettings.json")
+    .Build();
 
-builder.Services.AddHttpClient<IIoneClient, IoneClient>("ioneClient",client =>
-{
-    client.BaseAddress = new Uri(builder.Configuration["ioneClient"]);
-});
+builder.Configuration.AddConfiguration(config);
 
-builder.Services.AddSingleton<IWorker, Worker>();
 
 
 var app = builder.Build();

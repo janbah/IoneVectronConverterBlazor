@@ -80,7 +80,69 @@ public class PluRepository : IRepository<PLU>
     {
         throw new NotImplementedException();
     }
-    
+
+    public void Clear()
+    {
+        var connectionString = _configuration.GetConnectionString("Default");
+
+        string sql = 
+            @"
+            drop table if exists select_win;
+            drop table if exists price_data;
+            drop table if exists plu;
+            
+            create table  plu
+            (
+                id           integer
+                    constraint plu_pk
+                        primary key,
+                PLUno        integer,
+                Name1        text,
+                Name2        text,
+                Name3        text,
+                SaleAllowed  integer,
+                TaxNo        integer,
+                DepartmentNo integer,
+                Attributes   text,
+                MainGroupA   integer,
+                MainGroupB   integer,
+                IsForWebShop integer
+            );
+
+            create table price_data
+            (
+                id     integer
+                    constraint price_data_pk
+                        primary key,
+                plu_id integer
+                    constraint price_data_plu_id_fk
+                        references plu,
+                Level  integer,
+                Price  text
+            );
+
+     
+
+            create table select_win
+            (
+                id     integer
+                    constraint select_win_pk
+                        primary key,
+                value  integer,
+                plu_id integer
+                    constraint select_win_plu_id_fk
+                        references plu
+            );
+
+
+            ";
+
+        using (var con = new SqliteConnection(connectionString))
+        {
+            con.Execute(sql);
+        }
+    }
+
     private void insertSelWins(PLU entity, long id, SqliteConnection connection)
     {
         foreach (var selWin in entity.SelectWin)

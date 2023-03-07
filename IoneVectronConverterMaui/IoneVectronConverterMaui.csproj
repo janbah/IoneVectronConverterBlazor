@@ -54,4 +54,9 @@
         <PackageReference Include="MudBlazor" Version="6.1.9" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\ConnectorBlazorLib\ConnectorBlazorLib.csproj" />
+      <ProjectReference Include="..\ConnectorLib\ConnectorLib.csproj" />
+    </ItemGroup>
+
 </Project>

@@ -91,6 +91,11 @@ public class OrderRepository : IRepository<Order>
         }
     }
 
+    public void Clear()
+    {
+        throw new NotImplementedException();
+    }
+
     private string loadConnectionstring()
     {
         return _configuration.GetConnectionString("Default");

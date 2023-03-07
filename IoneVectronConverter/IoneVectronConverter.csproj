@@ -21,5 +21,9 @@
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3-beta1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\ConnectorLib\ConnectorLib.csproj" />
+    </ItemGroup>
+
 </Project>
 

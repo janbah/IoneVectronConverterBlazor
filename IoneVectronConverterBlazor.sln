@@ -19,7 +19,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IoneVectronConverterUnitTests", "IoneVectronConverterUnitTests\IoneVectronConverterUnitTests.csproj", "{70331E6D-BC5C-42BF-9911-085F35BD04AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoneVectronConverterMaui", "IoneVectronConverterMaui\IoneVectronConverterMaui.csproj", "{ED07B8E3-AD67-4EEC-BBB1-92DDBF4FADFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IoneVectronConverterMaui", "IoneVectronConverterMaui\IoneVectronConverterMaui.csproj", "{ED07B8E3-AD67-4EEC-BBB1-92DDBF4FADFB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConnectorBlazorLib", "ConnectorBlazorLib\ConnectorBlazorLib.csproj", "{1582B2BE-02BC-48DA-BD72-0E47C959537B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectorLib", "ConnectorLib\ConnectorLib.csproj", "{8D4C5CE2-3E4F-4827-A6CD-C75A22E5E98C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +53,14 @@ Global
 		{ED07B8E3-AD67-4EEC-BBB1-92DDBF4FADFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED07B8E3-AD67-4EEC-BBB1-92DDBF4FADFB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ED07B8E3-AD67-4EEC-BBB1-92DDBF4FADFB}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{1582B2BE-02BC-48DA-BD72-0E47C959537B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1582B2BE-02BC-48DA-BD72-0E47C959537B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1582B2BE-02BC-48DA-BD72-0E47C959537B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1582B2BE-02BC-48DA-BD72-0E47C959537B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D4C5CE2-3E4F-4827-A6CD-C75A22E5E98C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D4C5CE2-3E4F-4827-A6CD-C75A22E5E98C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D4C5CE2-3E4F-4827-A6CD-C75A22E5E98C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D4C5CE2-3E4F-4827-A6CD-C75A22E5E98C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,6 +73,8 @@ Global
 		{059FA15B-C4D3-4B47-AC32-D93C49640644} = {1F3CF9FA-1B64-43B0-93E4-A7D35A55490D}
 		{70331E6D-BC5C-42BF-9911-085F35BD04AE} = {059FA15B-C4D3-4B47-AC32-D93C49640644}
 		{ED07B8E3-AD67-4EEC-BBB1-92DDBF4FADFB} = {A40E0FE0-1142-4A6A-AB01-292F0EF58EC2}
+		{1582B2BE-02BC-48DA-BD72-0E47C959537B} = {A40E0FE0-1142-4A6A-AB01-292F0EF58EC2}
+		{8D4C5CE2-3E4F-4827-A6CD-C75A22E5E98C} = {A40E0FE0-1142-4A6A-AB01-292F0EF58EC2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FC82B493-9D07-40D2-96B9-D9DC378553BF}

@@ -44,4 +44,9 @@ public class CategoryRepository : IRepository<Category>
             connection.Delete<Category>(new Category(){Id = id});
         }
     }
+
+    public void Clear()
+    {
+        throw new NotImplementedException();
+    }
 }
