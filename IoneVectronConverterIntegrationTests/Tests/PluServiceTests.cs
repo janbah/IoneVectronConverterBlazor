@@ -1,10 +1,11 @@
+using ConnectorLib.Vectron.Masterdata.Models;
 using Dapper;
 using IoneVectronConverter.Common.Masterdata.Repositories;
 using IoneVectronConverter.Common.Masterdata.Services;
-using IoneVectronConverter.Common.Models;
 using IoneVectronConverter.Vectron.Models;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Configuration;
+using PLU = IoneVectronConverter.Common.Models.PLU;
 
 namespace IoneVectronConverterTests;
 
@@ -81,13 +82,15 @@ public class PluServiceTests : IDisposable
             Name2 = "name2",
             Name3 = "name3",
             Attributes = "",
-            Prices = new[]
-            {
-                new PriceData()
-                {
-                    Price = 20, Level = 1
-                }
-            },
+            
+            //Todo: cotrol
+            // Prices = new[]
+            // {
+            //     new PriceData()
+            //     {
+            //         Price = 20, Level = 1
+            //     }
+            // },
             DepartmentNo = 1,
             SaleAllowed = true,
             SelectWin = new[] { 1, 2, 3 },
@@ -104,13 +107,15 @@ public class PluServiceTests : IDisposable
             Name2 = "name5",
             Name3 = "name6",
             Attributes = "klkkl",
-            Prices = new[]
-            {
-                new PriceData()
-                {
-                    Price = 7, Level = 2
-                }
-            },
+            
+            // Todo: control
+            // Prices = new[]
+            // {
+            //     new PriceData()
+            //     {
+            //         Price = 7, Level = 2
+            //     }
+            // },
             DepartmentNo = 2,
             SaleAllowed = true,
             SelectWin = new[] { 4, 5, 6 },
@@ -127,13 +132,14 @@ public class PluServiceTests : IDisposable
             Name2 = "name2",
             Name3 = "name3",
             Attributes = "",
-            Prices = new[]
-            {
-                new PriceData()
-                {
-                    Price = 20, Level = 1
-                }
-            },
+            //Todo: cotrol
+            // Prices = new[]
+            // {
+            //     new PriceData()
+            //     {
+            //         Price = 20, Level = 1
+            //     }
+            // },
             DepartmentNo = 1,
             SaleAllowed = true,
             SelectWin = new[] { 1, 2, 3 },

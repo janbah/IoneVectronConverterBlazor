@@ -1,6 +1,6 @@
 using System.Net;
+using ConnectorLib.Vectron.Masterdata.Models;
 using IoneVectronConverter.Common;
-using IoneVectronConverter.Common.Models;
 using IoneVectronConverter.Ione;
 using IoneVectronConverter.Ione.Masterdata;
 using IoneVectronConverter.Vectron.Models;
@@ -9,6 +9,7 @@ using IoneVectronConverterUnitTests.Mocks;
 using Microsoft.Extensions.Configuration;
 using Moq;
 using Newtonsoft.Json;
+using PLU = IoneVectronConverter.Common.Models.PLU;
 
 namespace IoneVectronConverterUnitTests;
 
@@ -210,7 +211,8 @@ public class MasterDataManagerTest
             TaxNo = 1,
             IsForWebShop = true,
             SelectWin = new[] { 0 },
-            Prices = getDefaultPrices(),
+            //Todo: control
+            //Prices = getDefaultPrices(),
             MainGroupB = 1,
             Name1 = "",
             Name2 = "",

@@ -1,10 +1,7 @@
 @page "/Settings"
 @inject ISettingService SettingService
 
-@using System.Text.RegularExpressions
-@using System.ComponentModel.DataAnnotations
-@using IoneVectronConverter.Common
-@using IoneVectronConverter.Common.Config
+@using ConnectorLib.Common.Config
 
 <MudText Typo="Typo.h3">Einstellungen</MudText><MudGrid>
     <MudItem xs="12" sm="7">
@@ -53,7 +50,7 @@
 
     protected override void OnInitialized()
     {
-        vectronSettings = SettingService.GetSettings().Vectron;
+        vectronSettings = SettingService.GetVectronSettings();
     }
 
     private void Submit()

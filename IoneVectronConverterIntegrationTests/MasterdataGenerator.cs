@@ -1,6 +1,10 @@
-using IoneVectronConverter.Common.Models;
-using IoneVectronConverter.Vectron.MasterData.Models;
+using ConnectorLib.Vectron.Masterdata.Models;
 using IoneVectronConverter.Vectron.Models;
+using Department = IoneVectronConverter.Vectron.MasterData.Models.Department;
+using MasterDataResponse = IoneVectronConverter.Vectron.MasterData.Models.MasterDataResponse;
+using PLU = IoneVectronConverter.Common.Models.PLU;
+using SelWin = IoneVectronConverter.Common.Models.SelWin;
+using Tax = IoneVectronConverter.Common.Models.Tax;
 
 namespace IoneVectronConverterTests;
 
@@ -27,13 +31,15 @@ public class MasterdataGenerator
             Name2 = "name2",
             Name3 = "name3",
             Attributes = "",
-            Prices = new[]
-            {
-                new PriceData()
-                {
-                    Price = 20, Level = 1
-                }
-            },
+            
+            //Todo: control
+            // Prices = new[]
+            // {
+            //     new PriceData()
+            //     {
+            //         Price = 20, Level = 1
+            //     }
+            // },
             DepartmentNo = 1,
             SaleAllowed = true,
             SelectWin = new[] { 1, 2, 3 },

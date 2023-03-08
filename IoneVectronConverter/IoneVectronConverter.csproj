@@ -12,6 +12,8 @@
         <Content Include="..\.dockerignore">
             <Link>.dockerignore</Link>
         </Content>
+        <Content Remove="Common\Masterdata\**" />
+        <Content Remove="Common\Models\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -23,6 +25,25 @@
 
     <ItemGroup>
       <ProjectReference Include="..\ConnectorLib\ConnectorLib.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Common\Masterdata\**" />
+      <Compile Remove="Common\Models\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Common\Masterdata\**" />
+      <EmbeddedResource Remove="Common\Models\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Common\Masterdata\**" />
+      <None Remove="Common\Models\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Ione" />
     </ItemGroup>
 
 </Project>

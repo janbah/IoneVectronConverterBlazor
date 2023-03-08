@@ -1,10 +1,10 @@
-
-using ConnectorLib.Client;
-using ConnectorLib.Datastoring;
-using ConnectorLib.Manager;
-using ConnectorLib.Masterdata.Models;
-using ConnectorLib.Masterdata.Repositories;
-using ConnectorLib.Masterdata.Services;
+using ConnectorLib.Common.Config;
+using ConnectorLib.Common.Datastoring;
+using ConnectorLib.Vectron.Client;
+using ConnectorLib.Vectron.Masterdata.Manager;
+using ConnectorLib.Vectron.Masterdata.Models;
+using ConnectorLib.Vectron.Masterdata.Repositories;
+using ConnectorLib.Vectron.Masterdata.Services;
 using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +13,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddMudServices();
+
+
 
 builder.Services.AddTransient<IVectronClient, VectronClient>();
 
@@ -38,7 +40,7 @@ var config = new ConfigurationBuilder()
 
 builder.Configuration.AddConfiguration(config);
 
-
+builder.Services.AddTransient<ISettingService, SettingService>();
 
 var app = builder.Build();
 
