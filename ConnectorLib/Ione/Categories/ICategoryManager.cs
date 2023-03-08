@@ -1,6 +1,6 @@
 namespace ConnectorLib.Ione.Categories;
 
-public interface IIoneCategoryManager
+public interface ICategoryManager
 {
     void SynchronizeArticlesFromDatabaseToIoneClient();
 }

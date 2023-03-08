@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace ConnectorLib.Ione.Categories;
 
-public class IoneCategoryManager : IIoneCategoryManager
+public class CategoryManager : ICategoryManager
 {
 
     private readonly IIoneClient _iIoneClient;
@@ -11,7 +11,7 @@ public class IoneCategoryManager : IIoneCategoryManager
     private readonly IConfiguration _iConfiguration;
     private readonly CategoryMapper _categoryMapper;
 
-    public IoneCategoryManager(IIoneClient iIoneClient, ICategoryService categoryService, IConfiguration iConfiguration, CategoryMapper categoryMapper)
+    public CategoryManager(IIoneClient iIoneClient, ICategoryService categoryService, IConfiguration iConfiguration, CategoryMapper categoryMapper)
     {
         _iIoneClient = iIoneClient;
         _categoryService = categoryService;

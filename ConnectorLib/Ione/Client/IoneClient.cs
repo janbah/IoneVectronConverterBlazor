@@ -9,15 +9,24 @@ namespace ConnectorLib.Ione.Client
     public class IoneClient : IIoneClient
     {
         private readonly HttpClient _httpClient;
-        private IConfiguration _iConfiguration;
+        private IConfiguration _configuration;
 
         DateTime allFromDate = new DateTime(1970, 1, 1);
         DateTime allToDate = DateTime.Now.AddYears(1);
-
-        public IoneClient(HttpClient httpClient, IConfiguration iConfiguration)
+        //
+        // public IoneClient(HttpClient httpClient, IConfiguration configuration)
+        // {
+        //     _httpClient = httpClient;
+        //     _configuration = configuration;
+        // }
+        
+        public IoneClient(IConfiguration configuration)
         {
-            _httpClient = httpClient;
-            _iConfiguration = iConfiguration;
+            _configuration = configuration;
+            _httpClient = new HttpClient()
+            {
+                BaseAddress = new Uri(configuration.GetValue<string>("Vectron:ApiBaseAddress"))
+            };
         }
 
 
@@ -80,7 +89,7 @@ namespace ConnectorLib.Ione.Client
         public async Task<int> GetMainCategoryId()
         {
 
-            string branchAdressId = _iConfiguration["Vectron.BranchAddressId"];
+            string branchAdressId = _configuration["Vectron.BranchAddressId"];
             string mainCategoryName = $"Main [#{branchAdressId}]";
 
             var categoryListResponse = await GetAllCategoriesAsync();

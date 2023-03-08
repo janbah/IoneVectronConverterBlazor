@@ -1,4 +1,6 @@
 ﻿using ConnectorLib.Common.Datastoring;
+using ConnectorLib.Ione.Categories;
+using ConnectorLib.Ione.Client;
 using ConnectorLib.Vectron.Client;
 using ConnectorLib.Vectron.Masterdata.Manager;
 using ConnectorLib.Vectron.Masterdata.Models;
@@ -25,7 +27,26 @@ namespace IoneVectronConverterMaui
 
 
 
-         
+            builder.Services.AddMudServices();
+
+            var path = @"C:\Users\JanBahlmann\source\IoneVectronConverterBlazor\IoneVectronConverterMaui";
+            
+            var config = new ConfigurationBuilder()
+                .SetBasePath(path)
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            builder.Configuration.AddConfiguration(config);
+            
+            builder.Services.AddTransient<IIoneClient, IoneClient>();
+
+            builder.Services.AddTransient<CategoryMapper>();
+
+            builder.Services.AddTransient<ICategoryManager, CategoryManager>();
+
+            builder.Services.AddTransient<IRepository<Category>, CategoryRepository>();
+            builder.Services.AddTransient<ICategoryService, CategoryService>();
+
 
             builder.Services.AddTransient<IVectronClient, VectronClient>();
 
@@ -41,25 +62,13 @@ namespace IoneVectronConverterMaui
             builder.Services.AddTransient<IDepartmentService, DepartmentService>();
 
             builder.Services.AddTransient<IMasterdataReceiver, MasterdataReceiver>();
-            builder.Services.AddMauiBlazorWebView();
 
-            var path = @"C:\Users\JanBahlmann\source\IoneVectronConverterBlazor\IoneVectronConverterMaui";
-            
-            var config = new ConfigurationBuilder()
-                .SetBasePath(path)
-                .AddJsonFile("appsettings.json")
-                .Build();
-
-            builder.Configuration.AddConfiguration(config);
-            
-            builder.Services.AddMudServices();
             
 #if DEBUG
             builder.Services.AddBlazorWebViewDeveloperTools();
 		    //builder.Logging.AddDebug();
 #endif
 
-            builder.Services.AddSingleton<WeatherForecastService>();
 
             return builder.Build();
         }

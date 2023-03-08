@@ -1,11 +1,10 @@
-@page "/categories"
 @using ConnectorLib.Ione.Categories
-@inject ICategoryService categoryService
+@inject ICategoryService service
+@inject ICategoryManager manager
+@using MudBlazor
 
 <MudGrid>
   <MudItem xs="8">
-    <MudText Typo="Typo.h4">Ione Api</MudText>
-    <MudPaper Class="pa-4 mt-4">
       
       <MudTable Items="@categories" Hover="true" Breakpoint="Breakpoint.Sm">
         <HeaderContent>
@@ -27,19 +26,18 @@
           </MudTd>
         </RowTemplate>
       </MudTable>
-    </MudPaper>
-    <MudPaper Class="pa-4 mt-4">
-      <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Text" Class="ml-auto" @onclick="() => CreateEntry()">Kategorie anlegen</MudButton>
-    </MudPaper>
+ @*    <MudPaper Class="pa-4 mt-4"> *@
+ @* <MudIconButton Icon="@Icons.Material.Filled.Create" Size="Size.Small" OnClick="() => CreateEntry()"></MudIconButton> *@
+ @*    </MudPaper> *@
   </MudItem>
   <MudItem xs="8">
     <MudPaper Class="pa-4 mt-4">
+      <MudText>Neue Kategorie anlegen</MudText>
       <MudTextField T="string" Label="Name" @bind-Value="category.Name"></MudTextField>
       <MudTextField T="int" Label="Vectron Nummer" @bind-Value="category.VectronNo"></MudTextField>
+       <MudIconButton Class="mt-4" Icon="@Icons.Material.Filled.Save" Size="Size.Small" OnClick="() => SaveEntry()">Speichern</MudIconButton>
     </MudPaper>
-    <MudPaper Class="pa-4 mt-4">
-      <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Class="ml-auto" @onclick="() => SaveEntry()">Speichern</MudButton>
-    </MudPaper>
+
   </MudItem>
 </MudGrid>
 
@@ -47,15 +45,15 @@
 @code {
   IEnumerable<Category> categories;
   bool editMode;
-  
+
   Category category = getDefauCategory();
 
 
 
   protected override async Task OnInitializedAsync()
   {
-    categories = categoryService.GetAll();
-    editMode = false;  
+    categories = service.GetAll();
+    editMode = false;
   }
 
   private async Task EditEntry(Category categoryToEdit)
@@ -67,7 +65,7 @@
 
   private async Task DeleteEntry(int id)
   {
-    categoryService.Delete(id);
+    service.Delete(id);
     await OnInitializedAsync();
   }
 
@@ -81,22 +79,22 @@
     var newCategory = category;
     if (editMode)
     {
-      categoryService.Update(category);
+      service.Update(category);
     }
     else
     {
-      categoryService.Save(newCategory);
+      service.Save(newCategory);
     }
     category = getDefauCategory();
     await OnInitializedAsync();
   }
-  
+
   private static Category getDefauCategory()
   {
     return new()
     {
       Name = "",
-      VectronNo = 0 ,
+      VectronNo = 0,
       IoneRefId = 0,
     };
   }
