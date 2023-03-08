@@ -35,9 +35,12 @@
       <MudText>Neue Kategorie anlegen</MudText>
       <MudTextField T="string" Label="Name" @bind-Value="category.Name"></MudTextField>
       <MudTextField T="int" Label="Vectron Nummer" @bind-Value="category.VectronNo"></MudTextField>
-       <MudIconButton Class="mt-4" Icon="@Icons.Material.Filled.Save" Size="Size.Small" OnClick="() => SaveEntry()">Speichern</MudIconButton>
+      <MudIconButton Class="mt-4" Icon="@Icons.Material.Filled.Save" Size="Size.Small" OnClick="() => SaveEntry()">Speichern</MudIconButton>
     </MudPaper>
 
+  </MudItem>
+  <MudItem xs="8">
+       <MudIconButton Class="mt-4" Icon="@Icons.Material.Filled.Send" Size="Size.Small" OnClick="() => SendCategories()">Speichern</MudIconButton>
   </MudItem>
 </MudGrid>
 
@@ -97,6 +100,12 @@
       VectronNo = 0,
       IoneRefId = 0,
     };
+  }
+
+  private async Task SendCategories()
+  {
+    manager.SynchronizeArticlesFromDatabaseToIoneClient();
+    await OnInitializedAsync();
   }
 
 }

@@ -16,9 +16,8 @@ builder.Services.AddServerSideBlazor();
 
 builder.Services.AddMudServices();
 
-var path = @"";
 
-var basepath = Path.Combine(Directory.GetCurrentDirectory(), path);
+var basepath = Directory.GetCurrentDirectory();
             
 var config = new ConfigurationBuilder()
     .SetBasePath(basepath)
