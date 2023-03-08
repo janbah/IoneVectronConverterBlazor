@@ -1,4 +1,3 @@
-using ConnectorLib.Common.Config;
 using ConnectorLib.Common.Datastoring;
 using ConnectorLib.Vectron.Client;
 using ConnectorLib.Vectron.Masterdata.Manager;
@@ -13,8 +12,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddMudServices();
-
-
 
 builder.Services.AddTransient<IVectronClient, VectronClient>();
 
@@ -40,7 +37,6 @@ var config = new ConfigurationBuilder()
 
 builder.Configuration.AddConfiguration(config);
 
-builder.Services.AddTransient<ISettingService, SettingService>();
 
 var app = builder.Build();
 
